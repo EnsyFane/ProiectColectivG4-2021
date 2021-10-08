@@ -61,7 +61,7 @@
 											"font": "Arial;13;1",
 											"left": 269,
 											"top": 135,
-											"width": 132.8310546875,
+											"width": 148.49072265625,
 											"height": 13,
 											"text": "User"
 										},
@@ -96,7 +96,7 @@
 									"font": "Arial;13;0",
 									"left": 264,
 									"top": 128,
-									"width": 142.8310546875,
+									"width": 158.49072265625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF8X9JE9H8wzVQ="
@@ -133,7 +133,7 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 158,
-											"width": 132.8310546875,
+											"width": 148.49072265625,
 											"height": 13,
 											"text": "+UserIdentifier: string",
 											"horizontalAlignment": 0
@@ -150,7 +150,7 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 173,
-											"width": 132.8310546875,
+											"width": 148.49072265625,
 											"height": 13,
 											"text": "+FirstName: string",
 											"horizontalAlignment": 0
@@ -167,7 +167,7 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 188,
-											"width": 132.8310546875,
+											"width": 148.49072265625,
 											"height": 13,
 											"text": "+LastName: string",
 											"horizontalAlignment": 0
@@ -184,9 +184,26 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 203,
-											"width": 132.8310546875,
+											"width": 148.49072265625,
 											"height": 13,
-											"text": "+NickName: string",
+											"text": "+UserName: string",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF8YAnKMSKHJmQ=",
+											"_parent": {
+												"$ref": "AAAAAAF8X9JE9X80qHc="
+											},
+											"model": {
+												"$ref": "AAAAAAF8YAnKKyKEHaw="
+											},
+											"font": "Arial;13;0",
+											"left": 269,
+											"top": 218,
+											"width": 148.49072265625,
+											"height": 13,
+											"text": "+Email: string",
 											"horizontalAlignment": 0
 										},
 										{
@@ -200,8 +217,8 @@
 											},
 											"font": "Arial;13;0",
 											"left": 269,
-											"top": 218,
-											"width": 132.8310546875,
+											"top": 233,
+											"width": 148.49072265625,
 											"height": 13,
 											"text": "+JoinDate: DateTime",
 											"horizontalAlignment": 0
@@ -217,18 +234,52 @@
 											},
 											"font": "Arial;13;0",
 											"left": 269,
-											"top": 233,
-											"width": 132.8310546875,
+											"top": 248,
+											"width": 148.49072265625,
 											"height": 13,
 											"text": "+LastOnline: DateTime",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF8YAmVwSImiJU=",
+											"_parent": {
+												"$ref": "AAAAAAF8X9JE9X80qHc="
+											},
+											"model": {
+												"$ref": "AAAAAAF8YAmVtyIj33k="
+											},
+											"font": "Arial;13;0",
+											"left": 269,
+											"top": 263,
+											"width": 148.49072265625,
+											"height": 13,
+											"text": "+IsAdmin: boolean",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF8YApMlSN91E4=",
+											"_parent": {
+												"$ref": "AAAAAAF8X9JE9X80qHc="
+											},
+											"model": {
+												"$ref": "AAAAAAF8YApMkCN6zbs="
+											},
+											"font": "Arial;13;0",
+											"left": 269,
+											"top": 278,
+											"width": 148.49072265625,
+											"height": 13,
+											"text": "+HashedPassword: string",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 264,
 									"top": 153,
-									"width": 142.8310546875,
-									"height": 98
+									"width": 158.49072265625,
+									"height": 143
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -283,8 +334,8 @@
 							"containerChangeable": true,
 							"left": 264,
 							"top": 128,
-							"width": 142.8310546875,
-							"height": 123,
+							"width": 158.49072265625,
+							"height": 168,
 							"autoResize": true,
 							"showProperty": false,
 							"nameCompartment": {
@@ -771,7 +822,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 431,
+									"left": 446,
 									"top": 147,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -792,7 +843,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 434,
+									"left": 449,
 									"top": 133,
 									"height": 13,
 									"alpha": 0.7853981633974483,
@@ -812,7 +863,7 @@
 										"$ref": "AAAAAAF8X92EM4Aab6I="
 									},
 									"font": "Arial;13;0",
-									"left": 424,
+									"left": 439,
 									"top": 174,
 									"width": 7.22998046875,
 									"height": 13,
@@ -921,7 +972,7 @@
 							"tail": {
 								"$ref": "AAAAAAF8X9JE9H8umKE="
 							},
-							"points": "406:168;504:168;504:232;608:232",
+							"points": "421:168;504:168;504:232;608:232",
 							"showVisibility": true,
 							"showProperty": false,
 							"nameLabel": {
@@ -2097,7 +2148,16 @@
 							"_parent": {
 								"$ref": "AAAAAAF8X9JE838sGeA="
 							},
-							"name": "NickName",
+							"name": "UserName",
+							"type": "string"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF8YAnKKyKEHaw=",
+							"_parent": {
+								"$ref": "AAAAAAF8X9JE838sGeA="
+							},
+							"name": "Email",
 							"type": "string"
 						},
 						{
@@ -2117,6 +2177,24 @@
 							},
 							"name": "LastOnline",
 							"type": "DateTime"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF8YAmVtyIj33k=",
+							"_parent": {
+								"$ref": "AAAAAAF8X9JE838sGeA="
+							},
+							"name": "IsAdmin",
+							"type": "boolean"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF8YApMkCN6zbs=",
+							"_parent": {
+								"$ref": "AAAAAAF8X9JE838sGeA="
+							},
+							"name": "HashedPassword",
+							"type": "string"
 						}
 					]
 				},
