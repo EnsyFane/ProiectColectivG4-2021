@@ -3644,7 +3644,7 @@
 					"_parent": {
 						"$ref": "AAAAAAF8b+84NX3Ea+I="
 					},
-					"name": "ClassDiagram",
+					"name": "Auth - ClassDiagram",
 					"ownedViews": [
 						{
 							"_type": "UMLClassView",
