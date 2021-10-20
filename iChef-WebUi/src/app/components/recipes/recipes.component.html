@@ -1,0 +1,31 @@
+<body>
+    <div class="searchBar">
+        <button mat-button matPrefix mat-icon-button>
+            <mat-icon>search</mat-icon>
+        </button>
+        <input class="searchBarInput" placeholder="Easy Recipes">
+
+    </div>
+    <button class="filterButton">
+        Filters
+    </button>
+    <br>
+    <br>
+    <button class="searchButton">
+        SEARCH
+    </button>
+    <br>
+    <br>
+    <br>
+    <div class="recipe-cards">
+        <app-recipe-card [difficulty]="d1" [title]="t1" [url]="u1" [rating]="r1"></app-recipe-card>
+        <app-recipe-card [difficulty]="d2" [title]="t2" [url]="u2" [rating]="r2"></app-recipe-card>
+        <app-recipe-card [difficulty]="d3" [title]="t3" [url]="u3" [rating]="r3"></app-recipe-card>
+        <app-recipe-card [difficulty]="d3" [title]="t3" [url]="u3" [rating]="r3"></app-recipe-card>
+        <app-recipe-card [difficulty]="d1" [title]="t1" [url]="u1" [rating]="r1"></app-recipe-card>
+        <app-recipe-card [difficulty]="d2" [title]="t2" [url]="u2" [rating]="r2"></app-recipe-card>
+        <app-recipe-card [difficulty]="d2" [title]="t2" [url]="u2" [rating]="r2"></app-recipe-card>
+        <app-recipe-card [difficulty]="d3" [title]="t3" [url]="u3" [rating]="r3"></app-recipe-card>
+        <app-recipe-card [difficulty]="d1" [title]="t1" [url]="u1" [rating]="r1"></app-recipe-card>
+    </div>
+</body>

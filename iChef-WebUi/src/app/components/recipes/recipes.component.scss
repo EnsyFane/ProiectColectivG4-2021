@@ -1,0 +1,55 @@
+body{
+    background-color: #FBF7EB;
+    text-align: center;
+    overflow: scroll;
+}
+
+.searchBar{
+    background-color: rgba($color: #F0B17E, $alpha: 0.5);
+    display: inline;
+    z-index: 1000;
+    width: 200px;
+    border: 1px solid black;    
+    border-radius: 25px;
+}
+
+.searchBarInput{
+    background-color:  transparent;
+    border: none;
+    color:black;
+}
+
+input:focus {
+    outline: none;
+}
+
+.filterButton{
+    padding: 0;
+    border: none;
+    background: none;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.searchButton{
+    border: 2px solid #E98074;
+    border-radius: 25px;
+    color: #E98074;
+    background-color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px 30px;
+}
+
+.recipe-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 10px;
+
+    app-recipe-card {
+        flex: none;
+        width: 33.33%;
+        cursor: pointer;
+        overflow: hidden;
+    }
+}
