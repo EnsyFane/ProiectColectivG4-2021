@@ -1,0 +1,49 @@
+name: iChef Angular Web UI Lint, Build and Test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - 'iChef-WebUi/**'
+    - '.github/workflows/ui-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+    - 'iChef-WebUi/**'
+    - '.github/workflows/ui-ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        
+      - name: Run npm install
+        run: |
+          cd iChef-WebUi
+          npm install
+        
+      - name: Lint
+        run: |
+          cd iChef-WebUi
+          npm run lint
+
+      - name: Build
+        run: |
+          cd iChef-WebUi
+          npm run build
+
+      - name: Test
+        run: |
+          cd iChef-WebUi
+          npm run test-headless
+          
+      - name: Build-prod
+        run: |
+          cd iChef-WebUi
+          npm run build-prod
