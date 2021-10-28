@@ -14,10 +14,6 @@ body{
 }
 
 .search-bar{
-<<<<<<< HEAD
-=======
-    position: relative;
->>>>>>> recipesPage
     background-color: $search-bar-color;
     display: inline;
     z-index: 1000;
@@ -26,16 +22,7 @@ body{
     border-radius: 25px;
 }
 
-<<<<<<< HEAD
 .search-bar-input{
-=======
-mat-icon{
-    position: absolute;
-}
-
-.search-bar-input{
-    margin-left: 20px;
->>>>>>> recipesPage
     background-color:  transparent;
     border: none;
     color:black;
