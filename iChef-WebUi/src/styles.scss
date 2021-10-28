@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'src/app/styles/variables.scss';
+@import 'src/app/styles/mixins.scss';
+
+html, body {
+    height: 100%;
+    background-color: $primary-background-color
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $primary-background-color;
+}
+
+.primary-button, .primary-button.mat-raised-button {
+    @include primary-button;
+}
+
+.secondary-button, .secondary-button.mat-raised-button {
+    @include secondary-button;
+}
+
+.font {
+    @include font;
+}
+
+.flex-column-center {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+
+.margin-lr-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
