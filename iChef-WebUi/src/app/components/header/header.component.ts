@@ -16,9 +16,10 @@ export class HeaderComponent implements OnInit {
     readonly registerBtn = BUTTON.REGISTER;
     readonly appTitle = LANDING_PAGE.TITLE;
 
-  headerLinks = new Map<string, boolean>(
-      [[this.homeLink, true],
-            [this.recipesLink, false]]);
+  headerLinks = new Map<string, boolean>([
+      [this.homeLink, true],
+      [this.recipesLink, false]
+  ]);
 
   resetTabs() : void {
       for (const key of this.headerLinks.keys()) {
