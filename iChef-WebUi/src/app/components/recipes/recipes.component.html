@@ -1,0 +1,27 @@
+<body>
+    <div class="search-bar">
+        <button mat-button matPrefix mat-icon-button>
+            <mat-icon>search</mat-icon>
+        </button>
+        <input class="search-bar-input" placeholder="Easy Recipes">
+
+    </div>
+    <button class="filter-button">
+        Filters
+    </button>
+    <br>
+    <button class="search-button">
+        SEARCH
+    </button>
+    <div class="recipe-cards">
+        <app-recipe-card [recipe]="recipe1"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1"></app-recipe-card>
+    </div>
+</body>
