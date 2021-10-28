@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Recipe } from 'src/app/data-types/recipe';
 
 @Component({
   selector: 'app-recipes',
@@ -7,18 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesComponent implements OnInit {
 
-  d1:string = "Easy";
-  t1:string = "Pasta Carbonara";
-  u1:string = "../../../../../assets/imgs/pasta.jpg";
-  r1:number = 4.5;
-  d2:string = "Easy";
-  t2:string = "Pizza Quattro Fromaggi";
-  u2:string = "../../../../../assets/imgs/pizza.jpg";
-  r2:number = 4.0;
-  d3:string = "Easy";
-  t3:string = "Burger";
-  u3:string = "../../../../../assets/imgs/burger.jpg";
-  r3:number = 4.8;
+  recipe1: Recipe = new Recipe("Pasta Carbonara","Easy", "../../../../../assets/imgs/pasta.jpg",4.5);
+  recipe2: Recipe = new Recipe("Pizza Quattro Fromaggi","Easy", "../../../../../assets/imgs/pizza.jpg",4.0);
+  recipe3: Recipe = new Recipe("Burger","Easy", "../../../../../assets/imgs/burger.jpg",4.8);
 
   constructor() { }
 

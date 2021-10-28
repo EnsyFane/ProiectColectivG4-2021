@@ -1,11 +1,20 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+
 body{
-    background-color: #FBF7EB;
+    background-color: $primary-background-color;
     text-align: center;
-    overflow: scroll;
+    overflow: hidden;
 }
 
-.searchBar{
-    background-color: rgba($color: #F0B17E, $alpha: 0.5);
+.search-button{
+    margin-top: 10px;
+    @include secondary-button();
+}
+
+.search-bar{
+    background-color: $search-bar-color;
     display: inline;
     z-index: 1000;
     width: 200px;
@@ -13,7 +22,7 @@ body{
     border-radius: 25px;
 }
 
-.searchBarInput{
+.search-bar-input{
     background-color:  transparent;
     border: none;
     color:black;
@@ -23,7 +32,7 @@ input:focus {
     outline: none;
 }
 
-.filterButton{
+.filter-button{
     padding: 0;
     border: none;
     background: none;
@@ -31,20 +40,12 @@ input:focus {
     font-weight: bold;
 }
 
-.searchButton{
-    border: 2px solid #E98074;
-    border-radius: 25px;
-    color: #E98074;
-    background-color: white;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 5px 30px;
-}
-
 .recipe-cards {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 10px;
+    margin: 30px 10px 0 10px;
+    overflow-y: scroll;
+    height: 85%;
 
     app-recipe-card {
         flex: none;

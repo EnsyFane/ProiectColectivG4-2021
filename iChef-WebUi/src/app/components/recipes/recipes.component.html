@@ -1,31 +1,27 @@
 <body>
-    <div class="searchBar">
+    <div class="search-bar">
         <button mat-button matPrefix mat-icon-button>
             <mat-icon>search</mat-icon>
         </button>
-        <input class="searchBarInput" placeholder="Easy Recipes">
+        <input class="search-bar-input" placeholder="Easy Recipes">
 
     </div>
-    <button class="filterButton">
+    <button class="filter-button">
         Filters
     </button>
     <br>
-    <br>
-    <button class="searchButton">
+    <button class="search-button">
         SEARCH
     </button>
-    <br>
-    <br>
-    <br>
     <div class="recipe-cards">
-        <app-recipe-card [difficulty]="d1" [title]="t1" [url]="u1" [rating]="r1"></app-recipe-card>
-        <app-recipe-card [difficulty]="d2" [title]="t2" [url]="u2" [rating]="r2"></app-recipe-card>
-        <app-recipe-card [difficulty]="d3" [title]="t3" [url]="u3" [rating]="r3"></app-recipe-card>
-        <app-recipe-card [difficulty]="d3" [title]="t3" [url]="u3" [rating]="r3"></app-recipe-card>
-        <app-recipe-card [difficulty]="d1" [title]="t1" [url]="u1" [rating]="r1"></app-recipe-card>
-        <app-recipe-card [difficulty]="d2" [title]="t2" [url]="u2" [rating]="r2"></app-recipe-card>
-        <app-recipe-card [difficulty]="d2" [title]="t2" [url]="u2" [rating]="r2"></app-recipe-card>
-        <app-recipe-card [difficulty]="d3" [title]="t3" [url]="u3" [rating]="r3"></app-recipe-card>
-        <app-recipe-card [difficulty]="d1" [title]="t1" [url]="u1" [rating]="r1"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1"></app-recipe-card>
     </div>
 </body>

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RecipesComponent } from './components/recipes/recipes.component';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./components/recipes/recipes.module').then(m => m.RecipesModule)
+    component: RecipesComponent
   },
   {
       path: '**',

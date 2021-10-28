@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .container {
     position: relative;
     overflow: hidden;
@@ -11,8 +13,8 @@
     top: 10px;
     z-index: 1000;
     padding: 0 5px;
-    background-color: #E98074;
-    color: #FFFFFF;
+    background-color: $primary-color;
+    color: white;
     font-weight: bold;
     border-radius: 25px;
  }
@@ -21,7 +23,7 @@
     position: absolute;
     bottom: 2px;
     z-index: 1000;
-    background-color: rgba($color: #FFFFFF, $alpha: 0.7);
+    background-color: $recipe-title-background;
     font-weight: bold;
     border-radius: 0 0 20px 20px;
     width: 100%;
