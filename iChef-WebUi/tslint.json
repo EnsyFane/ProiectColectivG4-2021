@@ -1,0 +1,111 @@
+{
+    "extends": [
+        "tslint:recommended",
+        "tslint-etc",
+        "tslint-jasmine-rules"
+    ],
+    "rules": {
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
+        "arrow-return-shorthand": true,
+        "curly": [
+            true,
+            "ignore-same-line"
+        ],
+        "deprecation": {
+            "severity": "warn"
+        },
+        "import-blacklist": [
+            true,
+            "rxjs/Rx"
+        ],
+        "import-spacing": true,
+        "indent": [
+            true,
+            "spaces",
+            4
+        ],
+        "max-line-length": false,
+        "member-access": [
+            true,
+            "no-public"
+        ],
+        "no-conditional-assignment": false,
+        "no-consecutive-blank-lines": true,
+        "no-use-before-declare": true,
+        "one-line": [
+            true,
+            "check-catch",
+            "check-else",
+            "check-finally",
+            "check-open-brace",
+            "check-whitespace"
+        ],
+        "quotemark": [
+            true,
+            "single"
+        ],
+        "semicolon": {
+            "options": [
+                "always"
+            ]
+        },
+        "space-before-function-paren": {
+            "options": {
+                "anonymous": "never",
+                "asyncArrow": "always",
+                "constructor": "never",
+                "method": "never",
+                "named": "never"
+            }
+        },
+        "trailing-comma": [
+            true,
+            {
+                "esSpecCompliant": true,
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],
+        "typedef": [
+            true,
+            "parameter",
+            "call-signature"
+        ],
+        "variable-name": [
+            true,
+            "check-format"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-preblock",
+            "check-separator",
+            "check-type",
+            "check-typecast"
+        ],
+        "ban": [
+            true,
+            {
+                "name": "fdescribe",
+                "message": "don't focus tests"
+            },
+            {
+                "name": "fit",
+                "message": "don't focus tests"
+            }
+        ],
+        "member-ordering": [
+            false
+        ],
+        "ordered-imports": false,
+        "no-unused-declaration": true,
+        "no-empty": true,
+        "no-async-without-await": true,
+        "no-focused-tests": true
+    }
+}
