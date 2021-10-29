@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: |
           cd iChef-WebApi
-          mvn -B package --file pom.xml
+          mvn -B -DskipTests package --file pom.xml
 
       - name: Test
         run: |
