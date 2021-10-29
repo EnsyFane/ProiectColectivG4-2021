@@ -2,7 +2,6 @@
 
 The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code base for the iChef Web Application developed by The Chefs.
 
-
 ## Notes
 
 * Documentation for the project is kept under the following directory: ***Planning***
@@ -19,7 +18,7 @@ The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code bas
   * Install the Angular CLI from the [official site](https://angular.io/cli).
   * Install your IDE of choice for JS and HTML. Recommendation: [VSCode](https://code.visualstudio.com/).
 * For Backend:
-  * Install Java SDK 16 from the [official site](https://treehouse.github.io/installation-guides/windows/jdk-windows.html). The SDK can also be downloaded through IntelliJ.
+  * Install Java JDK 8 from the [official site](https://treehouse.github.io/installation-guides/windows/jdk-windows.html). The SDK can also be downloaded through IntelliJ.
   * Install your IDE of choice for Java. Recommendation: [IntelliJ](https://www.jetbrains.com/idea/).
 
 ### Build
