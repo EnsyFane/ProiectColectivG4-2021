@@ -1,6 +1,6 @@
 # Proiect Colectiv G4 - 2021
 
-The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code base for the iChef Web Application.
+The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code base for the iChef Web Application developed by The Chefs.
 
 ## Development
 
@@ -38,7 +38,11 @@ The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code bas
 *Note: If anything fails, try to investigate why that happens before beginning development.*
 
 * Frontend:
-  * ***TBD***
+  * Run tests
+
+  ```bash
+  npm run test
+  ```
 
 * Backend:
   * ***TBD***
@@ -47,7 +51,7 @@ The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code bas
 
 ### Run Angular application locally
 
-* Simply run the following script to start the webserver:
+Simply run the following script to start the webserver:
 
 ```bash
 ng serve -o
