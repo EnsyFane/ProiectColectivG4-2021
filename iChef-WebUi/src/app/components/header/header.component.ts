@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HEADER_LINKS } from 'src/app/constants/header';
 import { BUTTON, LANDING_PAGE } from 'src/app/constants/texts';
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PATHS } from 'src/app/constants/paths';
 import { BUTTON, LANDING_PAGE, PLACEHOLDERS } from 'src/app/constants/texts';
 

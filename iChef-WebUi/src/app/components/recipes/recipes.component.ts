@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Recipe } from 'src/app/data-types/recipe';
 import { BUTTON, PLACEHOLDERS } from '../../constants/texts';
 
