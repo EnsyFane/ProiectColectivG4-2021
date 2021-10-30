@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Recipe } from 'src/app/data-types/recipe';
 
 @Component({
@@ -6,13 +6,8 @@ import { Recipe } from 'src/app/data-types/recipe';
   templateUrl: './recipe-card.component.html',
   styleUrls: ['./recipe-card.component.scss']
 })
-export class RecipeCardComponent{
+export class RecipeCardComponent {
 
   @Input() recipe!: Recipe;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
