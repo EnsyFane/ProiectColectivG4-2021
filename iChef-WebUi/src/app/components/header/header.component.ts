@@ -8,7 +8,7 @@ import { BUTTON, LANDING_PAGE } from 'src/app/constants/texts';
   styleUrls: ['./header.component.scss']
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
     readonly homeLink = HEADER_LINKS.HOME;
     readonly recipesLink = HEADER_LINKS.RECIPES;
@@ -35,10 +35,4 @@ export class HeaderComponent implements OnInit {
           this.headerLinks.set(this.recipesLink, true);
       }
   }
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

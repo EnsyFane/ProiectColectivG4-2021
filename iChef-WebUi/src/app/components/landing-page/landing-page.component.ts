@@ -7,18 +7,11 @@ import { BUTTON, LANDING_PAGE, PLACEHOLDERS } from 'src/app/constants/texts';
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
 
   readonly landingPageImage = PATHS.LANDING_PAGE_IMAGE;
-  readonly searchIcon = PATHS.SEARCH_ICON;
   readonly appTitle = LANDING_PAGE.TITLE;
   readonly description = LANDING_PAGE.DESCRIPTION;
   readonly searchBtn = BUTTON.SEARCH;
   readonly searchPlaceHolder = PLACEHOLDERS.SEARCH;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

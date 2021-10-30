@@ -20,23 +20,7 @@
     width: 60%;
 }
 
-.search-input {
-    background-color: $search-bar-color;
-    display: inline;
-    border: 2px solid black;
-    border-radius: 25px;
-    min-width: 200px;
-    line-height: 28px;
-}
-
 .secondary-button {
     margin-top: 20px;
     width: 150px;
-}
-
-.search-bar-input {
-    background-color: transparent;
-    border: none;
-    color: black;
-    outline: none;
 }

@@ -21,6 +21,31 @@ body {
     @include secondary-button;
 }
 
+.search-icon {
+    position: relative;
+    left: 6px;
+    top: 4px;
+}
+
+.search-input {
+    background-color: $search-bar-color;
+    display: inline;
+    border: 2px solid black;
+    border-radius: 25px;
+    min-width: 200px;
+    line-height: 28px;
+}
+
+.search-bar-input {
+    position: relative;
+    top: -3px;
+    left: 8px;
+    background-color: transparent;
+    border: none;
+    color: black;
+    outline: none;
+}
+
 .font {
     @include font;
 }
