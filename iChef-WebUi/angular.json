@@ -85,8 +85,12 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "iChef-WebUi:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "iChef-WebUi:build:development"
                         }
-                    }
+                    },
+                    "defaultConfiguration": "production"
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
