@@ -13,11 +13,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/hello")
-    public String test() {
-        return "hello";
-    }
-
+    //will be removed out of security concerns
     @GetMapping
     public List<AppUser> getAllUsers() {
         List<AppUser> usersResult = userService.getAllUsers();
@@ -44,7 +40,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public AppUser updateBooking(@PathVariable String id, @RequestBody AppUser user) {
+    public AppUser updateUser(@PathVariable String id, @RequestBody AppUser user) {
         user.setUserId(id);
         AppUser userResult = userService.updateUser(user);
         return userResult;
