@@ -1,38 +1,35 @@
-/* Split the screen in half */
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  overflow-x: hidden;
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+h1 {
+  text-align: center;
 }
 
-
-.splithorizontal {
-  height: 50%;
-  width: 100%;
-  background-color: aqua;
-  top:0;
-  z-index: 1;
+body {
+  background-color: $primary-background-color;
 }
+
+.up {
+  @include split-vertical();
+  background-color: $ingredients-page;
+}
+.down {
+  @include split-vertical();
+  background-color: white;
+}
+
 /* Control the left side */
 .left {
-  left: 0;
-  background-color: #111;
+  @include split-horizontal();
+  background-color: $search-bar-color;  
+  margin-left: 20px;
+  box-sizing: border-box;
 }
 
 /* Control the right side */
 .right {
-  right: 0;
-  background-color: red;
-}
-
-/* If you want the content centered horizontally and vertically */
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  @include split-horizontal();
+  margin-right: 20px;
+  box-sizing: border-box;
+  
 }
