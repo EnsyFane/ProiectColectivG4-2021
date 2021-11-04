@@ -33,12 +33,7 @@ jobs:
           mvn -B -DskipTests package --file pom.xml
 
       - name: Setup MySql
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          host port: 3306
-          mysql database: 'kitchen'
-          mysql user: 'root'
-          mysql password: '123'
+        run: sudo /etc/init.d/mysql start
 
       - name: Test
         run: |
