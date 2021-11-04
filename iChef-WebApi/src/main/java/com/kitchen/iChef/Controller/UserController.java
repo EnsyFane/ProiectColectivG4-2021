@@ -10,39 +10,35 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     UserService userService;
 
     //will be removed out of security concerns
     @GetMapping
     public List<AppUser> getAllUsers() {
-        List<AppUser> usersResult = userService.getAllUsers();
-        return usersResult;
+        return userService.getAllUsers();
     }
-
 
     @GetMapping(value = "/{id}")
     public AppUser getUserById(@PathVariable String id) {
-        AppUser userResult = userService.getUser(id);
-        return userResult;
+        return userService.getUser(id);
     }
 
+    //will be removed
     @PostMapping
     public AppUser addUser(@RequestBody AppUser user) {
-        AppUser userResult = userService.addUser(user);
-        return userResult;
+        return userService.addUser(user);
     }
 
     @DeleteMapping(value = "/{id}")
     public AppUser deleteUser(@PathVariable String id) {
-        AppUser userResult = userService.deleteUser(id);
-        return userResult;
+        return userService.deleteUser(id);
     }
 
     @PutMapping(value = "/{id}")
     public AppUser updateUser(@PathVariable String id, @RequestBody AppUser user) {
         user.setUserId(id);
-        AppUser userResult = userService.updateUser(user);
-        return userResult;
+        return userService.updateUser(user);
     }
 }

@@ -35,4 +35,11 @@ public class UserService {
     public AppUser updateUser(AppUser user) {
         return userRepository.update(user);
     }
+
+    public void signUp(AppUser appUser) throws Exception {
+        if (userRepository.checkIfExists(appUser.getUsername(), appUser.getEmail()).isPresent()) {
+            throw new Exception("User already exists!");
+        }
+        userRepository.save(appUser);
+    }
 }

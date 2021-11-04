@@ -1,15 +1,18 @@
 package com.kitchen.iChef.Domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
+import lombok.ToString;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 public class AppUser {
     @Id
     private String userId;
@@ -26,5 +29,4 @@ public class AppUser {
     private void ensureId() {
         this.setUserId(UUID.randomUUID().toString());
     }
-
 }
