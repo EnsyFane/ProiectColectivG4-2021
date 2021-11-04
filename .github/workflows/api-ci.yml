@@ -37,8 +37,8 @@ jobs:
 
       - name: Start Server
         run: |
-          cd iChef-WebApi
-          mvn exec:java
+          cd iChef-WebApi/target
+          java jar iChef-0.0.1-SNAPSHOT.jar
 
       - name: Test
         run: |
