@@ -35,6 +35,11 @@ jobs:
       - name: Setup MySql
         run: sudo /etc/init.d/mysql start
 
+      - name: Start Server
+        run: |
+          cd iChef-WebApi
+          mvn exec:java
+
       - name: Test
         run: |
           cd iChef-WebApi
