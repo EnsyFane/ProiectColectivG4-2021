@@ -3,33 +3,151 @@
 
 h1 {
   text-align: center;
+  font-weight: bold;
+
 }
+
+
 
 body {
+
   background-color: $primary-background-color;
+
+  //text-align: center;
+
 }
+
+
 
 .up {
+
   @include split-vertical();
+
   background-color: $ingredients-page;
+
+  margin-bottom: 2%;
+
 }
+
 .down {
+
   @include split-vertical();
+
   background-color: white;
+
+  margin-top: 2%;
+
 }
+
+
 
 /* Control the left side */
+
 .left {
+
   @include split-horizontal();
+
   background-color: $search-bar-color;  
-  margin-left: 20px;
+
+  margin-left: 4.5%;
+
+  margin-right: 0.5%;
+
   box-sizing: border-box;
+  vertical-align: top;
+
 }
 
+
+
 /* Control the right side */
+
 .right {
+
   @include split-horizontal();
-  margin-right: 20px;
+
+  margin-right: 4.5%;
+  margin-left: 0.5%;
   box-sizing: border-box;
+
+}
+
+
+
+.save{
+  @include secondary-button();
+  margin-top: 10px;
+  padding: 5px 30px;
+  margin-left: 45%;
+}
+
+
+mat-form-field {
+  background-color: $white-transparent;
+  border-radius: 25px;
+  height: 20px;
+}
+
+
+
+
+.input{
+  margin-left: 20px;
+  background-color:  transparent;
+  border: none;
+  color:black;
+  font-size: 20px;
   
+}
+
+
+.input-smaller {
+  margin-left: 20px;
+  background-color:  transparent;
+  border: none;
+  color:black;
+  font-size: 20px;
+  width: 50px;
+  
+}
+
+input:focus {
+  outline: none;
+}
+
+
+input-smaller:focus {
+  outline: none;
+}
+
+
+.form-field{
+  position: relative;
+  background-color: $white-transparent;
+  z-index: 1;
+  width: 200px;  
+  border-radius: 25px;
+  top: 20px;
+  margin:auto;
+}
+
+
+
+
+span {
+  height: 100%;
+  display: inline;
+  overflow: hidden;
+  padding-left: 0%
+
+}
+
+label {
+  
+}
+
+select {
+  //display: inline;
+  //display:inline-block;
+  border-radius: 25px;
 }
