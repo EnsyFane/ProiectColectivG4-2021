@@ -1,6 +1,7 @@
 package com.kitchen.iChef.Controller;
 
 import com.kitchen.iChef.Controller.Request.LogInRequest;
+import com.kitchen.iChef.Domain.Token;
 import com.kitchen.iChef.Service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +27,8 @@ public class LoginController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public void login(@Valid @RequestBody LogInRequest logInRequest) throws Exception {
+    public Token login(@Valid @RequestBody LogInRequest logInRequest) throws Exception {
         LOGGER.info("Logging in {}", logInRequest.getEmail());
-        userService.login(logInRequest.getEmail(), logInRequest.getPassword());
+        return userService.login(logInRequest.getEmail(), logInRequest.getPassword());
     }
 }

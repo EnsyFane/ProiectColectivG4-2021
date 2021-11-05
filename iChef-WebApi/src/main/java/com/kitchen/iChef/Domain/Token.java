@@ -14,20 +14,19 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-public class AppUser {
+public class Token {
     @Id
+    private String tokenId;
     private String userId;
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String email;
-    private ZonedDateTime joinedDate;
-    private ZonedDateTime lastOnline;
-    private Boolean isAdmin;
-    private String hashedPassword;
+    private ZonedDateTime expirationDate;
+    private String value;
+
+    public boolean isExpired() {
+        return this.expirationDate.isBefore(ZonedDateTime.now());
+    }
 
     @PrePersist
     private void ensureId() {
-        this.setUserId(UUID.randomUUID().toString());
+        this.setTokenId(UUID.randomUUID().toString());
     }
 }
