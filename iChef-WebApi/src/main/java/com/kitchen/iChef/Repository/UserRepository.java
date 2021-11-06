@@ -1,6 +1,7 @@
 package com.kitchen.iChef.Repository;
 
 import com.kitchen.iChef.Domain.AppUser;
+import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,12 @@ public class UserRepository implements ICrudRepository<AppUser, String> {
 
     @Override
     public AppUser findOne(String s) {
-        return iUserRepository.findById(s).get();
+        try {
+
+            return iUserRepository.findById(s).get();
+        } catch (Exception exception) {
+            throw new ResourceNotFoundException("There is no user with this id");
+        }
     }
 
     @Override
