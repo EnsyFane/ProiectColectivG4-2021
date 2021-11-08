@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HEADER_LINKS } from 'src/app/constants/header';
-import { BUTTON, LANDING_PAGE } from 'src/app/constants/texts';
+import { BUTTON_STRINGS, LANDING_PAGE_STRINGS } from 'src/app/constants/texts';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +12,9 @@ export class HeaderComponent {
 
     readonly homeLink = HEADER_LINKS.HOME;
     readonly recipesLink = HEADER_LINKS.RECIPES;
-    readonly loginBtn = BUTTON.LOGIN;
-    readonly registerBtn = BUTTON.REGISTER;
-    readonly appTitle = LANDING_PAGE.TITLE;
+    readonly loginBtn = BUTTON_STRINGS.LOGIN;
+    readonly registerBtn = BUTTON_STRINGS.REGISTER;
+    readonly appTitle = LANDING_PAGE_STRINGS.TITLE;
 
   headerLinks = new Map<string, boolean>([
       [this.homeLink, true],

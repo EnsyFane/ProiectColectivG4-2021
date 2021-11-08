@@ -1,4 +1,4 @@
-export const LANDING_PAGE = {
+export const LANDING_PAGE_STRINGS = {
     TITLE: 'iChef',
     DESCRIPTION: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
         'In consequat egestas mi tempor condimentum. Pellentesque eu arcu eu libero maximus ' +
@@ -7,12 +7,12 @@ export const LANDING_PAGE = {
         'Aenean a mattis tellus.'
 };
 
-export const BUTTON = {
+export const BUTTON_STRINGS = {
     LOGIN: 'Login',
     REGISTER: 'Register',
     SEARCH: 'Search'
 };
 
-export const PLACEHOLDERS = {
+export const PLACEHOLDERS_STRINGS = {
     SEARCH: 'Easy Recipes'
 };
