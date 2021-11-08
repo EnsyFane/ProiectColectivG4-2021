@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Profile({"dev", "default"})
@@ -19,7 +20,10 @@ public class UserRepository implements ICrudRepository<AppUser, String> {
 
     @Override
     public AppUser findOne(String s) {
-        return iUserRepository.findById(s).get();
+        if(iUserRepository.findById(s).isPresent()){
+            return iUserRepository.findById(s).get();
+        }
+        return null;
     }
 
     @Override
@@ -49,5 +53,13 @@ public class UserRepository implements ICrudRepository<AppUser, String> {
         iUserRepository.deleteById(entity.getUserId());
         iUserRepository.save(entity);
         return entity;
+    }
+
+    public Optional<AppUser> findByUsername(String username) {
+        return iUserRepository.findByUsername(username);
+    }
+
+    public Optional<AppUser> findByEmail(String email) {
+        return iUserRepository.findByEmail(email);
     }
 }
