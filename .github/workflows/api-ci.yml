@@ -35,7 +35,7 @@ jobs:
       - name: Setup MySql
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE `${{ secrets.DB_DATABASE }}`;' -u${{ secrets.DB_USER }} -proot
+          mysql -e 'CREATE DATABASE `${{ secrets.DB_DATABASE_NAME }}`;' -u${{ secrets.DB_USER }} -proot
           mysql -e "ALTER USER '${{ secrets.DB_USER }}'@'localhost' IDENTIFIED BY '${{ secrets.DB_PASSWORD }}'; FLUSH PRIVILEGES;" -u${{ secrets.DB_USER }} -proot
 
       - name: Start Server
