@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ public class AppUserRequest {
     private String lastName;
 
     @NotBlank(message = "The username of the user is not valid!")
+    @Size(min = 5)
     private String username;
 
     @NotNull(message = "The email of the user is not valid!")
@@ -28,5 +30,6 @@ public class AppUserRequest {
     private String email;
 
     @NotBlank(message = "The password is not valid!")
+    @Size(min = 8)
     private String password;
 }
