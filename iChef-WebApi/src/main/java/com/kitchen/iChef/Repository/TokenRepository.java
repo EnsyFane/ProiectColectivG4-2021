@@ -3,13 +3,11 @@ package com.kitchen.iChef.Repository;
 import com.kitchen.iChef.Domain.Token;
 import com.kitchen.iChef.Repository.Interfaces.ITokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-@Profile({"dev", "default"})
 public class TokenRepository {
 
     private final ITokenRepository tokenRepository;

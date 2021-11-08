@@ -46,7 +46,7 @@ public class TokenService {
 
     public Token generateValidToken(String userID) {
         Optional<Token> token = findTokenByUserId(userID);
-        if (token.isEmpty() || (token.get().isExpired() && deleteTokenByUserId(userID))) {
+        if (!token.isPresent() || (token.get().isExpired() && deleteTokenByUserId(userID))) {
             return generateToken(userID);
         }
         return token.get();

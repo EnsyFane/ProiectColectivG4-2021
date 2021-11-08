@@ -15,8 +15,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     //will be removed out of security concerns
     @GetMapping

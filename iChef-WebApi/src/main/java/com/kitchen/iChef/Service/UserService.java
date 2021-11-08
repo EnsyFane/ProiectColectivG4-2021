@@ -50,9 +50,9 @@ public class UserService {
     }
 
     public Token login(String email, String password) throws Exception {
-        Optional<AppUser> user = userRepository.findUserByEmail(email);
+        Optional<AppUser> user = userRepository.findByEmail(email);
 
-        if (user.isEmpty() || !BCryptPasswordEncoder.match(password, user.get().getHashedPassword())) {
+        if (!user.isPresent() || !BCryptPasswordEncoder.match(password, user.get().getHashedPassword())) {
             throw new Exception("Invalid credentials!");
         }
         return tokenService.generateValidToken(user.get().getUserId());

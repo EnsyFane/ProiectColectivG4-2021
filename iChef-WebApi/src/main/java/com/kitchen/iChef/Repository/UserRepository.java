@@ -4,7 +4,6 @@ import com.kitchen.iChef.Domain.AppUser;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,15 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Profile({"dev", "default"})
 public class UserRepository implements ICrudRepository<AppUser, String> {
 
+    private final IUserRepository iUserRepository;
+
     @Autowired
-    IUserRepository iUserRepository;
+    public UserRepository(IUserRepository iUserRepository) {
+        this.iUserRepository = iUserRepository;
+    }
 
     @Override
     public AppUser findOne(String s) {
-        if(iUserRepository.findById(s).isPresent()){
+        if (iUserRepository.findById(s).isPresent()) {
             return iUserRepository.findById(s).get();
         }
         return null;
