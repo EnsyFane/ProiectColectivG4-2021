@@ -1,14 +1,14 @@
-package com.kitchen.iChef.Controller.Request.Transformer;
+package com.kitchen.iChef.Controller.Mapper;
 
-import com.kitchen.iChef.Controller.Request.SignUpRequest;
+import com.kitchen.iChef.Controller.Model.Request.SignUpRequest;
 import com.kitchen.iChef.Domain.AppUser;
 import com.kitchen.iChef.Service.Hashing.BCryptPasswordEncoder;
 
 import java.time.ZonedDateTime;
 
-public class SignUpRequestTransformer {
+public class SignUpMapper {
 
-    public static AppUser transformFromRequest(SignUpRequest signUpRequest) {
+    public static AppUser mapFromRequest(SignUpRequest signUpRequest) {
         AppUser appUser = new AppUser();
         appUser.setFirstName(signUpRequest.getFirstName());
         appUser.setLastName(signUpRequest.getLastName());

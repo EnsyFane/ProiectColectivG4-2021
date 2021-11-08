@@ -1,4 +1,4 @@
-package com.kitchen.iChef.Controller.Response;
+package com.kitchen.iChef.Controller.Model.Response;
 
 import lombok.Getter;
 import lombok.Setter;

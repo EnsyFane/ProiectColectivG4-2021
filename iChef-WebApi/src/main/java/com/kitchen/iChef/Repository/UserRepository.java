@@ -55,7 +55,11 @@ public class UserRepository implements ICrudRepository<AppUser, String> {
         return entity;
     }
 
-    public Optional<AppUser> checkIfExists(String username, String email) {
-        return iUserRepository.checkIfExists(username, email);
+    public Optional<AppUser> findByUsername(String username) {
+        return iUserRepository.findByUsername(username);
+    }
+
+    public Optional<AppUser> findByEmail(String email) {
+        return iUserRepository.findByEmail(email);
     }
 }
