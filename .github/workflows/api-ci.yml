@@ -21,18 +21,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: schema
-          MYSQL_USER: root
-          MYSQL_PASSWORD: 1234
-          MYSQL_ROOT_PASSWORD: 1234
-        ports:
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -48,10 +36,13 @@ jobs:
         run: |
           cd iChef-WebApi
           mvn -B -DskipTests package --file pom.xml
-
-      - name: Setup MySql
-        run: |
-          sudo /etc/init.d/mysql start
+      
+      - name: Setup Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
+          mysql database: '${{ env.DB_DATABASE }}' # Optional, default value is "test". The specified database which will be create
+          mysql root password: ${{ env.DB_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
 
       - name: Start Server
         run: |
