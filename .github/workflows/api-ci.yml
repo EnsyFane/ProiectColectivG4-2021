@@ -15,7 +15,7 @@ on:
 env:
   DB_DATABASE: schema
   DB_USER: root
-  DB_PASSWORD: root
+  DB_PASSWORD: 1234
 
 jobs:
   build:
@@ -37,17 +37,11 @@ jobs:
           cd iChef-WebApi
           mvn -B -DskipTests package --file pom.xml
 
-      - name: Replace config
-        uses: jacobtomlinson/gha-find-replace@v2
-        with:
-          find: "spring.datasource.password=1234"
-          replace: "spring.datasource.password=${{ env.DB_PASSWORD }}"
-          include: "**application.properties"
-
       - name: Setup MySql
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE `${{ env.DB_DATABASE }};`' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+          mysql -e 'CREATE DATABASE `${{ env.DB_DATABASE }};`' -uroot -proot
+          mysql -e 'ALTER USER `root`@`localhost` IDENTIFIED BY `${{ env.DB_PASSWORD }}`; FLUSH PRIVILEGES;' -uroot -proot
 
       - name: Start Server
         run: |
