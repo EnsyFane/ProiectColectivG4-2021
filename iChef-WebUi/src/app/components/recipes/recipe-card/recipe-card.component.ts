@@ -9,5 +9,4 @@ import { Recipe } from 'src/app/data-types/recipe';
 export class RecipeCardComponent {
 
   @Input() recipe!: Recipe;
-
 }
