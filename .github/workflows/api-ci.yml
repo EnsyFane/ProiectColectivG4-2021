@@ -12,11 +12,6 @@ on:
     - 'iChef-WebApi/**'
     - '.github/workflows/api-ci.yml'
 
-env:
-  DB_DATABASE: schema
-  DB_USER: root
-  DB_PASSWORD: 1234
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,8 +35,8 @@ jobs:
       - name: Setup MySql
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE `${{ env.DB_DATABASE }}`;' -uroot -proot
-          mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${{ env.DB_PASSWORD }}'; FLUSH PRIVILEGES;" -uroot -proot
+          mysql -e 'CREATE DATABASE `${{ secrets.DB_DATABASE }}`;' -u${{ secrets.DB_USER }} -proot
+          mysql -e "ALTER USER '${{ secrets.DB_USER }}'@'localhost' IDENTIFIED BY '${{ secrets.DB_PASSWORD }}'; FLUSH PRIVILEGES;" -u${{ secrets.DB_USER }} -proot
 
       - name: Start Server
         run: |
