@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class IChefApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(IChefApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(IChefApplication.class, args);
+    }
 
 }
