@@ -17,6 +17,18 @@ env:
   DB_USER: root
   DB_PASSWORD: 1234
 
+services:
+  mysql:
+    image: mysql:8.0
+    env:
+      MYSQL_DATABASE: schema
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - 33306:3306
+    options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,7 +52,6 @@ jobs:
       - name: Setup MySql
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
       - name: Start Server
         run: |
