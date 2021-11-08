@@ -12,6 +12,11 @@ on:
     - 'iChef-WebApi/**'
     - '.github/workflows/api-ci.yml'
 
+env:
+  DB_DATABASE: schema
+  DB_USER: root
+  DB_PASSWORD: 1234
+
 jobs:
   build:
     runs-on: ubuntu-latest
