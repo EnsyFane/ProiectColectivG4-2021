@@ -15,7 +15,6 @@ on:
 env:
   DB_DATABASE: schema
   DB_USER: root
-  DB_PASSWORD: 1234
 
 jobs:
   build:
@@ -32,25 +31,27 @@ jobs:
           distribution: 'adopt'
           cache: maven
 
-      - name: Test
-        run: mysql -u root -h localhost -p '1234' -e 'show databases;'
-
       - name: Build
         run: |
           cd iChef-WebApi
           mvn -B -DskipTests package --file pom.xml
-      
-      - name: Setup Mysql
-        uses: mirromutth/mysql-action@v1.1
+
+      - name: Replace config
+        uses: jacobtomlinson/gha-find-replace@v2
         with:
-          mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
-          mysql database: '${{ env.DB_DATABASE }}' # Optional, default value is "test". The specified database which will be create
-          mysql root password: ${{ env.DB_PASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
+          find: "spring.datasource.password=1234"
+          replace: "spring.datasource.password="
+          include: "**application.properties"
+
+      - name: Setup MySql
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p
 
       - name: Start Server
         run: |
           cd iChef-WebApi/target
-          java -jar iChef-0.0.1-SNAPSHOT.jar
+          java jar iChef-0.0.1-SNAPSHOT.jar
 
       - name: Test
         run: |
