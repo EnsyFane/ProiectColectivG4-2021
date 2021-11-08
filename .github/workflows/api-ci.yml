@@ -15,6 +15,7 @@ on:
 env:
   DB_DATABASE: schema
   DB_USER: root
+  DB_PASSWORD: root
 
 jobs:
   build:
@@ -40,13 +41,13 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: "spring.datasource.password=1234"
-          replace: "spring.datasource.password="
+          replace: "spring.datasource.password=${{ env.DB_PASSWORD }}"
           include: "**application.properties"
 
       - name: Setup MySql
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
       - name: Start Server
         run: |
