@@ -1,6 +1,12 @@
 # Proiect Colectiv G4 - 2021
 
-The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code base for the iChef Web Application.
+The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code base for the iChef Web Application developed by The Chefs.
+
+## Notes
+
+* Documentation for the project is kept under the following directory: ***Planning***
+* All commands reffering to "Frontend" need to be ran from the following directory: ***iChef-WebUi***
+* All commands reffering to "Backend" need to be ran from the following directory: ***iChef-WebApi***
 
 ## Development
 
@@ -12,7 +18,7 @@ The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code bas
   * Install the Angular CLI from the [official site](https://angular.io/cli).
   * Install your IDE of choice for JS and HTML. Recommendation: [VSCode](https://code.visualstudio.com/).
 * For Backend:
-  * Install Java SDK 16 from the [official site](https://treehouse.github.io/installation-guides/windows/jdk-windows.html). The SDK can also be downloaded through IntelliJ.
+  * Install Java JDK 8 from the [official site](https://treehouse.github.io/installation-guides/windows/jdk-windows.html). The SDK can also be downloaded through IntelliJ.
   * Install your IDE of choice for Java. Recommendation: [IntelliJ](https://www.jetbrains.com/idea/).
 
 ### Build
@@ -24,31 +30,54 @@ The **Proiect Colectiv G4 - 2021** repository hosts the REST API and UI code bas
   npm install
   ```
 
-  * Compile the pplication:
+  * Compile the application:
 
   ```bash
   ng build
   ```
 
 * Backend:
-  * ***TBD***
+  * Compile the application:
+
+  ```bash
+  mvn -B -DskipTests package --file pom.xml
+  ```
 
 ### Test
 
 *Note: If anything fails, try to investigate why that happens before beginning development.*
 
 * Frontend:
-  * ***TBD***
+  * Run tests
+
+  ```bash
+  npm run test
+  ```
 
 * Backend:
-  * ***TBD***
+  * Run tests
+
+  ```bash
+  mvn test
+  ```
 
 ## Run & Deploy
 
-### Run Angular application locally
+Note that you have to build the app first before running any of the following commands.
 
-* Simply run the following script to start the webserver:
+* Run Angular application locally
 
-```bash
-ng serve -o
-```
+  Simply run the following script to start the webserver:
+
+  ```bash
+  ng serve -o
+  ```
+
+* Run Java application locally
+
+  Simply run the following script from the build folder ( ***iChef-WebApi\target*** ) to start the web api:
+
+  ```bash
+  java -jar iChef-{{ version }}.jar
+  ```
+  
