@@ -15,16 +15,12 @@ import java.util.Optional;
 @Profile({"dev", "default"})
 public class UserRepository implements ICrudRepository<AppUser, String> {
 
-    private final IUserRepository iUserRepository;
-
     @Autowired
-    public UserRepository(IUserRepository iUserRepository) {
-        this.iUserRepository = iUserRepository;
-    }
+    IUserRepository iUserRepository;
 
     @Override
     public AppUser findOne(String s) {
-        if (iUserRepository.findById(s).isPresent()) {
+        if(iUserRepository.findById(s).isPresent()){
             return iUserRepository.findById(s).get();
         }
         return null;
@@ -59,11 +55,11 @@ public class UserRepository implements ICrudRepository<AppUser, String> {
         return entity;
     }
 
-    public Optional<AppUser> checkIfExists(String username, String email) {
-        return iUserRepository.checkIfExists(username, email);
+    public Optional<AppUser> findByUsername(String username) {
+        return iUserRepository.findByUsername(username);
     }
 
-    public Optional<AppUser> findUserByEmail(String email) {
-        return iUserRepository.findUserByEmail(email);
+    public Optional<AppUser> findByEmail(String email) {
+        return iUserRepository.findByEmail(email);
     }
 }
