@@ -1,4 +1,4 @@
-package com.kitchen.iChef.Controller.Request;
+package com.kitchen.iChef.Controller.Model.Request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @ToString
-public class SignUpRequest {
+public class AppUserRequest {
 
     @NotBlank(message = "The first name of the user is not valid!")
     private String firstName;

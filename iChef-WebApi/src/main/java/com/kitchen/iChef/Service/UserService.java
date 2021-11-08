@@ -37,7 +37,7 @@ public class UserService {
     }
 
     public void signUp(AppUser appUser) throws Exception {
-        if (userRepository.checkIfExists(appUser.getUsername(), appUser.getEmail()).isPresent()) {
+        if (userRepository.findByUsername(appUser.getUsername()).isPresent() || userRepository.findByEmail(appUser.getEmail()).isPresent()) {
             throw new Exception("User already exists!");
         }
         userRepository.save(appUser);
