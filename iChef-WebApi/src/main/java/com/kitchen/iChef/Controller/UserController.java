@@ -1,11 +1,16 @@
 package com.kitchen.iChef.Controller;
 
+import com.kitchen.iChef.Controller.Request.AppUserRequest;
+import com.kitchen.iChef.Controller.Request.Transformer.AppUserRequestTransformer;
+import com.kitchen.iChef.Controller.Response.AppUserResponse;
+import com.kitchen.iChef.Controller.Response.Transformer.AppUserResponseTransformer;
 import com.kitchen.iChef.Domain.AppUser;
 import com.kitchen.iChef.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -16,29 +21,34 @@ public class UserController {
 
     //will be removed out of security concerns
     @GetMapping
-    public List<AppUser> getAllUsers() {
-        return userService.getAllUsers();
+    public List<AppUserResponse> getAllUsers() {
+        return userService.getAllUsers()
+                .stream()
+                .map(AppUserResponseTransformer::transformToResponse)
+                .collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
-    public AppUser getUserById(@PathVariable String id) {
-        return userService.getUser(id);
+    public AppUserResponse getUserById(@PathVariable String id) {
+        return AppUserResponseTransformer.transformToResponse(userService.getUser(id));
     }
 
     //will be removed
     @PostMapping
-    public AppUser addUser(@RequestBody AppUser user) {
-        return userService.addUser(user);
+    public AppUserResponse addUser(@RequestBody AppUserRequest userRequest) {
+        return AppUserResponseTransformer.transformToResponse(userService.addUser(
+                AppUserRequestTransformer.transformFromRequest(userRequest)));
     }
 
     @DeleteMapping(value = "/{id}")
-    public AppUser deleteUser(@PathVariable String id) {
-        return userService.deleteUser(id);
+    public AppUserResponse deleteUser(@PathVariable String id) {
+        return AppUserResponseTransformer.transformToResponse(userService.deleteUser(id));
     }
 
     @PutMapping(value = "/{id}")
-    public AppUser updateUser(@PathVariable String id, @RequestBody AppUser user) {
-        user.setUserId(id);
-        return userService.updateUser(user);
+    public AppUserResponse updateUser(@PathVariable String id, @RequestBody AppUserRequest userRequest) {
+        AppUser appUser = AppUserRequestTransformer.transformFromRequest(userRequest);
+        appUser.setUserId(id);
+        return AppUserResponseTransformer.transformToResponse(userService.updateUser(appUser));
     }
 }
