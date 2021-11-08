@@ -33,7 +33,7 @@ jobs:
           cache: maven
 
       - name: Test
-        run: mysql -u root -p 1234 -e 'show databases;'
+        run: mysql -u root -h localhost -p '1234' -e 'show databases;'
 
       - name: Build
         run: |
