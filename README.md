@@ -75,9 +75,9 @@ Note that you have to build the app first before running any of the following co
 
 * Run Java application locally
 
-  Simply run the following script to start the web api:
+  Simply run the following script from the build folder ( ***iChef-WebApi\target*** ) to start the web api:
 
   ```bash
-  mvn exec:java <investigate this to make sure it is the right command>
+  java -jar iChef-{{ version }}.jar
   ```
   
