@@ -40,8 +40,8 @@ jobs:
       - name: Setup MySql
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE `${{ env.DB_DATABASE }};`' -uroot -proot
-          mysql -e 'ALTER USER 'root'@'localhost' IDENTIFIED BY '${{ env.DB_PASSWORD }}'; FLUSH PRIVILEGES;' -uroot -proot
+          mysql -e 'CREATE DATABASE `${{ env.DB_DATABASE }}`;' -uroot -proot
+          mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${{ env.DB_PASSWORD }}'; FLUSH PRIVILEGES;" -uroot -proot
 
       - name: Start Server
         run: |
