@@ -1,19 +1,25 @@
 package com.kitchen.iChef.Service;
 
 import com.kitchen.iChef.Domain.AppUser;
+import com.kitchen.iChef.Domain.Token;
 import com.kitchen.iChef.Repository.UserRepository;
+import com.kitchen.iChef.Service.Hashing.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final TokenService tokenService;
 
-    public UserService() {
+    @Autowired
+    public UserService(UserRepository userRepository, TokenService tokenService) {
+        this.userRepository = userRepository;
+        this.tokenService = tokenService;
     }
 
     public AppUser addUser(AppUser user) {
@@ -41,5 +47,14 @@ public class UserService {
             throw new Exception("User already exists!");
         }
         userRepository.save(appUser);
+    }
+
+    public Token login(String email, String password) throws Exception {
+        Optional<AppUser> user = userRepository.findByEmail(email);
+
+        if (!user.isPresent() || !BCryptPasswordEncoder.match(password, user.get().getHashedPassword())) {
+            throw new Exception("Invalid credentials!");
+        }
+        return tokenService.generateValidToken(user.get().getUserId());
     }
 }

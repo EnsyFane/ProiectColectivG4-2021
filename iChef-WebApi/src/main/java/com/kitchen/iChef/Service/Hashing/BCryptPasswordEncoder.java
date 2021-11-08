@@ -7,7 +7,6 @@ public class BCryptPasswordEncoder {
     private static final int STRENGTH = 12; // Any value between 10-31 is fine
 
     private BCryptPasswordEncoder() {
-
     }
 
     public static String hash(String plainTextPassword) {
