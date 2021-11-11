@@ -1,0 +1,65 @@
+@import 'src/app/styles/variables.scss';
+@import 'src/app/styles/mixins.scss';
+@import 'src/styles.scss';
+
+.font {
+    @include font;
+    @include thick;
+    color: black;
+}
+
+.link {
+    @include thick;
+    margin: 0 20px;
+}
+
+.links > a {
+    text-decoration: none;
+}
+
+.inactive-tab {
+    color: black;
+}
+
+.active-tab {
+    color: $primary-color;
+}
+
+.toolbar {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    background-color: $secondary-background-color;
+    position: relative;
+}
+
+.app-title {
+    position: absolute;
+    left: 20px;
+    top: 23px;
+}
+
+.credential-buttons {
+    position: absolute;
+    right: 0;
+    top: 9px;
+}
+
+.primary-button {
+    @include primary-button;
+    width: 150px;
+    margin: 0 10px 0 10px;
+}
+
+.secondary-button {
+    @include secondary-button;
+    width: 150px;
+    margin: 0 10px 0 10px;
+}
+
+a:hover {
+    cursor: pointer;
+}

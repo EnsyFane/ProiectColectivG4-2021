@@ -1,0 +1,8 @@
+# Global owners
+@EnsyFane
+
+# WebUI code owners
+/iChef-WebUi/ @PinkyPotrick 
+
+# WebAPI code owners
+/iChef-WebApi/ @Stefpark77 

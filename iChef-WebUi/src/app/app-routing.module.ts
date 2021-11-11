@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: RecipesComponent
-  },
-  {
-      path: '**',
-      redirectTo: ''
-  }
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: 'home', component: LandingPageComponent},
+    {path: 'recipes', component: RecipesComponent}
 ];
 
 @NgModule({
