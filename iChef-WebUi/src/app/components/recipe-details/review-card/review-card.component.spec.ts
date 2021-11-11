@@ -17,7 +17,7 @@ describe('ReviewCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ReviewCardComponent);
     component = fixture.componentInstance;
-    component.review = new Review('','',0);
+    component.review = new Review('', '', 0);
     fixture.detectChanges();
   });
 

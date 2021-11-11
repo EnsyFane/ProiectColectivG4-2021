@@ -7,7 +7,7 @@ export class Review {
         content: string,
         rating: number) {
 
-        this.username = username;    
+        this.username = username;
         this.content = content;
         this.rating = rating;
     }

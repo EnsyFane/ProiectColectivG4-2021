@@ -7,8 +7,8 @@ export class Recipe {
     ingredients?: string[];
     utensils?: string[];
     time?: string;
-    preparation_instructions?: string;
-    extra_notes?: string;
+    preparationInstructions?: string;
+    extraNotes?: string;
 
     constructor(id: number,
         title: string,
@@ -18,10 +18,9 @@ export class Recipe {
         ingredients: string[],
         utensils: string[],
         time: string,
-        preparation_instructions: string,
-        extra_notes: string) {
-
-        this.id = id;    
+        preparationInstructions: string,
+        extraNotes: string) {
+        this.id = id;
         this.title = title;
         this.difficulty = difficulty;
         this.image = image;
@@ -29,8 +28,8 @@ export class Recipe {
         this.ingredients = ingredients;
         this.utensils = utensils;
         this.time = time;
-        this.preparation_instructions = preparation_instructions;
-        this.extra_notes = extra_notes;
+        this.preparationInstructions = preparationInstructions;
+        this.extraNotes = extraNotes;
     }
 
 }
