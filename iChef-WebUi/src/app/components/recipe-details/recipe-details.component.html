@@ -1,0 +1,68 @@
+<div class="left">
+    <div class="up">
+        <img src={{recipe.image}} alt="food">
+    </div>
+    <div class="down">
+        <div class="title">
+            {{recipe.title}}
+        </div>
+        <div class="details">
+            <div class="header">
+                <span>Difficulty: {{recipe.difficulty}}</span>
+                <span>{{recipe.time}}<mat-icon>schedule</mat-icon></span>
+                <span>{{recipe.rating}} <mat-icon>stars</mat-icon></span>
+            </div>
+            <br>
+            <div class="header">
+                <span>{{reviews}}</span>
+                <button mat-raised-button class="font secondary-button margin-lr-auto">{{addReviewBtn}}</button>
+            </div>
+            <div class="review-cards">
+                <app-review-card [review]="review1"></app-review-card>
+                <app-review-card [review]="review2"></app-review-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right">
+    <div class="container">
+        <div class="ingredients">
+            <div class="subtitle">
+                {{ingredients}} 
+            </div>
+            <br>
+            <ng-container *ngFor="let ingredient of recipe.ingredients" >
+                <p> - {{ingredient}}</p>
+            </ng-container>
+        </div>
+        <div class="utensils">
+            <div class="subtitle">
+                {{utensils}}
+            </div>
+            <br>
+            <ng-container *ngFor="let utensil of recipe.utensils" >
+                <p> - {{utensil}}</p>
+            </ng-container>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <div class="subtitle">
+            {{instructions}}
+        </div>
+        <br>
+        <div class="inside">
+            {{recipe.preparation_instructions}}
+        </div>
+    </div>
+    <div class="notes">
+        <div class="subtitle">
+            {{notes}}
+        </div>
+        <br>
+        <div class="inside">
+            {{recipe.extra_notes}}
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ describe('RecipeCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RecipeCardComponent);
     component = fixture.componentInstance;
-    component.recipe = new Recipe('', '', '', 0);
+    component.recipe = new Recipe(0,'', '', '', 0,[''],[''],'','','');
     fixture.detectChanges();
   });
 
