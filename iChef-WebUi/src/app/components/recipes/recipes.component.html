@@ -1,16 +1,15 @@
 <body>
     <br>
-    <div class="search-bar">
-        <mat-icon>search</mat-icon>
-        <input class="search-bar-input" placeholder="Easy Recipes">
-
+    <div class="search-input margin-lr-auto">
+        <mat-icon class="search-icon" aria-hidden="false" aria-label="search icon">search</mat-icon>
+        <input class="search-bar-input" placeholder="{{searchPlaceHolder}}" autocomplete="off">
     </div>
     <button class="filter-button">
         Filters
     </button>
     <br>
-    <button class="search-button">
-        SEARCH
+    <button mat-raised-button class="font secondary-button margin-lr-auto">
+        {{searchBtn}}
     </button>
     <div class="recipe-cards">
         <app-recipe-card [recipe]="recipe1"></app-recipe-card>
