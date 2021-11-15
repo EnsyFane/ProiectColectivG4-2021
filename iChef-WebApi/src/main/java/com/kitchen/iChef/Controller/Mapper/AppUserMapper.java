@@ -6,7 +6,7 @@ import com.kitchen.iChef.Domain.AppUser;
 
 public class AppUserMapper {
 
-    public static AppUser mapFromRequest(AppUserRequest appUserRequest) {
+    public AppUser mapFromRequest(AppUserRequest appUserRequest) {
         AppUser appUser = new AppUser();
         appUser.setFirstName(appUserRequest.getFirstName());
         appUser.setLastName(appUserRequest.getLastName());
@@ -16,12 +16,12 @@ public class AppUserMapper {
         return appUser;
     }
 
-    public static AppUserResponse mapToResponse(AppUser appUser) {
+    public AppUserResponse mapToResponse(AppUser appUser) {
         AppUserResponse appUserResponse = new AppUserResponse();
         appUserResponse.setFirstName(appUser.getFirstName());
         appUserResponse.setLastName(appUser.getLastName());
-        appUserResponse.setUsername(appUserResponse.getUsername());
-        appUserResponse.setEmail(appUserResponse.getEmail());
+        appUserResponse.setUsername(appUser.getUsername());
+        appUserResponse.setEmail(appUser.getEmail());
         appUserResponse.setJoinedDate(appUser.getJoinedDate());
         appUserResponse.setLastOnline(appUser.getLastOnline());
         return appUserResponse;

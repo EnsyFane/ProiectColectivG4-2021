@@ -1,7 +1,7 @@
 package com.kitchen.iChef.Controller;
 
-import com.kitchen.iChef.Controller.Model.Request.AppUserRequest;
 import com.kitchen.iChef.Controller.Mapper.AppUserMapper;
+import com.kitchen.iChef.Controller.Model.Request.AppUserRequest;
 import com.kitchen.iChef.Controller.Model.Response.AppUserResponse;
 import com.kitchen.iChef.Domain.AppUser;
 import com.kitchen.iChef.Service.UserService;
@@ -16,10 +16,13 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
+    private final AppUserMapper appUserMapper;
+
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+        this.appUserMapper = new AppUserMapper();
     }
 
     //will be removed out of security concerns
@@ -27,31 +30,31 @@ public class UserController {
     public List<AppUserResponse> getAllUsers() {
         return userService.getAllUsers()
                 .stream()
-                .map(AppUserMapper::mapToResponse)
+                .map(appUserMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
 
     @GetMapping(value = "/{id}")
     public AppUserResponse getUserById(@PathVariable String id) {
-        return AppUserMapper.mapToResponse(userService.getUser(id));
+        return appUserMapper.mapToResponse(userService.getUser(id));
     }
 
     //will be removed
     @PostMapping
     public AppUserResponse addUser(@RequestBody AppUserRequest userRequest) {
-        return AppUserMapper.mapToResponse(userService.addUser(
-                AppUserMapper.mapFromRequest(userRequest)));
+        return appUserMapper.mapToResponse(userService.addUser(
+                appUserMapper.mapFromRequest(userRequest)));
     }
 
     @DeleteMapping(value = "/{id}")
     public AppUserResponse deleteUser(@PathVariable String id) {
-        return AppUserMapper.mapToResponse(userService.deleteUser(id));
+        return appUserMapper.mapToResponse(userService.deleteUser(id));
     }
 
     @PutMapping(value = "/{id}")
     public AppUserResponse updateUser(@PathVariable String id, @RequestBody AppUserRequest userRequest) {
-        AppUser appUser = AppUserMapper.mapFromRequest(userRequest);
+        AppUser appUser = appUserMapper.mapFromRequest(userRequest);
         appUser.setUserId(id);
-        return AppUserMapper.mapToResponse(userService.updateUser(appUser));
+        return appUserMapper.mapToResponse(userService.updateUser(appUser));
     }
 }

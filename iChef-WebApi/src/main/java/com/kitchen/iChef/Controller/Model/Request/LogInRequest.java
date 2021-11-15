@@ -20,6 +20,6 @@ public class LogInRequest {
     private String email;
 
     @NotBlank(message = "The password is not valid!")
-    @Size(min = 8)
+    @Size(min = 8, message = "The password length should be greater than 8")
     private String password;
 }
