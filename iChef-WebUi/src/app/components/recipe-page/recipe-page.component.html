@@ -28,6 +28,12 @@
           <option value="l">l</option>
         </select>
 
+        <button class="plus">
+
+          +
+      
+        </button>
+
         
 
         <br><br>
@@ -41,6 +47,11 @@
               <input class="input-smaller">
             </span>&nbsp;&nbsp;
         
+            <button class="plus">
+
+              +
+          
+            </button>
 
         <br><br>
         
@@ -65,20 +76,22 @@
               </select>&nbsp;&nbsp;
       
         <br><br>
-        
-        <textarea rows = "8" cols = "85" name = "instructions">
-          Preparation Instructions:
-       </textarea>
-      
-       <br><br>
+       <div class="field">
 
-       
-        
-        <textarea rows = "8" cols = "85" name = "extranotes">
-          Extra Notes:
-       </textarea>
-      
-       <br><br>
+        <p>Preparation Instructions:</p>
+
+        <textarea rows = "8" cols = "85" name = "instructions">
+
+        </textarea>
+
+      </div>
+     <br><br>
+     <div class="field">
+      <p> Extra Notes: </p>
+      <textarea rows = "8" cols = "85" name = "extranotes">
+     </textarea>
+
+     </div>
 
   </div>
 
@@ -88,35 +101,15 @@
   <div class="right">
     
       <div class="up">
-  <!-- MATERIAL ANGULAR  table with buttons to remove and add data-->
+          <h2>Ingredients/Utensils Overview</h2>
+          <div class = "ingredients-overview-left">
+            <p>Ingredients</p>
 
-  <!-- <div class="demo-button-container">
-    <button mat-raised-button (click)="addData()" class="demo-button">
-      Add data
-    </button>
-    <button
-        mat-raised-button
-        [disabled]="!dataSource.length"
-        (click)="removeData()"
-        class="demo-button">
-      Remove data
-    </button>
-  </div> -->
-  
-  <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-   
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">{{element.position}}</td>
-    </ng-container>
-  
-     
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
-    </ng-container>
-  
-  </table>  -->
+          </div>
+
+          <div class= "utensils-overview-right">
+            <p>Utensils</p>
+          </div>
 
 
       </div>
