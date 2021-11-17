@@ -1,5 +1,5 @@
 export class Recipe {
-    id?: number;
+    id?: string;
     title?: string;
     difficulty?: string;
     image?: string;
@@ -10,7 +10,7 @@ export class Recipe {
     preparationInstructions?: string;
     extraNotes?: string;
 
-    constructor(id: number,
+    constructor(id: string,
         title: string,
         difficulty: string,
         image: string,

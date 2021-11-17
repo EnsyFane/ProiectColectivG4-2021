@@ -26,27 +26,18 @@
 }
 
 @mixin split-horizontal {
-
     height: 85%;
-
     width: 45%;
-
     display: inline-block;
-
     border-radius: 25px;
-
 }
 
 
 
 @mixin split-vertical {
-
     height: 49%;
-
     width: 100%;
-
     border-radius: 25px;
-
 }
 
 @mixin background{

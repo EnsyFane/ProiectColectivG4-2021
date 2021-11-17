@@ -15,14 +15,14 @@
         {{searchBtn}}
     </button>
     <div class="recipe-cards">
-        <app-recipe-card [recipe]="recipe1" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe2" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe3" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe3" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe1" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe2" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe2" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe3" [routerLink]="['details']"></app-recipe-card>
-        <app-recipe-card [recipe]="recipe1" [routerLink]="['details']"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe2" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe3" [routerLink]="['details',recipe1.id]"></app-recipe-card>
+        <app-recipe-card [recipe]="recipe1" [routerLink]="['details',recipe1.id]"></app-recipe-card>
     </div>
 </body>
