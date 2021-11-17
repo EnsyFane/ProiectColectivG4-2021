@@ -1,3 +1,16 @@
+@import 'variables.scss';
+
+@mixin font {
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0;
+    word-spacing: 2px;
+    text-align: center;
+}
+
+@mixin thick {
+    font-weight: bold;
+}
+
 @mixin primary-button {
     background-color: $primary-color;
     color: white;

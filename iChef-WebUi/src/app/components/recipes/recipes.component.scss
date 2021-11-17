@@ -8,46 +8,30 @@ body{
     overflow: hidden;
 }
 
-.search-button{
-    margin-top: 10px;
-    @include secondary-button();
-}
-
-.search-bar{
-    position: relative;
-    background-color: $search-bar-color;
-    display: inline;
-    z-index: 1000;
-    width: 200px;
-    border: 1px solid black;    
-    border-radius: 25px;
-}
-
-mat-icon{
-    position: absolute;
-    height: 20px;
-}
-
-.search-bar-input{
-    margin-left: 20px;
-    background-color:  transparent;
-    border: none;
-    color:black;
-}
-
 input:focus {
     outline: none;
 }
 
+.search-input {
+    display: inline-block;
+    position: relative;
+    top: 15px;
+    height: 32px;
+}
+
 .filter-button{
+    position: relative;
+    top: 12px;
     padding: 0;
     border: none;
     background: none;
-    margin-left: 5px;
+    margin-left: 15px;
     font-weight: bold;
 }
 
 .recipe-cards {
+    position: relative;
+    top: 50px;
     display: flex;
     flex-wrap: wrap;
     margin: 30px 10px 0 10px;
@@ -60,4 +44,12 @@ input:focus {
         cursor: pointer;
         overflow: hidden;
     }
+}
+
+.secondary-button {
+    @include secondary-button;
+    position: relative;
+    top: 30px;
+    width: 150px;
+    margin: 0 10px 0 10px;
 }

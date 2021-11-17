@@ -1,5 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'src/app/styles/variables.scss';
+@import 'src/app/styles/mixins.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+    height: 100%;
+    background-color: $primary-background-color
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $primary-background-color;
+}
+
+.primary-button, .primary-button.mat-raised-button {
+    @include primary-button;
+}
+
+.secondary-button, .secondary-button.mat-raised-button {
+    @include secondary-button;
+}
+
+.search-icon {
+    position: relative;
+    left: 6px;
+    top: 4px;
+}
+
+.search-input {
+    background-color: $search-bar-color;
+    display: inline;
+    border: 2px solid black;
+    border-radius: 25px;
+    min-width: 200px;
+    line-height: 28px;
+}
+
+.search-bar-input {
+    position: relative;
+    top: -3px;
+    left: 8px;
+    background-color: transparent;
+    border: none;
+    color: black;
+    outline: none;
+}
+
+.font {
+    @include font;
+}
+
+.flex-column-center {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+
+.margin-lr-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
 
