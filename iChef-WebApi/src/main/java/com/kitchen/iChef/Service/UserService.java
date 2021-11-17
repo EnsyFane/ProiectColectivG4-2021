@@ -7,8 +7,6 @@ import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Exceptions.ValidationException;
 import com.kitchen.iChef.Repository.UserRepository;
 import com.kitchen.iChef.Service.Hashing.BCryptPasswordEncoder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +18,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final TokenService tokenService;
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
     public UserService(UserRepository userRepository, TokenService tokenService) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
-        LOGGER.info("In Service");
     }
 
     public AppUser addUser(AppUser user) {
@@ -36,11 +32,8 @@ public class UserService {
     public AppUser getUser(String id) {
         AppUser appUser;
         try {
-
             appUser = userRepository.findOne(id);
-
         } catch (Exception ex) {
-
             throw new ResourceNotFoundException("No user with this id");
         }
         return appUser;
@@ -53,11 +46,8 @@ public class UserService {
     public AppUser deleteUser(String id) {
         AppUser appUser;
         try {
-
             appUser = userRepository.delete(id);
-
         } catch (Exception ex) {
-
             throw new ResourceNotFoundException("No user with this id");
         }
         return appUser;
@@ -66,11 +56,8 @@ public class UserService {
     public AppUser updateUser(AppUser user) {
         AppUser appUser;
         try {
-
             appUser = userRepository.update(user);
-
         } catch (Exception ex) {
-
             throw new ResourceNotFoundException("No user with this id");
         }
         return appUser;

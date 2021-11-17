@@ -65,7 +65,4 @@ public class ControllerAdvisor {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(errorMessages.toString(), HttpStatus.BAD_REQUEST);
     }
-
-
 }
-
