@@ -19,21 +19,15 @@ import { RecipePageModule } from './components/recipe-page/recipe-page.module';
     HeaderComponent
   ],
   imports: [
-<<<<<<< HEAD
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     RecipesModule,
-    RecipePageModule
-=======
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      RecipesModule,
-      MatButtonModule,
-      MatIconModule,
-      MatFormFieldModule
->>>>>>> main
+    RecipePageModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
