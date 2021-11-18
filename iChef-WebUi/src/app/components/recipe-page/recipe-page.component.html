@@ -1,26 +1,23 @@
 <body>
-  <h1>Recipe Creation</h1>
-  <div class="left">
-   
-      <div class="form-field">
-        <input class="input" text-align="center" placeholder="Recipe Title">
-      </div>
+    <h1>Recipe Creation</h1>
+    <div class="left">
 
-
-   <br>      
-          &nbsp;
+        <div class="form-field">
+            <input class="input" text-align="center" placeholder="Recipe Title">
+        </div>
+        <br> &nbsp;
         <label class="form-field-smaller">
           Ingredients: </label>&nbsp;&nbsp;
-        
+
         <span class="form-field-smaller">
           <input class="input-smaller" >
         </span>&nbsp;&nbsp;
-        
+
         <span class="form-field-smaller">
           <input class="input-smaller">
         </span>&nbsp;&nbsp;
 
-     
+
         <select name="Quantity" id="quantity">
           <option value="g">g</option>
           <option value="kg">kg</option>
@@ -28,101 +25,87 @@
           <option value="l">l</option>
         </select>
 
-        <button class="plus">
+        <button class="plus-bttn">
 
           +
       
         </button>
 
-        
-
-        <br><br>
-       
-          &nbsp;
-          <label class="form-field-smaller">
+        <br><br> &nbsp;
+        <label class="form-field-smaller">
             Utensils: </label>&nbsp;&nbsp;
 
 
-            <span class="form-field-smaller">
+        <span class="form-field-smaller">
               <input class="input-smaller">
             </span>&nbsp;&nbsp;
-        
-            <button class="plus">
+
+        <button class="plus-bttn">
 
               +
           
             </button>
 
-        <br><br>
-        
-          &nbsp;
-          <label class="form-field-smaller">
+        <br><br> &nbsp;
+        <label class="form-field-smaller">
             Time to prepare: </label>&nbsp;&nbsp;
 
 
-            <span class="form-field-smaller">
+        <span class="form-field-smaller">
               <input class="input-smaller">
             </span>&nbsp;&nbsp;
 
-            <label class="form-field-smaller">
+        <label class="form-field-smaller">
               Difficulty: </label>&nbsp;&nbsp;
-  
-  
-              <select name="Difficulty" id="difficulty">
+
+
+        <select name="Difficulty" id="difficulty">
                 <option value="easy">easy</option>
                 <option value="medium">medium</option>
                 <option value="hard">hard</option>
                 
               </select>&nbsp;&nbsp;
-      
+
         <br><br>
-       <div class="field">
+        <div class="field">
 
-        <p>Preparation Instructions:</p>
+            <p>Preparation Instructions:</p>
 
-        <textarea rows = "8" cols = "85" name = "instructions">
+            <textarea rows="8" cols="85" name="instructions">
 
         </textarea>
 
-      </div>
-     <br><br>
-     <div class="field">
-      <p> Extra Notes: </p>
-      <textarea rows = "8" cols = "85" name = "extranotes">
+        </div>
+        <br><br>
+        <div class="field">
+            <p> Extra Notes: </p>
+            <textarea rows="8" cols="85" name="extranotes">
      </textarea>
 
-     </div>
+        </div>
 
-  </div>
+    </div>
+    <div class="right">
 
+        <div class="up">
+            <h2>Ingredients/Utensils Overview</h2>
+            <div class="ingredients-overview-left">
+                <p>Ingredients</p>
 
-  
-  
-  <div class="right">
-    
-      <div class="up">
-          <h2>Ingredients/Utensils Overview</h2>
-          <div class = "ingredients-overview-left">
-            <p>Ingredients</p>
+            </div>
 
-          </div>
-
-          <div class= "utensils-overview-right">
-            <p>Utensils</p>
-          </div>
+            <div class="utensils-overview-right">
+                <p>Utensils</p>
+            </div>
 
 
-      </div>
-      <div class="down">
+        </div>
+        <div class="down">
 
-      </div>
-   
-  </div>
-
-  <button class="save">
-
+        </div>
+    </div>
+    <button class="save-bttn">
     SAVE
+    </button>
 
-  </button>
-
-  </body>
+</body>

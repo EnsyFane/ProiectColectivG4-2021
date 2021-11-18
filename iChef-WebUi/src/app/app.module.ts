@@ -19,7 +19,6 @@ import { RecipePageModule } from './components/recipe-page/recipe-page.module';
     HeaderComponent
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

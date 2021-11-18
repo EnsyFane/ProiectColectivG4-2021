@@ -43,7 +43,7 @@ const routes: Routes = [
     MatGridListModule
     
   ],
-  exports: [ //ce comp are pagina
+  exports: [ //components of the page
     RecipePageComponent
   ]
 })
