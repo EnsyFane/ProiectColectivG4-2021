@@ -43,8 +43,8 @@ public class TokenServiceTest {
         token.setUserId("1");
         token.setExpirationDate(ZonedDateTime.now());
         token.setValue("10");
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                "")).when(tokenRepository).findByUserId(token.getUserId());
+        Mockito.doThrow(new RuntimeException("Testing Failure Case")).
+                when(tokenRepository).findByUserId(token.getUserId());
         Assertions.assertThrows(Exception.class, () -> {
             tokenService.findTokenByUserId(token.getUserId());
         });
@@ -76,8 +76,7 @@ public class TokenServiceTest {
         token.setUserId("1");
         token.setExpirationDate(ZonedDateTime.now());
         token.setValue("10");
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                "")).when(tokenRepository).findByValue(token.getValue());
+        Mockito.doThrow(new RuntimeException("Testing Failure Case")).when(tokenRepository).findByValue(token.getValue());
         Assertions.assertThrows(Exception.class, () -> {
             tokenService.findTokenByValue(token.getValue());
         });
@@ -105,8 +104,7 @@ public class TokenServiceTest {
         token.setUserId("2");
         token.setExpirationDate(ZonedDateTime.now());
         token.setValue("10");
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                "")).when(tokenRepository).deleteByUserId(token.getUserId());
+        Mockito.doThrow(new RuntimeException("Testing Failure Case")).when(tokenRepository).deleteByUserId(token.getUserId());
         Assertions.assertThrows(Exception.class, () -> {
             tokenService.deleteTokenByUserId(token.getUserId());
         });

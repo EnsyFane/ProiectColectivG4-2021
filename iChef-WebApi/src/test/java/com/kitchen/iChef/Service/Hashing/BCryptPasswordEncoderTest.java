@@ -1,5 +1,6 @@
 package com.kitchen.iChef.Service.Hashing;
 
+import lombok.var;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ public class BCryptPasswordEncoderTest {
     @DisplayName("Test match Success Case")
     void match_success()
     {
-        String password = "popcorn";
+        var password = "popcorn";
         String hash_password = BCryptPasswordEncoder.hash(password);
         Assertions.assertTrue(BCryptPasswordEncoder.match(password,hash_password));
     }
@@ -22,8 +23,8 @@ public class BCryptPasswordEncoderTest {
     @DisplayName("Test match Success Case")
     void match_failure()
     {
-        String password = "popcorn";
-        String wrong_password = "wrong";
+        var password = "popcorn";
+        var wrong_password = "wrong";
         String hash_password = BCryptPasswordEncoder.hash(password);
         Assertions.assertThrows(Exception.class, () -> {
             BCryptPasswordEncoder.match(null,hash_password);

@@ -57,8 +57,9 @@ class UserServiceTest {
         appUser.setLastOnline(ZonedDateTime.now());
         appUser.setIsAdmin(false);
         appUser.setHashedPassword("popcorn");
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                "")).when(userRepository).save(appUser);
+        Mockito.doThrow(new RuntimeException("Testing Failure Case" )).
+                when(userRepository).
+                save(appUser);
         Assertions.assertThrows(Exception.class, () -> {
             userService.addUser(appUser);
         });
@@ -96,8 +97,7 @@ class UserServiceTest {
         appUser.setLastOnline(ZonedDateTime.now());
         appUser.setIsAdmin(false);
         appUser.setHashedPassword("popcorn");
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                ""))
+        Mockito.doThrow(new RuntimeException("Testing Failure Case"))
                 .when(userRepository)
                 .update(appUser);
         Assertions.assertThrows(Exception.class, () -> {
@@ -105,7 +105,7 @@ class UserServiceTest {
         });
     }
     @Test
-    @DisplayName("test GetAll Success Case")
+    @DisplayName("Test GetAll Success Case")
     @Order(5)
     void getAll_success() {
         List<AppUser> list = new ArrayList<>();
@@ -145,11 +145,9 @@ class UserServiceTest {
     @DisplayName("test GetAll Failure Case")
     @Order(6)
     void getAll_failure() {
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                ""))
+        Mockito.doThrow(new RuntimeException("Testing Failure Case"))
                 .when(userRepository)
                 .findAll();
-
         Assertions.assertThrows(Exception.class, () -> {
             userService.getAllUsers();
         });
@@ -167,8 +165,7 @@ class UserServiceTest {
     @DisplayName("Test DeleteUser Failure Case")
     @Order(8)
     void deleteUser_failure() {
-        Mockito.doThrow(new RuntimeException("Testing Failure Case" +
-                ""))
+        Mockito.doThrow(new RuntimeException("Testing Failure Case"))
                 .when(userRepository)
                 .delete("1");
         Assertions.assertThrows(Exception.class, () -> {
@@ -192,7 +189,6 @@ class UserServiceTest {
         Mockito.when(userRepository.findByUsername(appUser.getUsername())).thenReturn(Optional.empty());
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.empty());
         Mockito.when(userRepository.save(appUser)).thenReturn(appUser);
-
         try {
             userService.signUp(appUser);
         } catch (Exception exception) {
@@ -215,7 +211,6 @@ class UserServiceTest {
         appUser.setHashedPassword("popcorn");
         Mockito.when(userRepository.findByUsername(appUser.getUsername())).thenReturn(Optional.empty());
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.of(appUser));
-        //Mockito.when(userRepository.save(appUser)).thenReturn(appUser);
         Assertions.assertThrows(Exception.class, () -> {
             userService.signUp(appUser);
         });
@@ -235,8 +230,6 @@ class UserServiceTest {
         appUser.setIsAdmin(false);
         appUser.setHashedPassword(BCryptPasswordEncoder.hash("popcorn"));
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.of(appUser));
-   //     BCryptPasswordEncoder bCryptPasswordEncoder = Mockito.mock(BCryptPasswordEncoder.class);
-     //   Mockito.when(bCryptPasswordEncoder.match(appUser.getHashedPassword(),appUser.getHashedPassword())).thenReturn(true);
         try {
             userService.login(appUser.getEmail(), "popcorn");
             Mockito.verify(tokenService).generateValidToken(appUser.getUserId());
@@ -259,8 +252,6 @@ class UserServiceTest {
         appUser.setIsAdmin(false);
         appUser.setHashedPassword(BCryptPasswordEncoder.hash("popcorn"));
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.of(appUser));
-        //     BCryptPasswordEncoder bCryptPasswordEncoder = Mockito.mock(BCryptPasswordEncoder.class);
-        //   Mockito.when(bCryptPasswordEncoder.match(appUser.getHashedPassword(),appUser.getHashedPassword())).thenReturn(true);
         try {
             userService.login(appUser.getEmail(), "wrong_password");
             Mockito.verify(tokenService).generateValidToken(appUser.getUserId());
