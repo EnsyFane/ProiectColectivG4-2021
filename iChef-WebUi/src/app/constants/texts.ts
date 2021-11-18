@@ -10,7 +10,18 @@ export const LANDING_PAGE_STRINGS = {
 export const BUTTON_STRINGS = {
     LOGIN: 'Login',
     REGISTER: 'Register',
-    SEARCH: 'Search'
+    SEARCH: 'Search',
+    CREATE: 'Create Recipe',
+    FILTER: 'Filters',
+    REVIEW: 'Add Review'
+};
+
+export const TITLES = {
+    REVIEWS: 'Reviews',
+    INGREDIENTS: 'Ingredients',
+    UTENSILS: 'Utensils',
+    INSTRUCTIONS: 'Preparation Instructions',
+    NOTES: 'Extra Notes'
 };
 
 export const PLACEHOLDERS_STRINGS = {
