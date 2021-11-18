@@ -6,6 +6,7 @@ body{
     background-color: $primary-background-color;
     text-align: center;
     overflow: hidden;
+    height: 90%;
 }
 
 input:focus {
@@ -16,6 +17,7 @@ input:focus {
     display: inline-block;
     position: relative;
     top: 15px;
+    left: 140px;
     height: 32px;
 }
 
@@ -25,18 +27,18 @@ input:focus {
     padding: 0;
     border: none;
     background: none;
-    margin-left: 15px;
+    left: 160px;
     font-weight: bold;
 }
 
 .recipe-cards {
     position: relative;
-    top: 50px;
+    top: 20px;
     display: flex;
     flex-wrap: wrap;
     margin: 30px 10px 0 10px;
     overflow-y: scroll;
-    height: 85%;
+    height: 75%;
 
     app-recipe-card {
         flex: none;
@@ -52,4 +54,27 @@ input:focus {
     top: 30px;
     width: 150px;
     margin: 0 10px 0 10px;
+    left: 125px;
+}
+
+.create-button{
+    @include secondary-button;
+    position: relative;
+    top: 10px;
+    width: 150px;
+    float: right;
+    margin-right: 90px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+   
+::-webkit-scrollbar-thumb {
+    background: $primary-color-transparent; 
+    border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: $primary-color; 
 }

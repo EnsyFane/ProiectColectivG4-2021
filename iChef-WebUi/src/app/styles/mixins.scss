@@ -24,3 +24,29 @@
     border: 3px solid $primary-color;
     border-radius: 25px;
 }
+
+@mixin split-horizontal {
+    height: 85%;
+    width: 45%;
+    display: inline-block;
+    border-radius: 25px;
+}
+
+
+
+@mixin split-vertical {
+    height: 49%;
+    width: 100%;
+    border-radius: 25px;
+}
+
+@mixin background{
+    overflow: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    margin-left: auto; 
+    margin-right: auto;
+    border-radius: 25px;
+    background-color: $white-transparent;
+}

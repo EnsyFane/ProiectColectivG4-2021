@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 
 public class SignUpMapper {
 
-    public static AppUser mapFromRequest(SignUpRequest signUpRequest) {
+    public AppUser mapFromRequest(SignUpRequest signUpRequest) {
         AppUser appUser = new AppUser();
         appUser.setFirstName(signUpRequest.getFirstName());
         appUser.setLastName(signUpRequest.getLastName());

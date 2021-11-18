@@ -1,0 +1,28 @@
+@import '../../../styles/variables.scss';
+
+.container{
+    background-color: $white-transparent;
+    vertical-align: top;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+}
+
+.header{
+    font-weight: bold;
+    padding: 10px 25px 0 25px;
+    font-size: 12px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inside{
+    padding: 0 25px 10px 25px;
+    font-size: 10px;
+    box-sizing: border-box;
+}
+
+mat-icon{
+    vertical-align: middle;
+}
