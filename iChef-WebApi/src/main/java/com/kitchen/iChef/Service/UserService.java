@@ -2,6 +2,9 @@ package com.kitchen.iChef.Service;
 
 import com.kitchen.iChef.Domain.AppUser;
 import com.kitchen.iChef.Domain.Token;
+import com.kitchen.iChef.Exceptions.AuthenticationException;
+import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
+import com.kitchen.iChef.Exceptions.ValidationException;
 import com.kitchen.iChef.Repository.UserRepository;
 import com.kitchen.iChef.Service.Hashing.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,13 @@ public class UserService {
     }
 
     public AppUser getUser(String id) {
-        return userRepository.findOne(id);
+        AppUser appUser;
+        try {
+            appUser = userRepository.findOne(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("No user with this id");
+        }
+        return appUser;
     }
 
     public List<AppUser> getAllUsers() {
@@ -35,25 +44,37 @@ public class UserService {
     }
 
     public AppUser deleteUser(String id) {
-        return userRepository.delete(id);
+        AppUser appUser;
+        try {
+            appUser = userRepository.delete(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("No user with this id");
+        }
+        return appUser;
     }
 
     public AppUser updateUser(AppUser user) {
-        return userRepository.update(user);
+        AppUser appUser;
+        try {
+            appUser = userRepository.update(user);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("No user with this id");
+        }
+        return appUser;
     }
 
-    public void signUp(AppUser appUser) throws Exception {
+    public void signUp(AppUser appUser) throws ValidationException {
         if (userRepository.findByUsername(appUser.getUsername()).isPresent() || userRepository.findByEmail(appUser.getEmail()).isPresent()) {
-            throw new Exception("User already exists!");
+            throw new ValidationException("User already exists!");
         }
         userRepository.save(appUser);
     }
 
-    public Token login(String email, String password) throws Exception {
+    public Token login(String email, String password) throws AuthenticationException {
         Optional<AppUser> user = userRepository.findByEmail(email);
 
         if (!user.isPresent() || !BCryptPasswordEncoder.match(password, user.get().getHashedPassword())) {
-            throw new Exception("Invalid credentials!");
+            throw new AuthenticationException("Invalid credentials!");
         }
         return tokenService.generateValidToken(user.get().getUserId());
     }
