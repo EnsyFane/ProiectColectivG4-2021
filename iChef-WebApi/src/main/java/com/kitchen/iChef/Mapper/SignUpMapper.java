@@ -1,4 +1,4 @@
-package com.kitchen.iChef.Controller.Mapper;
+package com.kitchen.iChef.Mapper;
 
 import com.kitchen.iChef.Controller.Model.Request.SignUpRequest;
 import com.kitchen.iChef.Domain.AppUser;
