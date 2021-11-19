@@ -142,7 +142,7 @@ class UserServiceTest {
         Assertions.assertEquals("Mirel",newList.get(1).getFirstName());
     }
     @Test
-    @DisplayName("test GetAll Failure Case")
+    @DisplayName("Test GetAll Failure Case")
     @Order(6)
     void getAll_failure() {
         Mockito.doThrow(new RuntimeException("Testing Failure Case"))
