@@ -6,25 +6,10 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 import { RecipePageComponent } from './components/recipe-page/recipe-page.component';
 
 const routes: Routes = [
-<<<<<<< HEAD
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: LandingPageComponent},
     {path: 'recipes', component: RecipesComponent},
     {path: 'recipes/details/:id', component: RecipeDetailsComponent}
-=======
-  {
-    path: '',
-    component: RecipePageComponent // RecipesComponent
-  },
-  {
-      path: '**',
-      redirectTo: ''
-  },
-  {
-    path: 'createrecipe',
-    component: RecipePageComponent
-  }
->>>>>>> TM_recipeScreen
 ];
 
 @NgModule({

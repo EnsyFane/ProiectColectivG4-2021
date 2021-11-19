@@ -10,12 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
-<<<<<<< HEAD
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
-=======
 import { RecipePageModule } from './components/recipe-page/recipe-page.module';
->>>>>>> TM_recipeScreen
 
 @NgModule({
   declarations: [
@@ -26,21 +23,14 @@ import { RecipePageModule } from './components/recipe-page/recipe-page.module';
     ReviewCardComponent
   ],
   imports: [
-<<<<<<< HEAD
       BrowserModule,
       AppRoutingModule,
       BrowserAnimationsModule,
       RecipesModule,
       MatButtonModule,
       MatIconModule,
-      MatFormFieldModule
-=======
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    RecipesModule,
-    RecipePageModule
->>>>>>> TM_recipeScreen
+      MatFormFieldModule,
+      RecipePageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
