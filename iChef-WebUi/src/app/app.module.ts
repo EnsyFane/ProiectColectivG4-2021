@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
-import { RecipePageModule } from './components/recipe-page/recipe-page.module';
+import { RecipeCreationPageModule } from './components/recipe-creation-page/recipe-creation-page.module';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
 
@@ -27,7 +27,7 @@ import { ReviewCardComponent } from './components/recipe-details/review-card/rev
         AppRoutingModule,
         BrowserAnimationsModule,
         RecipesModule,
-        RecipePageModule,
+        RecipeCreationPageModule,
         MatButtonModule,
         MatIconModule,
         MatFormFieldModule
