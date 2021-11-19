@@ -12,6 +12,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
+import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
+import { UserRecipesComponent } from './components/user-profile-page/user-recipes/user-recipes.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -19,17 +22,20 @@ import { ReviewCardComponent } from './components/recipe-details/review-card/rev
     LandingPageComponent,
     HeaderComponent,
     RecipeDetailsComponent,
-    ReviewCardComponent
+    ReviewCardComponent,
+    UserProfilePageComponent,
+    UserRecipesComponent
   ],
-  imports: [
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      RecipesModule,
-      MatButtonModule,
-      MatIconModule,
-      MatFormFieldModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        RecipesModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatCardModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

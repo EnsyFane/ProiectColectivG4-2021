@@ -1,0 +1,39 @@
+<div class="recipes-widget">
+    <p class="title font margin-lr-auto">My Recipes</p>
+
+    <div class="long-black-separator margin-lr-auto"></div>
+    <div class="header-area">
+        <div class="search-input margin-lr-auto">
+            <mat-icon class="search-icon" aria-hidden="false" aria-label="search icon">search</mat-icon>
+            <input class="search-bar-input" placeholder="{{searchPlaceHolder}}" autocomplete="off">
+        </div>
+        <button mat-raised-button class="font secondary-button margin-lr-auto">
+            {{searchBtn}}
+        </button>
+    </div>
+    <div class="long-black-separator margin-lr-auto"></div>
+
+    <div class="recipes-container margin-lr-auto">
+        <div class="recipe-card" *ngFor="let recipe of recipes"
+                  (click)="onSelectRecipe(recipe)">
+            <div class="recipe-card-content">
+                <app-recipe-card [recipe]="recipe"></app-recipe-card>
+                <div class="extra-buttons-column">
+                    <div class="extra-button-container">
+                        <button class="extra-button" (click)="goToRecipeEdit(recipe, $event)" mat-icon-button aria-label="Edit Recipe">
+                            <mat-icon color="black">edit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="extra-button-container">
+                        <button class="extra-button" (click)="deleteRecipe(recipe, $event)" mat-icon-button aria-label="Delete Recipe">
+                            <mat-icon color="black">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button mat-raised-button class="font create-button margin-lr-auto">
+        {{createBtn}}
+    </button>
+</div>

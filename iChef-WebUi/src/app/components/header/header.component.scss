@@ -5,6 +5,7 @@
 .font {
     @include font;
     @include thick;
+    font-size: 18px;
     color: black;
 }
 
