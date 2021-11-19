@@ -2,6 +2,7 @@
 @import 'src/app/styles/variables.scss';
 @import 'src/app/styles/mixins.scss';
 
+<<<<<<< HEAD
 html, body {
     height: 100%;
     background-color: $primary-background-color
@@ -60,3 +61,8 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+=======
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+>>>>>>> TM_recipeScreen

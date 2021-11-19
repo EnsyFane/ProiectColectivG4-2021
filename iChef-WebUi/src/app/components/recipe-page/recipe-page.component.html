@@ -1,0 +1,135 @@
+<body>
+  <h1>Recipe Creation</h1>
+  <div class="left">
+   
+      <div class="form-field">
+        <input class="input" text-align="center" placeholder="Recipe Title">
+      </div>
+
+
+   <br>      
+          &nbsp;
+        <label class="form-field-smaller">
+          Ingredients: </label>&nbsp;&nbsp;
+        
+        <span class="form-field-smaller">
+          <input class="input-smaller" >
+        </span>&nbsp;&nbsp;
+        
+        <span class="form-field-smaller">
+          <input class="input-smaller">
+        </span>&nbsp;&nbsp;
+
+        <!-- <br> -->
+        <select name="Quantity" id="quantity">
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+          <option value="ml">ml</option>
+          <option value="l">l</option>
+        </select>
+
+        
+
+        <br><br>
+       
+          &nbsp;
+          <label class="form-field-smaller">
+            Utensils: </label>&nbsp;&nbsp;
+
+
+            <span class="form-field-smaller">
+              <input class="input-smaller">
+            </span>&nbsp;&nbsp;
+        
+
+        <br><br>
+        
+          &nbsp;
+          <label class="form-field-smaller">
+            Time to prepare: </label>&nbsp;&nbsp;
+
+
+            <span class="form-field-smaller">
+              <input class="input-smaller">
+            </span>&nbsp;&nbsp;
+
+            <label class="form-field-smaller">
+              Difficulty: </label>&nbsp;&nbsp;
+  
+  
+              <select name="Difficulty" id="difficulty">
+                <option value="easy">easy</option>
+                <option value="medium">medium</option>
+                <option value="hard">hard</option>
+                
+              </select>&nbsp;&nbsp;
+      
+        <br><br>
+        
+        <textarea rows = "8" cols = "85" name = "instructions">
+          Preparation Instructions:
+       </textarea>
+      
+       <br><br>
+
+       
+        
+        <textarea rows = "8" cols = "85" name = "extranotes">
+          Extra Notes:
+       </textarea>
+      
+       <br><br>
+
+  </div>
+
+
+  
+  
+  <div class="right">
+    
+      <div class="up">
+  <!-- MATERIAL ANGULAR  table with buttons to remove and add data-->
+
+  <!-- <div class="demo-button-container">
+    <button mat-raised-button (click)="addData()" class="demo-button">
+      Add data
+    </button>
+    <button
+        mat-raised-button
+        [disabled]="!dataSource.length"
+        (click)="removeData()"
+        class="demo-button">
+      Remove data
+    </button>
+  </div> -->
+  
+  <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+   
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element">{{element.position}}</td>
+    </ng-container>
+  
+     
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    </ng-container>
+  
+  </table>  -->
+
+
+      </div>
+      <div class="down">
+
+      </div>
+   
+  </div>
+
+  <button class="save">
+
+    SAVE
+
+  </button>
+
+  </body>
