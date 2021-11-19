@@ -20,7 +20,7 @@ public class BCryptPasswordEncoderTest {
         Assertions.assertTrue(BCryptPasswordEncoder.match(password,hash_password));
     }
     @Test
-    @DisplayName("Test match Success Case")
+    @DisplayName("Test match Failure Case")
     void match_failure()
     {
         var password = "popcorn";
