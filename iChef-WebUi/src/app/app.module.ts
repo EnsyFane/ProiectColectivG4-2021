@@ -32,8 +32,7 @@ import { UserRecipesComponent } from './components/user-profile-page/user-recipe
         RecipesModule,
         MatButtonModule,
         MatIconModule,
-        MatFormFieldModule,
-        MatCardModule
+        MatFormFieldModule
     ],
   providers: [],
   bootstrap: [AppComponent]
