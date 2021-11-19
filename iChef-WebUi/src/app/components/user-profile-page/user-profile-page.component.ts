@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PATHS } from 'src/app/constants/paths';
 import { ACCOUNT_MENU_LINKS } from 'src/app/constants/account-page';
 

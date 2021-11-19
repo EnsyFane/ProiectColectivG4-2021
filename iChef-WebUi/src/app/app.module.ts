@@ -14,7 +14,6 @@ import { RecipeDetailsComponent } from './components/recipe-details/recipe-detai
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
 import { UserRecipesComponent } from './components/user-profile-page/user-recipes/user-recipes.component';
-import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [

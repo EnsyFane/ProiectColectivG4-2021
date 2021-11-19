@@ -20,12 +20,12 @@
                 <app-recipe-card [recipe]="recipe"></app-recipe-card>
                 <div class="extra-buttons-column">
                     <div class="extra-button-container">
-                        <button class="extra-button" (click)="goToRecipeEdit(recipe, $event)" mat-icon-button aria-label="Edit Recipe">
+                        <button class="extra-button" (click)="goToRecipeEdit(recipe)" mat-icon-button aria-label="Edit Recipe">
                             <mat-icon color="black">edit</mat-icon>
                         </button>
                     </div>
                     <div class="extra-button-container">
-                        <button class="extra-button" (click)="deleteRecipe(recipe, $event)" mat-icon-button aria-label="Delete Recipe">
+                        <button class="extra-button" (click)="deleteRecipe(recipe)" mat-icon-button aria-label="Delete Recipe">
                             <mat-icon color="black">delete</mat-icon>
                         </button>
                     </div>

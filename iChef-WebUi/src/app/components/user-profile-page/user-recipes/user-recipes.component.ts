@@ -31,12 +31,12 @@ export class UserRecipesComponent implements OnInit {
         this.router.navigate(['/recipes/details/' + recipe.id]);
     }
 
-    goToRecipeEdit(recipe: Recipe, clickEvent: MouseEvent): void {
+    goToRecipeEdit(recipe: Recipe): void {
         // TODO change the following line so it takes the user to the update page
         this.router.navigate(['/recipes/details/' + recipe.id]);
     }
 
-    deleteRecipe(recipe: Recipe, clickEvent: MouseEvent): void {
+    deleteRecipe(recipe: Recipe): void {
         this.recipeService.deleteRecipe(recipe);
         this.ngOnInit();
     }
