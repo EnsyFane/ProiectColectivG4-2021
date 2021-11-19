@@ -11,24 +11,28 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
 import { RecipePageModule } from './components/recipe-page/recipe-page.module';
+import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingPageComponent,
-    HeaderComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    RecipesModule,
-    RecipePageModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LandingPageComponent,
+        HeaderComponent,
+        RecipeDetailsComponent,
+        ReviewCardComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        RecipesModule,
+        RecipePageModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
