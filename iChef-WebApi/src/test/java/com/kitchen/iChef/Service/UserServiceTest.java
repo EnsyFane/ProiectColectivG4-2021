@@ -25,20 +25,27 @@ class UserServiceTest {
     UserRepository userRepository;
     @Mock
     TokenService tokenService;
+
+    AppUser createUser(String userId, String firstName,String lastName, String username, String email, ZonedDateTime joinedDate, ZonedDateTime lastOnline, Boolean isAdmin, String hashedPassword)
+    {
+        AppUser appUser = new AppUser();
+        appUser.setUserId(userId);
+        appUser.setFirstName(firstName);
+        appUser.setLastName(lastName);
+        appUser.setUsername(username);
+        appUser.setEmail(email);
+        appUser.setJoinedDate(joinedDate);
+        appUser.setLastOnline(lastOnline);
+        appUser.setIsAdmin(isAdmin);
+        appUser.setHashedPassword(hashedPassword);
+        return appUser;
+    }
+
     @Test
     @DisplayName("Test Add Success Case")
     @Order(1)
     void add_success() {
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         Mockito.when(userRepository.save(appUser)).thenReturn(appUser);
         userService.addUser(appUser);
         Mockito.verify(userRepository).save(appUser);
@@ -47,16 +54,7 @@ class UserServiceTest {
     @DisplayName("Test Add Failure Case")
     @Order(2)
     void add_failure(){
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         Mockito.doThrow(new RuntimeException("Testing Failure Case" )).
                 when(userRepository).
                 save(appUser);
@@ -68,16 +66,7 @@ class UserServiceTest {
     @DisplayName("Test Update Success Case")
     @Order(3)
     void update_success() {
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Popescu");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         userService.updateUser(appUser);
         Mockito.verify(userRepository, Mockito.only()).update(appUser);
         Mockito.verify(userRepository).update(appUser);
@@ -87,16 +76,7 @@ class UserServiceTest {
     @DisplayName("Test Update Failure Case")
     @Order(4)
     void update_failure() {
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         Mockito.doThrow(new RuntimeException("Testing Failure Case"))
                 .when(userRepository)
                 .update(appUser);
@@ -109,29 +89,10 @@ class UserServiceTest {
     @Order(5)
     void getAll_success() {
         List<AppUser> list = new ArrayList<>();
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
-        AppUser appUser1 = new AppUser();
-        appUser1.setUserId("2");
-        appUser1.setFirstName("Mirel");
-        appUser1.setLastName("Pop");
-        appUser1.setUsername("mirel.pop");
-        appUser1.setEmail("mirelpop@gmail.com");
-        appUser1.setJoinedDate(ZonedDateTime.now());
-        appUser1.setLastOnline(ZonedDateTime.now());
-        appUser1.setIsAdmin(false);
-        appUser1.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
+        AppUser appUser1= createUser("1","Mirel", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         list.add(appUser);
         list.add(appUser1);
-
         Mockito.when(userRepository.findAll()).thenReturn(list);
         List<AppUser> newList = userService.getAllUsers();
         Mockito.verify(userRepository, Mockito.only()).findAll();
@@ -176,16 +137,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Test Signup Success Case")
     void signup_success(){
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         Mockito.when(userRepository.findByUsername(appUser.getUsername())).thenReturn(Optional.empty());
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.empty());
         Mockito.when(userRepository.save(appUser)).thenReturn(appUser);
@@ -199,16 +151,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Test Signup Failure Case")
     void signup_failure(){
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword("popcorn");
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         Mockito.when(userRepository.findByUsername(appUser.getUsername())).thenReturn(Optional.empty());
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.of(appUser));
         Assertions.assertThrows(Exception.class, () -> {
@@ -219,15 +162,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Test Login Success Case")
     void login_success(){
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         appUser.setHashedPassword(BCryptPasswordEncoder.hash("popcorn"));
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.of(appUser));
         try {
@@ -241,16 +176,7 @@ class UserServiceTest {
     @Test
     @DisplayName("Test Login Failure Case")
     void login_failure(){
-        AppUser appUser = new AppUser();
-        appUser.setUserId("1");
-        appUser.setFirstName("Andrei");
-        appUser.setLastName("Pop");
-        appUser.setUsername("andrei.pop");
-        appUser.setEmail("andreipop@gmail.com");
-        appUser.setJoinedDate(ZonedDateTime.now());
-        appUser.setLastOnline(ZonedDateTime.now());
-        appUser.setIsAdmin(false);
-        appUser.setHashedPassword(BCryptPasswordEncoder.hash("popcorn"));
+        AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         Mockito.when(userRepository.findByEmail(appUser.getEmail())).thenReturn(Optional.of(appUser));
         try {
             userService.login(appUser.getEmail(), "wrong_password");
