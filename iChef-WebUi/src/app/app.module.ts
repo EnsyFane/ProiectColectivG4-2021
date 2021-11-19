@@ -34,9 +34,6 @@ import { UserRecipesComponent } from './components/user-profile-page/user-recipe
         MatIconModule,
         MatFormFieldModule
     ],
-    exports: [
-        HeaderComponent
-    ],
   providers: [],
   bootstrap: [AppComponent]
 })
