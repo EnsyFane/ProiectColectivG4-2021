@@ -23,9 +23,6 @@ public class RecipeRequest {
     @NotBlank(message = "The steps of the recipe is not valid!")
     private String steps;
 
-    @Min(value = 1, message = "The rating of the recipe is not valid!")
-    private Float rating;
-
     @Min(value = 1, message = "The difficulty of the recipe is not valid!")
     private Float difficulty;
 
@@ -37,9 +34,6 @@ public class RecipeRequest {
 
     @NotBlank(message = "The notes of the recipe is not valid!")
     private String notes;
-
-    @Min(value = 1, message = "The title of the recipe is not valid!")
-    private Integer numberOfViews;
 
     @NotBlank(message = "The image path of the recipe is not valid!")
     private String imagePath;

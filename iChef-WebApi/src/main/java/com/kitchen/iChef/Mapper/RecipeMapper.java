@@ -25,10 +25,8 @@ public class RecipeMapper {
         recipe.setDifficulty(recipeRequest.getDifficulty());
         recipe.setImagePath(recipeRequest.getImagePath());
         recipe.setNotes(recipeRequest.getNotes());
-        recipe.setNumberOfViews(recipeRequest.getNumberOfViews());
         recipe.setPortions(recipeRequest.getPortions());
         recipe.setPreparationTime(recipeRequest.getPreparationTime());
-        recipe.setRating(recipeRequest.getRating());
         recipe.setSteps(recipeRequest.getSteps());
         recipe.setUtensils(recipeRequest.getUtensils());
         recipe.setTitle(recipeRequest.getTitle());

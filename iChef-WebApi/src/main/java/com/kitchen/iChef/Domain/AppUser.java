@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,9 +28,6 @@ public class AppUser {
     private ZonedDateTime lastOnline;
     private Boolean isAdmin;
     private String hashedPassword;
-
-/*    @OneToMany(mappedBy = "appUser")
-    private List<Recipe> recipes;*/
 
     @PrePersist
     private void ensureId() {
