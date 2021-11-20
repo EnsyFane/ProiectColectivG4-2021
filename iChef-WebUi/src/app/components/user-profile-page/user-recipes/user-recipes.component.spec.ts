@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UserRecipesComponent } from './user-recipes.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UserRecipesComponent', () => {
   let component: UserRecipesComponent;
@@ -8,7 +9,9 @@ describe('UserRecipesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserRecipesComponent ]
+        imports: [RouterTestingModule],
+        declarations: [ UserRecipesComponent ],
+        schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   });

@@ -27,7 +27,7 @@ export class RecipesService {
         return this.recipes;
     }
 
-    getRecipesByUserId(userId: string | undefined): Recipe[] {
+    getRecipesByUserId(userId: string): Recipe[] {
         return this.userRecipes;
     }
 

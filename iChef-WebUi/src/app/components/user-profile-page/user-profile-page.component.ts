@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PATHS } from 'src/app/constants/paths';
 import { ACCOUNT_MENU_LINKS } from 'src/app/constants/account-page';
 
@@ -8,6 +8,8 @@ import { ACCOUNT_MENU_LINKS } from 'src/app/constants/account-page';
   styleUrls: ['./user-profile-page.component.scss']
 })
 export class UserProfilePageComponent {
+
+    @Input() userId?: string;
 
     readonly landingPageImage = PATHS.LANDING_PAGE_IMAGE;
     readonly profilePicture = PATHS.DEFAULT_PROFILE_PICTURE;
