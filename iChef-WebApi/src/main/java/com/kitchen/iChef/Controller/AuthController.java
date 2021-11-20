@@ -1,6 +1,6 @@
 package com.kitchen.iChef.Controller;
 
-import com.kitchen.iChef.Controller.Mapper.SignUpMapper;
+import com.kitchen.iChef.Mapper.SignUpMapper;
 import com.kitchen.iChef.Controller.Model.Request.LogInRequest;
 import com.kitchen.iChef.Controller.Model.Request.SignUpRequest;
 import com.kitchen.iChef.Domain.Token;
