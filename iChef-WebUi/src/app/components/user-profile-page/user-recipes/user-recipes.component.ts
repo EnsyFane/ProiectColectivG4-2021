@@ -39,7 +39,9 @@ export class UserRecipesComponent implements OnInit {
     }
 
     deleteRecipe(recipe: Recipe): void {
-        this.recipeService.deleteRecipe(recipe.recipeId).subscribe();
+        if (recipe.recipeId) {
+            this.recipeService.deleteRecipe(recipe.recipeId).subscribe();
+        }
         this.refrehRecipes();
     }
 

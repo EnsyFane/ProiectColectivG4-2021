@@ -50,6 +50,7 @@ input:focus {
 
 .secondary-button {
     @include secondary-button;
+    @include thick();
     position: relative;
     top: 30px;
     width: 150px;
@@ -59,6 +60,7 @@ input:focus {
 
 .create-button{
     @include secondary-button;
+    @include thick();
     position: relative;
     top: 10px;
     width: 150px;

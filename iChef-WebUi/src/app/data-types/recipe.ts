@@ -1,12 +1,10 @@
-export interface RecipeIngredient {
-    ingredientName: string;
-    amount: number;
-}
+import { RecipeIngredient } from "./ingredient";
+import { Utensil } from "./utensil";
 
 export interface Recipe {
-    recipeId: string;
+    recipeId?: string;
     title: string;
-    utensils?: string[];
+    utensils?: Utensil[];
     steps: string;
     rating?: number;
     difficulty: number;
