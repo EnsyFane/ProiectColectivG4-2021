@@ -10,4 +10,5 @@ import lombok.ToString;
 public class RecipeIngredientDTO {
     private String ingredientName;
     private int amount;
+    private String measurementUnit;
 }

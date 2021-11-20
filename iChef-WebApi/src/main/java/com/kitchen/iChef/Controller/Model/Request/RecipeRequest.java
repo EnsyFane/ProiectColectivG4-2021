@@ -17,9 +17,6 @@ public class RecipeRequest {
     @NotBlank(message = "The title of the recipe is not valid!")
     private String title;
 
-    @NotBlank(message = "The utensils of the recipe is not valid!")
-    private String utensils;
-
     @NotBlank(message = "The steps of the recipe is not valid!")
     private String steps;
 
@@ -42,4 +39,7 @@ public class RecipeRequest {
 
     @NotEmpty(message = "The ingredients of the recipe is not valid!")
     private List<@Valid RecipeIngredientRequest> recipeIngredientsList;
+
+    @NotEmpty(message = "The utensils of the recipe is not valid!")
+    private List<@Valid RecipeUtensilRequest> recipeUtensilsList;
 }

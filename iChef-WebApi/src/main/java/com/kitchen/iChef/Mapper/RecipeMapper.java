@@ -2,10 +2,13 @@ package com.kitchen.iChef.Mapper;
 
 import com.kitchen.iChef.Controller.Model.Request.RecipeIngredientRequest;
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
+import com.kitchen.iChef.Controller.Model.Request.RecipeUtensilRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeIngredientResponse;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
+import com.kitchen.iChef.Controller.Model.Response.RecipeUtensilResponse;
 import com.kitchen.iChef.DTO.RecipeDTO;
 import com.kitchen.iChef.DTO.RecipeIngredientDTO;
+import com.kitchen.iChef.DTO.RecipeUtensilDTO;
 import com.kitchen.iChef.Domain.Recipe;
 
 import java.util.ArrayList;
@@ -13,9 +16,11 @@ import java.util.List;
 
 public class RecipeMapper {
     private final RecipeIngredientMapper recipeIngredientMapper;
+    private final RecipeUtensilMapper recipeUtensilMapper;
 
-    public RecipeMapper(RecipeIngredientMapper recipeIngredientMapper) {
+    public RecipeMapper(RecipeIngredientMapper recipeIngredientMapper, RecipeUtensilMapper recipeUtensilMapper) {
         this.recipeIngredientMapper = recipeIngredientMapper;
+        this.recipeUtensilMapper = recipeUtensilMapper;
     }
 
     public RecipeDTO mapFromRequest(RecipeRequest recipeRequest) {
@@ -28,7 +33,6 @@ public class RecipeMapper {
         recipe.setPortions(recipeRequest.getPortions());
         recipe.setPreparationTime(recipeRequest.getPreparationTime());
         recipe.setSteps(recipeRequest.getSteps());
-        recipe.setUtensils(recipeRequest.getUtensils());
         recipe.setTitle(recipeRequest.getTitle());
 
         List<RecipeIngredientDTO> list = new ArrayList<>();
@@ -36,6 +40,12 @@ public class RecipeMapper {
             list.add(recipeIngredientMapper.mapFromRequest(ri));
         }
         recipe.setRecipeIngredientDTOSList(list);
+
+        List<RecipeUtensilDTO> recipeUtensilDTOList = new ArrayList<>();
+        for (RecipeUtensilRequest ru : recipeRequest.getRecipeUtensilsList()) {
+            recipeUtensilDTOList.add(recipeUtensilMapper.mapFromRequest(ru));
+        }
+        recipe.setRecipeUtensilDTOSList(recipeUtensilDTOList);
 
         return recipe;
     }
@@ -53,14 +63,19 @@ public class RecipeMapper {
         recipeResponse.setNumberOfViews(recipe.getNumberOfViews());
         recipeResponse.setPortions(recipe.getPortions());
         recipeResponse.setSteps(recipe.getSteps());
-        recipeResponse.setUtensils(recipe.getUtensils());
         recipeResponse.setTitle(recipe.getTitle());
-        List<RecipeIngredientResponse> list = new ArrayList<>();
 
+        List<RecipeIngredientResponse> list = new ArrayList<>();
         for (RecipeIngredientDTO ri : recipe.getRecipeIngredientDTOSList()) {
             list.add(recipeIngredientMapper.mapToResponse(ri));
         }
         recipeResponse.setRecipeIngredientList(list);
+
+        List<RecipeUtensilResponse> recipeUtensilsResponse = new ArrayList<>();
+        for (RecipeUtensilDTO ru : recipe.getRecipeUtensilDTOSList()) {
+            recipeUtensilsResponse.add(recipeUtensilMapper.mapToResponse(ru));
+        }
+        recipeResponse.setRecipeUtensilList(recipeUtensilsResponse);
         return recipeResponse;
     }
 
@@ -77,7 +92,6 @@ public class RecipeMapper {
         recipeDTO.setNumberOfViews(recipe.getNumberOfViews());
         recipeDTO.setPortions(recipe.getPortions());
         recipeDTO.setSteps(recipe.getSteps());
-        recipeDTO.setUtensils(recipe.getUtensils());
         recipeDTO.setTitle(recipe.getTitle());
 
         return recipeDTO;
@@ -88,7 +102,6 @@ public class RecipeMapper {
 
         recipe.setPortions(recipeDto.getPortions());
         recipe.setSteps(recipeDto.getSteps());
-        recipe.setUtensils(recipeDto.getUtensils());
         recipe.setTitle(recipeDto.getTitle());
         recipe.setRecipeId(recipeDto.getRecipeId());
         recipe.setDifficulty(recipeDto.getDifficulty());

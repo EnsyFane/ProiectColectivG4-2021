@@ -4,6 +4,7 @@ import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
+import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -18,10 +19,11 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeMapper recipeMapper;
     private final RecipeIngredientMapper recipeIngredientMapper = new RecipeIngredientMapper();
+    private final RecipeUtensilMapper recipeUtensilMapper = new RecipeUtensilMapper();
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
-        this.recipeMapper = new RecipeMapper(recipeIngredientMapper);
+        this.recipeMapper = new RecipeMapper(recipeIngredientMapper, recipeUtensilMapper);
     }
 
     @GetMapping

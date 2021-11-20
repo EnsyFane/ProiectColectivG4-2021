@@ -17,7 +17,6 @@ public class Recipe {
     @Column(name = "recipe_id")
     private String recipeId;
     private String title;
-    private String utensils;
     private String steps;
     private Float rating;
     private Float difficulty;

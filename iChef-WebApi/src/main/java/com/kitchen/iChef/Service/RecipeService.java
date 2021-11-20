@@ -2,16 +2,13 @@ package com.kitchen.iChef.Service;
 
 import com.kitchen.iChef.DTO.RecipeDTO;
 import com.kitchen.iChef.DTO.RecipeIngredientDTO;
-import com.kitchen.iChef.Domain.Ingredient;
-import com.kitchen.iChef.Domain.Recipe;
-import com.kitchen.iChef.Domain.RecipeIngredient;
+import com.kitchen.iChef.DTO.RecipeUtensilDTO;
+import com.kitchen.iChef.Domain.*;
 import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
-import com.kitchen.iChef.Repository.IngredientRepository;
-import com.kitchen.iChef.Repository.RecipeIngredientRepository;
-import com.kitchen.iChef.Repository.RecipeRepository;
-import com.kitchen.iChef.Repository.UserRepository;
+import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
+import com.kitchen.iChef.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -24,18 +21,23 @@ import java.util.Optional;
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
+    private final UtensilRepository utensilRepository;
     private final RecipeIngredientRepository recipeIngredientRepository;
+    private final RecipeUtensilRepository recipeUtensilRepository;
     private final UserRepository userRepository;
 
     private final RecipeIngredientMapper recipeIngredientMapper = new RecipeIngredientMapper();
-    private final RecipeMapper recipeMapper = new RecipeMapper(recipeIngredientMapper);
+    private final RecipeUtensilMapper recipeUtensilMapper = new RecipeUtensilMapper();
+    private final RecipeMapper recipeMapper = new RecipeMapper(recipeIngredientMapper, recipeUtensilMapper);
 
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, UserRepository userRepository) {
+    public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, UtensilRepository utensilRepository, RecipeIngredientRepository recipeIngredientRepository, RecipeUtensilRepository recipeUtensilRepository, UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
+        this.utensilRepository = utensilRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
+        this.recipeUtensilRepository = recipeUtensilRepository;
         this.userRepository = userRepository;
 
     }
@@ -57,17 +59,36 @@ public class RecipeService {
                 ingredientRepository.save(i);
                 RecipeIngredient ri = new RecipeIngredient();
                 ri.setAmount(r.getAmount());
+                ri.setMeasurementUnit(r.getMeasurementUnit());
                 ri.setIngredient(i);
                 ri.setRecipe(recipe);
                 recipeIngredientRepository.save(ri);
-
             } else {
                 RecipeIngredient ri = new RecipeIngredient();
                 ri.setAmount(r.getAmount());
+                ri.setMeasurementUnit(r.getMeasurementUnit());
                 ri.setIngredient(ingredient.get());
                 ri.setRecipe(recipe);
                 recipeIngredientRepository.save(ri);
+            }
+        }
 
+        List<RecipeUtensilDTO> recipeUtensilDTOS = recipeDTO.getRecipeUtensilDTOSList();
+        for (RecipeUtensilDTO r : recipeUtensilDTOS) {
+            Optional<Utensil> utensil = utensilRepository.findByName(r.getUtensilName());
+            if (!utensil.isPresent()) {
+                Utensil u = new Utensil();
+                u.setName(r.getUtensilName());
+                utensilRepository.save(u);
+                RecipeUtensil ru = new RecipeUtensil();
+                ru.setRecipe(recipe);
+                ru.setUtensil(u);
+                recipeUtensilRepository.save(ru);
+            } else {
+                RecipeUtensil ru = new RecipeUtensil();
+                ru.setRecipe(recipe);
+                ru.setUtensil(utensil.get());
+                recipeUtensilRepository.save(ru);
             }
         }
         recipeDTO.setRecipeId(recipe.getRecipeId());
@@ -85,8 +106,11 @@ public class RecipeService {
         RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
         List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
-
         recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+        List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
+        recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
         return recipeDTO;
     }
 
@@ -96,8 +120,11 @@ public class RecipeService {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
             List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
-
             recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+            List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
+            recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
             list.add(recipeDTO);
         }
         return list;
@@ -112,11 +139,22 @@ public class RecipeService {
         }
         RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
         recipeDTO.setRecipeIngredientDTOSList(getRecipeIngredientsList(r));
+        recipeDTO.setRecipeUtensilDTOSList(getRecipeUtensilsList(r));
 
         try {
             recipeRepository.delete(id);
         } catch (Exception ex) {
             throw new ResourceNotFoundException("No recipe with this id");
+        }
+
+        for (RecipeUtensil ru : recipeUtensilRepository.findAll()) {
+            if (ru.getRecipe().getRecipeId().equals(r.getRecipeId())) {
+                try {
+                    recipeUtensilRepository.delete(ru.getRecipeUtensilId());
+                } catch (Exception ex) {
+                    throw new ResourceNotFoundException("No recipeUtensil with this id");
+                }
+            }
         }
 
         for (RecipeIngredient ri : recipeIngredientRepository.findAll()) {
@@ -128,6 +166,8 @@ public class RecipeService {
                 }
             }
         }
+
+
         return recipeDTO;
     }
 
@@ -142,8 +182,11 @@ public class RecipeService {
                 RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
                 List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
-
                 recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+                List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
+                recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
                 list.add(recipeDTO);
             }
         }
@@ -159,11 +202,28 @@ public class RecipeService {
                         RecipeIngredientDTO riDTO = new RecipeIngredientDTO();
                         riDTO.setIngredientName(i.getName());
                         riDTO.setAmount(ri.getAmount());
+                        riDTO.setMeasurementUnit(ri.getMeasurementUnit());
                         recipeIngredientDTOList.add(riDTO);
                     }
                 }
             }
         }
         return recipeIngredientDTOList;
+    }
+
+    private List<RecipeUtensilDTO> getRecipeUtensilsList(Recipe r) {
+        List<RecipeUtensilDTO> recipeUtensilDTOList = new ArrayList<>();
+        for (RecipeUtensil ru : recipeUtensilRepository.findAll()) {
+            if (ru.getRecipe().getRecipeId().equals(r.getRecipeId())) {
+                for (Utensil u : utensilRepository.findAll()) {
+                    if (ru.getUtensil().getUtensilId().equals(u.getUtensilId())) {
+                        RecipeUtensilDTO ruDTO = new RecipeUtensilDTO();
+                        ruDTO.setUtensilName(u.getName());
+                        recipeUtensilDTOList.add(ruDTO);
+                    }
+                }
+            }
+        }
+        return recipeUtensilDTOList;
     }
 }
