@@ -26,7 +26,7 @@ public class RecipeIngredient {
 
     private int amount;
 
-    private String um;
+    private String measurementUnit;
 
     @PrePersist
     private void ensureId() {

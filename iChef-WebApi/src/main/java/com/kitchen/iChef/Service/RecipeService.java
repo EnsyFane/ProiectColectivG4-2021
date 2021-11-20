@@ -59,14 +59,14 @@ public class RecipeService {
                 ingredientRepository.save(i);
                 RecipeIngredient ri = new RecipeIngredient();
                 ri.setAmount(r.getAmount());
-                ri.setUm(r.getUm());
+                ri.setMeasurementUnit(r.getMeasurementUnit());
                 ri.setIngredient(i);
                 ri.setRecipe(recipe);
                 recipeIngredientRepository.save(ri);
             } else {
                 RecipeIngredient ri = new RecipeIngredient();
                 ri.setAmount(r.getAmount());
-                ri.setUm(r.getUm());
+                ri.setMeasurementUnit(r.getMeasurementUnit());
                 ri.setIngredient(ingredient.get());
                 ri.setRecipe(recipe);
                 recipeIngredientRepository.save(ri);
@@ -202,7 +202,7 @@ public class RecipeService {
                         RecipeIngredientDTO riDTO = new RecipeIngredientDTO();
                         riDTO.setIngredientName(i.getName());
                         riDTO.setAmount(ri.getAmount());
-                        riDTO.setUm(ri.getUm());
+                        riDTO.setMeasurementUnit(ri.getMeasurementUnit());
                         recipeIngredientDTOList.add(riDTO);
                     }
                 }

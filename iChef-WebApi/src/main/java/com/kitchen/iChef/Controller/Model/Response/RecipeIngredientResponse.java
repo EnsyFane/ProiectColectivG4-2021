@@ -10,5 +10,5 @@ import lombok.ToString;
 public class RecipeIngredientResponse {
     private String ingredientName;
     private int amount;
-    private String um;
+    private String measurementUnit;
 }

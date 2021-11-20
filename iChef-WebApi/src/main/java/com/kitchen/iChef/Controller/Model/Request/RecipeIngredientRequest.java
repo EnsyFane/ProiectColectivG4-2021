@@ -19,5 +19,5 @@ public class RecipeIngredientRequest {
     private int amount;
 
     @NotBlank(message = "The um is not valid!")
-    private String um;
+    private String measurementUnit;
 }
