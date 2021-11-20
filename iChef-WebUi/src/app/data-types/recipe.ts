@@ -4,7 +4,7 @@ export interface RecipeIngredient {
 }
 
 export interface Recipe {
-    id: string;
+    recipeId: string;
     title: string;
     utensils?: string[];
     steps: string;

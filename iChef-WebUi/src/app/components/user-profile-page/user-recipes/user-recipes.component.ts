@@ -25,25 +25,29 @@ export class UserRecipesComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.userId = 'f7a520f8-32de-41e3-ab24-c6e5c7645051'; // This is preventive (it will be changed when we will have a user Service)
+        this.userId = 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'; // This is preventive (it will be changed when we will have a user Service)
+        this.refrehRecipes();
+    }
+
+    onSelectRecipe(recipe: Recipe): void {
+        this.router.navigate(['/recipes/details/' + recipe.recipeId]);
+    }
+
+    goToRecipeEdit(recipe: Recipe): void {
+        // TODO change the following line so it takes the user to the update page
+        this.router.navigate(['/recipes/details/' + recipe.recipeId]);
+    }
+
+    deleteRecipe(recipe: Recipe): void {
+        this.recipeService.deleteRecipe(recipe.recipeId).subscribe();
+        this.refrehRecipes();
+    }
+
+    private refrehRecipes(): void {
         this.recipeService.getRecipesByUserId(this.userId).pipe(
             tap(recipes => {
                 this.recipes = recipes;
             })
         ).subscribe();
-    }
-
-    onSelectRecipe(recipe: Recipe): void {
-        this.router.navigate(['/recipes/details/' + recipe.id]);
-    }
-
-    goToRecipeEdit(recipe: Recipe): void {
-        // TODO change the following line so it takes the user to the update page
-        this.router.navigate(['/recipes/details/' + recipe.id]);
-    }
-
-    deleteRecipe(recipe: Recipe): void {
-        this.recipeService.deleteRecipe(recipe.id);
-        this.ngOnInit();
     }
 }

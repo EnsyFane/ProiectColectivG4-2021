@@ -15,7 +15,7 @@
         {{searchBtn}}
     </button>
     <div class="recipe-cards">
-        <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" [routerLink]="['details', recipe.id]">
+        <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" [routerLink]="['details', recipe.recipeId]">
         </app-recipe-card>
     </div>
 </body>
