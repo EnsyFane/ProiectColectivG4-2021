@@ -4,17 +4,17 @@ export interface RecipeIngredient {
 }
 
 export interface Recipe {
-    id?: string;
-    title?: string;
+    id: string;
+    title: string;
     utensils?: string[];
-    steps?: string;
+    steps: string;
     rating?: number;
-    difficulty?: number;
-    preparationTime?: number;
-    portions?: number;
+    difficulty: number;
+    preparationTime: number;
+    portions: number;
     notes?: string;
     numberOfViews?: number;
     imagePath?: string;
-    userId?: string;
-    recipeIngredientsList?: RecipeIngredient[];
+    userId: string;
+    recipeIngredientsList: RecipeIngredient[];
 }

@@ -1,13 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {BUTTON_STRINGS, PLACEHOLDERS_STRINGS} from '../../../constants/texts';
-import {Recipe} from '../../../data-types/recipe';
-import {Router} from '@angular/router';
-import {RecipesService} from '../../../services/recipes.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS } from '../../../constants/texts';
+import { Recipe } from '../../../data-types/recipe';
+import { Router } from '@angular/router';
+import { RecipesService } from '../../../services/recipes.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-user-recipes',
-  templateUrl: './user-recipes.component.html',
-  styleUrls: ['./user-recipes.component.scss']
+    selector: 'app-user-recipes',
+    templateUrl: './user-recipes.component.html',
+    styleUrls: ['./user-recipes.component.scss']
 })
 export class UserRecipesComponent implements OnInit {
 
@@ -17,15 +18,19 @@ export class UserRecipesComponent implements OnInit {
     readonly searchPlaceHolder = PLACEHOLDERS_STRINGS.SEARCH;
     readonly createBtn = BUTTON_STRINGS.CREATE;
 
-    recipes: Recipe[] | undefined;
+    recipes: Recipe[] = [];
 
-    constructor(private recipeService: RecipesService,
-                private router: Router) {
-    }
+    constructor(
+        private recipeService: RecipesService,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.userId = '1'; // This is preventive (it will be changed when we will have a user Service)
-        this.recipes = this.recipeService.getRecipesByUserId(this.userId);
+        this.recipeService.getRecipesByUserId(this.userId).pipe(
+            tap(recipes => {
+                this.recipes = recipes;
+            })
+        ).subscribe();
     }
 
     onSelectRecipe(recipe: Recipe): void {
@@ -38,7 +43,7 @@ export class UserRecipesComponent implements OnInit {
     }
 
     deleteRecipe(recipe: Recipe): void {
-        this.recipeService.deleteRecipe(recipe);
+        this.recipeService.deleteRecipe(recipe.id);
         this.ngOnInit();
     }
 }

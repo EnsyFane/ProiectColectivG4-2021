@@ -40,42 +40,56 @@ export class RecipesService {
     }
 
     getRecipe(recipeId: string): Observable<Recipe> {
-        const recipes = this.getRecipes();
-        for (const recipe of recipes) {
-            if (recipe.id === recipeId) {
-                return of(recipe);
-            }
-        }
-        return of();
+        return this.http.get<Recipe>(this.baseUrl + `/recipes/${recipeId}`)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to get recipe with id ${recipeId} failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe;
+                })
+            );
     }
 
-    createRecipe(recipe: Recipe): Promise<Recipe> {
-        return new Promise((resolve, reject) => {
-            // TODO Here should be the BE call but for now we use local data
-            this.recipes.push(recipe);
-            resolve(recipe);
-        });
+    // TODO: Create model for recipe creation
+    createRecipe(recipe: any): Observable<Recipe> {
+        return this.http.post<Recipe>(this.baseUrl + '/recipes', recipe)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to get create recipe failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe;
+                })
+            );
     }
 
-    updateRecipe(recipe: Recipe): Promise<Recipe> {
-        return new Promise((resolve, reject) => {
-            // TODO Here should be the BE call but for now we use local data
-            resolve(recipe);
-        });
+    // TODO: Create model for recipe update
+    updateRecipe(recipe: any, recipeId: string): Observable<Recipe> {
+        return this.http.put<Recipe>(this.baseUrl + `/recipes/${recipeId}`, recipe)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to get update recipe with id ${recipeId} failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe;
+                })
+            );
     }
 
-    deleteRecipe(recipe: Recipe): Promise<Recipe> {
-        return new Promise((resolve, reject) => {
-            // TODO Here should be the BE call but for now we use local data
-            for (let i = 0; i < this.userRecipes.length; i++) {
-                if (this.userRecipes[i].id === recipe.id) {
-                    this.userRecipes.splice(i, 1);
-                }
-            }
-            resolve(recipe);
-        });
+    deleteRecipe(recipeId: string): Observable<Recipe> {
+        return this.http.delete<Recipe>(this.baseUrl + `/recipes/${recipeId}`)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to get update recipe with id ${recipeId} failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe;
+                })
+            );
     }
 
+    // TODO: Add error snackbar
     private handleHttpError(errorMessage: string): Observable<never> {
         return EMPTY;
     }

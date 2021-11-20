@@ -2,10 +2,11 @@
     <span class="difficulty">
         Difficulty: {{recipe.difficulty}}
     </span>
-    <img src={{recipe.image}} alt="food">
+    <img src={{recipe?.imagePath}} alt="food">
     <div class="title">
         <span>{{recipe.title}}</span>
-        <span class="rating"><span class="nr">{{recipe.rating}}</span> <mat-icon>stars</mat-icon></span>
+        <span class="rating"><span class="nr">{{recipe.rating}}</span>
+            <mat-icon>stars</mat-icon>
+        </span>
     </div>
 </div>
-

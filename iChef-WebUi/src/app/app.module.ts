@@ -15,6 +15,7 @@ import { ReviewCardComponent } from './components/recipe-details/review-card/rev
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
 import { UserRecipesComponent } from './components/user-profile-page/user-recipes/user-recipes.component';
 import { environment } from 'src/environments/environment';
+import { RecipesService } from './services/recipes.service';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { environment } from 'src/environments/environment';
         MatFormFieldModule
     ],
     providers: [
-        { provide: "BASE_API_URL", useValue: environment.apiUrl }
+        { provide: "BASE_API_URL", useValue: environment.apiUrl },
+        RecipesService
     ],
     bootstrap: [AppComponent]
 })
