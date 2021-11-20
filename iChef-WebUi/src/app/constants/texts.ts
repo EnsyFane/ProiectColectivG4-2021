@@ -40,5 +40,5 @@ export const TITLES = {
 
 export const PLACEHOLDERS_STRINGS = {
     SEARCH: 'Easy Recipes',
-    TITLE: 'Recipe Title',
+    TITLE: 'Recipe Title'
 };

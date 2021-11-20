@@ -24,7 +24,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     RecipePageComponent
-    
   ],
   imports: [
     CommonModule,
@@ -41,9 +40,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatSortModule,
     MatGridListModule
-    
   ],
-  exports: [ //ce comp are pagina
+  exports: [ // ce comp are pagina
     RecipePageComponent
   ]
 })

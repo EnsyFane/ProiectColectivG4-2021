@@ -21,7 +21,7 @@ export class RecipesComponent implements OnInit {
   recipe3: Recipe = new Recipe('Burger', 'Easy', '/assets/imgs/burger.jpg', [], [], '', '', '');
 
   constructor(private router: Router) { }
-  
+
   ngOnInit(): void {
     this.recipe1.id = '1';
     this.recipe1.rating = 4.5;

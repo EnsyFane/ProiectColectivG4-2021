@@ -1,5 +1,5 @@
-import { Ingredient } from "./ingredient";
-import { Utensil } from "./utensil";
+import { Ingredient } from './ingredient';
+import { Utensil } from './utensil';
 
 export class Recipe {
     id?: string;
