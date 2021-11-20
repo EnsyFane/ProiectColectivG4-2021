@@ -132,6 +132,8 @@ textarea {
   width: 90%;
   background-color: $white-transparent;
   border: none;
+  padding-left: 15px;
+  padding-top: 15px;
 }
 
 .field{
@@ -192,6 +194,7 @@ td{
   margin-right: 1.5%;
   box-sizing: border-box;
   vertical-align: top;
+  overflow-y: auto;
 }
 
 .utensils{
@@ -202,4 +205,63 @@ td{
   margin-left: 1.5%;
   box-sizing: border-box;
   vertical-align: top;
+  overflow-y: auto;
+}
+
+.ingredient-name{
+  margin-left: 30px;
+  float: left;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.delete-button{
+  @include secondary-button();
+  float: right;
+  margin-right: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 15px ;
+  line-height: 15px ;
+  padding: 2px 7px;
+  visibility: hidden;
+}
+
+span{
+  word-spacing: 25px;
+}
+
+.element{
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.element:hover{
+  .delete-button{
+    visibility: visible;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: $primary-color-transparent; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $primary-color; 
+}
+
+::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 20px; 
+}
+
+::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 20px;
 }

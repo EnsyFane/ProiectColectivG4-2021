@@ -13,7 +13,8 @@ export const BUTTON_STRINGS = {
     SEARCH: 'Search',
     CREATE: 'Create Recipe',
     FILTER: 'Filters',
-    REVIEW: 'Add Review'
+    REVIEW: 'Add Review',
+    SAVE: 'Save'
 };
 
 export const TITLES = {
@@ -21,9 +22,23 @@ export const TITLES = {
     INGREDIENTS: 'Ingredients',
     UTENSILS: 'Utensils',
     INSTRUCTIONS: 'Preparation Instructions',
-    NOTES: 'Extra Notes'
+    NOTES: 'Extra Notes',
+    CREATE: 'Recipe Creation',
+    INGREDIENTSUTENSILS: 'Ingredients & Utensils',
+    INGREDIENT: 'Ingredient:',
+    UTENSIL: 'Utensil:',
+    TIME: 'Time to prepare:',
+    DIFFICULTY: 'Difficulty:',
+    G: 'g',
+    KG: 'kg',
+    ML: 'ml',
+    L: 'l',
+    EASY: 'easy',
+    MEDIUM: 'medium',
+    HARD: 'hard'
 };
 
 export const PLACEHOLDERS_STRINGS = {
-    SEARCH: 'Easy Recipes'
+    SEARCH: 'Easy Recipes',
+    TITLE: 'Recipe Title',
 };
