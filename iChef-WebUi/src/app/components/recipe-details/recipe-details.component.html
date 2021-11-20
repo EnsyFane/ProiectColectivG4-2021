@@ -41,8 +41,8 @@
                 {{utensils}}
             </div>
             <br>
-            <ng-container *ngFor="let utensil of recipe?.utensils.split(';')">
-                <p> - {{utensil}}</p>
+            <ng-container *ngFor="let utensil of recipe?.utensils">
+                <p> - {{utensil.name}}</p>
             </ng-container>
         </div>
     </div>
