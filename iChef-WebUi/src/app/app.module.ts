@@ -22,7 +22,9 @@ import { UserRecipesComponent } from './components/user-profile-page/user-recipe
     LandingPageComponent,
     HeaderComponent,
     RecipeDetailsComponent,
-    ReviewCardComponent
+    ReviewCardComponent,
+    UserProfilePageComponent,
+    UserRecipesComponent
   ],
   imports: [
       BrowserModule,
@@ -32,10 +34,7 @@ import { UserRecipesComponent } from './components/user-profile-page/user-recipe
       MatButtonModule,
       MatIconModule,
       MatFormFieldModule,
-      RecipePageModule,
-      ReviewCardComponent,
-      UserProfilePageComponent,
-      UserRecipesComponent
+      RecipePageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
