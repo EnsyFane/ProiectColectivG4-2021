@@ -4,7 +4,8 @@
 
 html, body {
     height: 100%;
-    background-color: $primary-background-color
+    background-color: $primary-background-color;
+    overflow: hidden;
 }
 
 body {

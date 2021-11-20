@@ -12,13 +12,15 @@ export class HeaderComponent {
 
     readonly homeLink = HEADER_LINKS.HOME;
     readonly recipesLink = HEADER_LINKS.RECIPES;
+    readonly myAccountLink = HEADER_LINKS.MY_ACCOUNT;
     readonly loginBtn = BUTTON_STRINGS.LOGIN;
     readonly registerBtn = BUTTON_STRINGS.REGISTER;
     readonly appTitle = LANDING_PAGE_STRINGS.TITLE;
 
   headerLinks = new Map<string, boolean>([
       [this.homeLink, true],
-      [this.recipesLink, false]
+      [this.recipesLink, false],
+      [this.myAccountLink, false]
   ]);
 
   resetTabs() : void {
@@ -33,6 +35,8 @@ export class HeaderComponent {
           this.headerLinks.set(this.homeLink, true);
       } else if (tab === this.recipesLink) {
           this.headerLinks.set(this.recipesLink, true);
+      } else if (tab === this.myAccountLink) {
+          this.headerLinks.set(this.myAccountLink, true);
       }
   }
 }

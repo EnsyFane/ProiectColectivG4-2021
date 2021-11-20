@@ -1,4 +1,4 @@
-package com.kitchen.iChef.Controller.Mapper;
+package com.kitchen.iChef.Mapper;
 
 import com.kitchen.iChef.Controller.Model.Request.AppUserRequest;
 import com.kitchen.iChef.Controller.Model.Response.AppUserResponse;

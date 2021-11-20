@@ -13,6 +13,8 @@ import { RecipesModule } from './components/recipes/recipes.module';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
 import { RecipePageModule } from './components/recipe-page/recipe-page.module';
+import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
+import { UserRecipesComponent } from './components/user-profile-page/user-recipes/user-recipes.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,10 @@ import { RecipePageModule } from './components/recipe-page/recipe-page.module';
       MatButtonModule,
       MatIconModule,
       MatFormFieldModule,
-      RecipePageModule
+      RecipePageModule,
+      ReviewCardComponent,
+      UserProfilePageComponent,
+      UserRecipesComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
