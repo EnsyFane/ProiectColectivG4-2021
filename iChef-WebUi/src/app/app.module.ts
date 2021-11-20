@@ -12,25 +12,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingPageComponent,
-    HeaderComponent,
-    RecipeDetailsComponent,
-    ReviewCardComponent
-  ],
-  imports: [
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      RecipesModule,
-      MatButtonModule,
-      MatIconModule,
-      MatFormFieldModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LandingPageComponent,
+        HeaderComponent,
+        RecipeDetailsComponent,
+        ReviewCardComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        RecipesModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule
+    ],
+    providers: [
+        { provide: "BASE_API_URL", useValue: environment.apiUrl }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
