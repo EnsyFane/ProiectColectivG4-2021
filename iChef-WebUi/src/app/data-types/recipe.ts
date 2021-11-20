@@ -16,5 +16,5 @@ export interface Recipe {
     numberOfViews?: number;
     imagePath?: string;
     userId: string;
-    recipeIngredientsList: RecipeIngredient[];
+    recipeIngredientList: RecipeIngredient[];
 }

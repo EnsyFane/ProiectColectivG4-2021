@@ -25,7 +25,7 @@ export class UserRecipesComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.userId = '1'; // This is preventive (it will be changed when we will have a user Service)
+        this.userId = 'f7a520f8-32de-41e3-ab24-c6e5c7645051'; // This is preventive (it will be changed when we will have a user Service)
         this.recipeService.getRecipesByUserId(this.userId).pipe(
             tap(recipes => {
                 this.recipes = recipes;

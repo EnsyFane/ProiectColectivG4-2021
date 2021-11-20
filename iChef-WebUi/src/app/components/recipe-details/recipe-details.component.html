@@ -32,7 +32,7 @@
                 {{ingredients}}
             </div>
             <br>
-            <ng-container *ngFor="let ingredient of recipe?.recipeIngredientsList">
+            <ng-container *ngFor="let ingredient of recipe?.recipeIngredientList">
                 <p> - {{ingredient.ingredientName}} x {{ingredient.amount}}</p>
             </ng-container>
         </div>
