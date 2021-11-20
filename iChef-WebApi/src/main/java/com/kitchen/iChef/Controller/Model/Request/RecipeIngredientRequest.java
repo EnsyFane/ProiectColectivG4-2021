@@ -18,6 +18,6 @@ public class RecipeIngredientRequest {
     @Min(value = 1, message = "The ingredient amount is not valid!")
     private int amount;
 
-    @NotBlank(message = "The um is not valid!")
+    @NotBlank(message = "The measurementUnit is not valid!")
     private String measurementUnit;
 }
