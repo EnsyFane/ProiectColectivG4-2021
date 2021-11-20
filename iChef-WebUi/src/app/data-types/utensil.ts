@@ -1,8 +1,3 @@
-export class Utensil {
-    name?: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
-
+export interface Utensil {
+    utensilName?: string;
 }

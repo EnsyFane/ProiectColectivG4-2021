@@ -14,18 +14,19 @@
     <div class="long-black-separator margin-lr-auto"></div>
 
     <div class="recipes-container margin-lr-auto">
-        <div class="recipe-card" *ngFor="let recipe of recipes"
-                  (click)="onSelectRecipe(recipe)">
+        <div class="recipe-card" *ngFor="let recipe of recipes">
             <div class="recipe-card-content">
-                <app-recipe-card [recipe]="recipe"></app-recipe-card>
+                <app-recipe-card [recipe]="recipe" (click)="onSelectRecipe(recipe)"></app-recipe-card>
                 <div class="extra-buttons-column">
                     <div class="extra-button-container">
-                        <button class="extra-button" (click)="goToRecipeEdit(recipe)" mat-icon-button aria-label="Edit Recipe">
+                        <button class="extra-button" (click)="goToRecipeEdit(recipe)" mat-icon-button
+                            aria-label="Edit Recipe">
                             <mat-icon color="black">edit</mat-icon>
                         </button>
                     </div>
                     <div class="extra-button-container">
-                        <button class="extra-button" (click)="deleteRecipe(recipe)" mat-icon-button aria-label="Delete Recipe">
+                        <button class="extra-button" (click)="deleteRecipe(recipe)" mat-icon-button
+                            aria-label="Delete Recipe">
                             <mat-icon color="black">delete</mat-icon>
                         </button>
                     </div>

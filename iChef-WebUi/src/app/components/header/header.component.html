@@ -3,18 +3,12 @@
         <span class="font">{{appTitle}}</span>
     </div>
     <div class="links">
-        <a class="font link"
-           [ngClass]="{'active-tab': this.headerLinks.get(homeLink)}"
-           routerLink="home"
-           (click)="setActiveTab(homeLink)">{{homeLink}}</a>
-        <a class="font link"
-           [ngClass]="{'active-tab': this.headerLinks.get(recipesLink)}"
-           routerLink="recipes"
-           (click)="setActiveTab(recipesLink)">{{recipesLink}}</a>
-        <a class="font link"
-           [ngClass]="{'active-tab': this.headerLinks.get(myAccountLink)}"
-           routerLink="my-account"
-           (click)="setActiveTab(myAccountLink)">{{myAccountLink}}</a>
+        <a class="font link" [routerLinkActive]="'active-tab'" routerLink="home"
+            (click)="setActiveTab(homeLink)">{{homeLink}}</a>
+        <a class="font link" [routerLinkActive]="'active-tab'" routerLink="recipes"
+            (click)="setActiveTab(recipesLink)">{{recipesLink}}</a>
+        <a class="font link" [routerLinkActive]="'active-tab'" routerLink="my-account"
+            (click)="setActiveTab(myAccountLink)">{{myAccountLink}}</a>
     </div>
     <div class="credential-buttons">
         <button mat-raised-button class="font primary-button">

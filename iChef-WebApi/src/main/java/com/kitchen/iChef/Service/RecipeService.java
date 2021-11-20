@@ -11,7 +11,6 @@ import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
 import com.kitchen.iChef.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,7 +171,7 @@ public class RecipeService {
     }
 
     public RecipeDTO updateRecipe(RecipeDTO recipeDTO) {
-        throw new NotImplementedException();
+        throw new ResourceNotFoundException("Not yet implemented.");
     }
 
     public List<RecipeDTO> getAllUserRecipes(String userId) {
