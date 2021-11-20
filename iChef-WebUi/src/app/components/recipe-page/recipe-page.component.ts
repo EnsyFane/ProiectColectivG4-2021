@@ -139,7 +139,7 @@ export class RecipePageComponent {
 
             const recipe: Recipe = {
                 title: this.title.value,
-                userId: '',
+                userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a',
                 portions: 1,
                 difficulty: this.difficulty.value,
                 recipeIngredientList: ingredientObjects,

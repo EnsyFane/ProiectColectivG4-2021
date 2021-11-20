@@ -40,9 +40,8 @@ export class UserRecipesComponent implements OnInit {
 
     deleteRecipe(recipe: Recipe): void {
         if (recipe.recipeId) {
-            this.recipeService.deleteRecipe(recipe.recipeId).subscribe();
+            this.recipeService.deleteRecipe(recipe.recipeId).subscribe(() => this.refrehRecipes());
         }
-        this.refrehRecipes();
     }
 
     private refrehRecipes(): void {
