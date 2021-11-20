@@ -12,7 +12,6 @@ import java.util.List;
 public class RecipeDTO {
     private String recipeId;
     private String title;
-    private String utensils;
     private String steps;
     private Float rating;
     private Float difficulty;
@@ -23,4 +22,5 @@ public class RecipeDTO {
     private String imagePath;
     private String userId;
     private List<RecipeIngredientDTO> recipeIngredientDTOSList;
+    private List<RecipeUtensilDTO> recipeUtensilDTOSList;
 }

@@ -11,25 +11,23 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@Table(name = "recipe_ingredient")
-public class RecipeIngredient {
+@Table(name = "recipe_utensil")
+public class RecipeUtensil {
+
     @Id
-    private String recipeIngredientId;
+    private String recipeUtensilId;
 
     @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Recipe recipe;
 
-    @JoinColumn(name = "ingredient_id", referencedColumnName = "ingredient_id")
+    @JoinColumn(name = "utensil_id", referencedColumnName = "utensil_id")
     @ManyToOne
-    private Ingredient ingredient;
-
-    private int amount;
-
-    private String um;
+    private Utensil utensil;
 
     @PrePersist
     private void ensureId() {
-        this.setRecipeIngredientId(UUID.randomUUID().toString());
+        this.setRecipeUtensilId(UUID.randomUUID().toString());
     }
 }
+

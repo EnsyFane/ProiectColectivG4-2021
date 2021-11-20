@@ -7,8 +7,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RecipeIngredientResponse {
-    private String ingredientName;
-    private int amount;
-    private String um;
+public class RecipeUtensilResponse {
+    private String utensilName;
 }
