@@ -43,6 +43,7 @@ public class RecipeMapper {
     public RecipeResponse mapToResponse(RecipeDTO recipe) {
         RecipeResponse recipeResponse = new RecipeResponse();
 
+        recipeResponse.setRecipeId(recipe.getRecipeId());
         recipeResponse.setPreparationTime(recipe.getPreparationTime());
         recipeResponse.setRating(recipe.getRating());
         recipeResponse.setUserId(recipe.getUserId());

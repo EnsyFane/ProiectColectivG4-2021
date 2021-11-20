@@ -70,6 +70,7 @@ public class RecipeService {
 
             }
         }
+        recipeDTO.setRecipeId(recipe.getRecipeId());
         return recipeDTO;
     }
 
