@@ -1,9 +1,11 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TITLES, PLACEHOLDERS_STRINGS, BUTTON_STRINGS } from 'src/app/constants/texts';
 import { RecipeIngredient } from 'src/app/data-types/ingredient';
 import { Recipe } from 'src/app/data-types/recipe';
 import { Utensil } from 'src/app/data-types/utensil';
+import { RecipesService } from 'src/app/services/recipes.service';
 
 /**
  * @title Dynamic grid-list
@@ -36,7 +38,11 @@ export class RecipePageComponent {
     readonly medium = TITLES.MEDIUM;
     readonly hard = TITLES.HARD;
 
-    constructor(private renderer: Renderer2) { }
+    constructor(
+        private renderer: Renderer2,
+        private recipeService: RecipesService,
+        private router: Router
+    ) { }
 
     @ViewChild('ingredientsContainer') ingredientsContainer!: ElementRef;
     @ViewChild('utensilsContainer') utensilsContainer!: ElementRef;
@@ -56,7 +62,7 @@ export class RecipePageComponent {
     instructions = new FormControl('');
     notes = new FormControl('');
 
-    addIngredient = () => {
+    addIngredient(): void {
         if (this.ingredientName.value === '' || this.amount.value === '' || this.quantity.value === '') {
             window.alert('Insert name, amount and quantity for ingredient!');
         } else {
@@ -87,7 +93,7 @@ export class RecipePageComponent {
         }
     }
 
-    addUtensil = () => {
+    addUtensil(): void {
         if (this.utensilName.value === '') {
             window.alert('Insert name for utensil!');
         } else {
@@ -118,9 +124,9 @@ export class RecipePageComponent {
         }
     }
 
-    saveRecipe = () => {
-        if (this.title.value === '' || this.ingredients.length === 0 || this.utensils.length === 0 || this.time.value === '' || this.difficulty.value === '' || this.instructions.value === '' || this.notes.value === '') {
-            window.alert('Insert title, ingredients, utensils, time to prepare, difficulty, instructions and extra notex for recipe!');
+    saveRecipe(): void {
+        if (!this.title.value || !this.ingredients.length || !this.utensils.length || !this.time.value || !this.difficulty.value || !this.instructions.value || !this.notes.value) {
+            window.alert('Insert title, ingredients, utensils, time to prepare, difficulty, instructions and extra notes for recipe!');
         } else {
             const ingredientObjects: RecipeIngredient[] = [];
             const utensilObjects: Utensil[] = [];
@@ -129,27 +135,32 @@ export class RecipePageComponent {
                 const elements = element.split(' ');
                 ingredientObjects.push({
                     ingredientName: elements[0],
-                    amount: parseInt(elements[1], 10)
+                    amount: parseInt(elements[1], 10),
+                    measurementUnit: elements[2]
                 });
             });
 
             this.utensils.forEach(element => {
-                utensilObjects.push({ name: element });
+                utensilObjects.push({ utensilName: element });
             });
 
             const recipe: Recipe = {
+                difficulty: this.difficulty.value,
+                // TODO: Remove hardcoding once image uploading is supported.
+                imagePath: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+                notes: this.notes.value,
+                portions: 1,
+                preparationTime: this.time.value,
+                recipeIngredientList: ingredientObjects,
+                recipeUtensilList: utensilObjects,
+                steps: this.instructions.value,
                 title: this.title.value,
                 userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a',
-                portions: 1,
-                difficulty: this.difficulty.value,
-                recipeIngredientList: ingredientObjects,
-                utensils: utensilObjects,
-                preparationTime: this.time.value,
-                steps: this.instructions.value,
-                notes: this.notes.value
             };
 
-            window.alert(recipe);
+            this.recipeService.createRecipe(recipe).subscribe(() => {
+                this.router.navigate(['recipes']);
+            });
         }
     }
 

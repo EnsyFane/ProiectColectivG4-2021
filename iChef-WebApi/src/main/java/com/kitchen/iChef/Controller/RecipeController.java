@@ -2,12 +2,12 @@ package com.kitchen.iChef.Controller;
 
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
+import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -52,7 +52,7 @@ public class RecipeController {
 
     @PutMapping(value = "/{id}")
     public RecipeResponse updateRecipe(@PathVariable String id, @Valid @RequestBody RecipeRequest recipeRequest) {
-        throw new NotImplementedException();
+        throw new ResourceNotFoundException("Not yet implemented.");
     }
 
     @GetMapping(value = "/userId/{userId}")

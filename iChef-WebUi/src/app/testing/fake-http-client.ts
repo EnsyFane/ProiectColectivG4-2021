@@ -72,8 +72,8 @@ export class FakeHttpClient {
             steps: 'All steps',
             title: 'Title',
             userId: 'user-id',
-            utensils: [{
-                name: 'Utensils'
+            recipeUtensilList: [{
+                utensilName: 'Utensils'
             }]
         };
     }

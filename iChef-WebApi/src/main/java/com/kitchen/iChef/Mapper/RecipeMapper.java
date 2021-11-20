@@ -36,13 +36,13 @@ public class RecipeMapper {
         recipe.setTitle(recipeRequest.getTitle());
 
         List<RecipeIngredientDTO> list = new ArrayList<>();
-        for (RecipeIngredientRequest ri : recipeRequest.getRecipeIngredientsList()) {
+        for (RecipeIngredientRequest ri : recipeRequest.getRecipeIngredientList()) {
             list.add(recipeIngredientMapper.mapFromRequest(ri));
         }
         recipe.setRecipeIngredientDTOSList(list);
 
         List<RecipeUtensilDTO> recipeUtensilDTOList = new ArrayList<>();
-        for (RecipeUtensilRequest ru : recipeRequest.getRecipeUtensilsList()) {
+        for (RecipeUtensilRequest ru : recipeRequest.getRecipeUtensilList()) {
             recipeUtensilDTOList.add(recipeUtensilMapper.mapFromRequest(ru));
         }
         recipe.setRecipeUtensilDTOSList(recipeUtensilDTOList);
