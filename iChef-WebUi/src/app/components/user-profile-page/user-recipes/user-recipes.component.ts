@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators';
 })
 export class UserRecipesComponent implements OnInit {
 
-    @Input() userId?: string;
+    @Input() userId!: string;
 
     readonly searchBtn = BUTTON_STRINGS.SEARCH;
     readonly searchPlaceHolder = PLACEHOLDERS_STRINGS.SEARCH;

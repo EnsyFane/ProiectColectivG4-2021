@@ -26,7 +26,7 @@ export class RecipesService {
             );
     }
 
-    getRecipesByUserId(userId: string | undefined): Observable<Recipe[]> {
+    getRecipesByUserId(userId: string): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(this.baseUrl + '/recipes')
             .pipe(
                 catchError((error: any) => {
