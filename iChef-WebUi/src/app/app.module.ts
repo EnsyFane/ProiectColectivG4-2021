@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ReviewCardComponent } from './components/recipe-details/review-card/review-card.component';
+import { RecipePageModule } from './components/recipe-page/recipe-page.module';
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
 import { UserRecipesComponent } from './components/user-profile-page/user-recipes/user-recipes.component';
 
@@ -25,15 +26,16 @@ import { UserRecipesComponent } from './components/user-profile-page/user-recipe
     UserProfilePageComponent,
     UserRecipesComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        RecipesModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule
-    ],
+  imports: [
+      BrowserModule,
+      AppRoutingModule,
+      BrowserAnimationsModule,
+      RecipesModule,
+      MatButtonModule,
+      MatIconModule,
+      MatFormFieldModule,
+      RecipePageModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
