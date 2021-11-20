@@ -24,6 +24,7 @@ export class UserRecipesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.userId = '1'; // This is preventive (it will be changed when we will have a user Service)
         this.recipes = this.recipeService.getRecipesByUserId(this.userId);
     }
 
