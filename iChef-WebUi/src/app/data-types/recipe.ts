@@ -1,5 +1,5 @@
-import { RecipeIngredient } from "./ingredient";
-import { Utensil } from "./utensil";
+import { RecipeIngredient } from './ingredient';
+import { Utensil } from './utensil';
 
 export interface Recipe {
     recipeId?: string;

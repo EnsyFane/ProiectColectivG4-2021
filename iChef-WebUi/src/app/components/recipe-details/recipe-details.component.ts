@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { BUTTON_STRINGS, TITLES } from 'src/app/constants/texts';
 import { Recipe } from 'src/app/data-types/recipe';

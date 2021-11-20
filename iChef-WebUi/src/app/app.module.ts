@@ -39,7 +39,7 @@ import { RecipesService } from './services/recipes.service';
         RecipePageModule
     ],
     providers: [
-        { provide: "BASE_API_URL", useValue: environment.apiUrl },
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
         RecipesService
     ],
     bootstrap: [AppComponent]

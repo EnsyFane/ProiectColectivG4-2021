@@ -50,7 +50,7 @@ const routes: Routes = [
         RecipeCardComponent
     ],
     providers: [
-        { provide: "BASE_API_URL", useValue: environment.apiUrl },
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
         RecipesService
     ]
 })

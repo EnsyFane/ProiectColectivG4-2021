@@ -126,10 +126,10 @@ export class RecipePageComponent {
             const utensilObjects: Utensil[] = [];
 
             this.ingredients.forEach(element => {
-                var elements = element.split(' ');
+                const elements = element.split(' ');
                 ingredientObjects.push({
                     ingredientName: elements[0],
-                    amount: parseInt(elements[1]),
+                    amount: parseInt(elements[1], 10)
                 });
             });
 
