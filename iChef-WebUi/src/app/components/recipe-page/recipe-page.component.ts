@@ -126,11 +126,11 @@ export class RecipePageComponent {
       const utensilObjects: Utensil[] = [];
 
       this.ingredients.forEach(element => {
-        ingredientObjects.push(new Ingredient(element));
+        ingredientObjects.push(new Ingredient(element.split(' ')[0], element.split(' ')[1], element.split(' ')[2]));
       });
 
       this.utensils.forEach(element => {
-        utensilObjects.push(new Ingredient(element));
+        utensilObjects.push(new Utensil(element));
       });
 
       const recipe = new Recipe(this.title.value, this.difficulty.value, '', ingredientObjects, utensilObjects, this.time.value, this.instructions.value, this.notes.value);
