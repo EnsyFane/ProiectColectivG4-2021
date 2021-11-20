@@ -7,7 +7,7 @@
     @include thick;
     color: black;
     font-size: 144px;
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 .description {
@@ -15,7 +15,7 @@
     @include thick;
     color: black;
     font-size: 18px;
-    margin-top: 40px;
+    margin-top: 70px;
     margin-bottom: 40px;
     width: 60%;
 }
@@ -23,4 +23,9 @@
 .secondary-button {
     margin-top: 20px;
     width: 150px;
+}
+
+.crop-image {
+    object-fit: cover;
+    height: 230px;
 }
