@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @ToString
 public class RecipeResponse {
+    private String recipeId;
     private String title;
     private String utensils;
     private String steps;
