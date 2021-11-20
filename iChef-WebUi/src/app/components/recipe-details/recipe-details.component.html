@@ -33,7 +33,7 @@
             </div>
             <br>
             <ng-container *ngFor="let ingredient of recipe.ingredients" >
-                <p> - {{ingredient}}</p>
+                <p> - {{ingredient.name}}</p>
             </ng-container>
         </div>
         <div class="utensils">
@@ -42,7 +42,7 @@
             </div>
             <br>
             <ng-container *ngFor="let utensil of recipe.utensils" >
-                <p> - {{utensil}}</p>
+                <p> - {{utensil.name}}</p>
             </ng-container>
         </div>
     </div>
