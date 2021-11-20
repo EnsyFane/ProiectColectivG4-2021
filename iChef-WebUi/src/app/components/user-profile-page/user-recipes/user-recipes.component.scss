@@ -1,0 +1,105 @@
+@import 'src/app/styles/variables.scss';
+@import 'src/app/styles/mixins.scss';
+@import 'src/styles.scss';
+
+.recipes-widget {
+    width: 100%;
+    height: 100%;
+}
+
+.font {
+    @include font;
+    @include thick;
+    font-size: 18px;
+    color: black;
+}
+
+.title {
+    margin-top: 10px;
+}
+
+.header-area {
+    width: 95%;
+    margin: auto;
+
+    .search-input {
+        display: inline-block;
+        position: relative;
+        margin: auto 10px auto 0;
+    }
+
+    .secondary-button {
+        top: -1px;
+        width: 150px;
+    }
+}
+
+.long-black-separator {
+    background-color: black;
+    width: 95%;
+    height: 0.5%;
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+
+.recipes-container {
+    position: relative;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: 63%;
+
+    app-recipe-card {
+        flex: none;
+        width: 33.33%;
+        cursor: pointer;
+        overflow: hidden;
+    }
+}
+
+.recipe-card {
+    width: 33.33%;
+    height: 100%;
+    &.hover {
+        button {
+            display: inline;
+        }
+    }
+}
+
+.create-button{
+    @include primary-button;
+    position: relative;
+    width: 180px;
+    margin-top: 5px;
+}
+
+.extra-buttons-column {
+    display: none;
+    float: right;
+    right: 5px;
+    top: -265px;
+    position: relative;
+
+    .extra-button-container {
+        margin: 5px 0 5px 0;
+        display: flex;
+        justify-content: center;
+        width: 60px;
+        .extra-button {
+            background-color: white;
+            border: 1px solid black;
+        }
+    }
+}
+
+.recipe-card-content:hover {
+    .extra-buttons-column {
+        display: inline;
+    }
+}
+
+.extra-button-container:hover {
+    cursor: pointer;
+}
