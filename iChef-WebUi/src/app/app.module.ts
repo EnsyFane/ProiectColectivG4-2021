@@ -15,28 +15,33 @@ import { ReviewCardComponent } from './components/recipe-details/review-card/rev
 import { RecipePageModule } from './components/recipe-page/recipe-page.module';
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
 import { UserRecipesComponent } from './components/user-profile-page/user-recipes/user-recipes.component';
+import { environment } from 'src/environments/environment';
+import { RecipesService } from './services/recipes.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LandingPageComponent,
-    HeaderComponent,
-    RecipeDetailsComponent,
-    ReviewCardComponent,
-    UserProfilePageComponent,
-    UserRecipesComponent
-  ],
-  imports: [
-      BrowserModule,
-      AppRoutingModule,
-      BrowserAnimationsModule,
-      RecipesModule,
-      MatButtonModule,
-      MatIconModule,
-      MatFormFieldModule,
-      RecipePageModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LandingPageComponent,
+        HeaderComponent,
+        RecipeDetailsComponent,
+        ReviewCardComponent,
+        UserProfilePageComponent,
+        UserRecipesComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        RecipesModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        RecipePageModule
+    ],
+    providers: [
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        RecipesService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

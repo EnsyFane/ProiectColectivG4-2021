@@ -11,39 +11,47 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
+import { RecipesService } from 'src/app/services/recipes.service';
+import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: RecipesComponent
-  }
+    {
+        path: '',
+        component: RecipesComponent
+    }
 ];
 
 @NgModule({
-  declarations: [
-    RecipesComponent,
-    RecipeCardComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    MatTableModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatSelectModule,
-    MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSortModule
-  ],
-  exports: [
-    RecipesComponent,
-    RecipeCardComponent
-  ]
+    declarations: [
+        RecipesComponent,
+        RecipeCardComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        MatTableModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatSelectModule,
+        MatCardModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSortModule,
+        HttpClientModule
+    ],
+    exports: [
+        RecipesComponent,
+        RecipeCardComponent
+    ],
+    providers: [
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        RecipesService
+    ]
 })
 export class RecipesModule { }
