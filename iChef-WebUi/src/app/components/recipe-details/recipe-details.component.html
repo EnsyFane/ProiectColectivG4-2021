@@ -1,16 +1,16 @@
 <div class="left">
     <div class="up">
-        <img src={{recipe.image}} alt="food">
+        <img src={{recipe?.imagePath}} alt="food">
     </div>
     <div class="down">
         <div class="title">
-            {{recipe.title}}
+            {{recipe?.title}}
         </div>
         <div class="details">
             <div class="header">
-                <span>Difficulty: {{recipe.difficulty}}</span>
-                <span>{{recipe.time}}<mat-icon>schedule</mat-icon></span>
-                <span>{{recipe.rating}} <mat-icon>stars</mat-icon></span>
+                <span>Difficulty: {{recipe?.difficulty}}</span>
+                <span>{{recipe?.preparationTime}}<mat-icon>schedule</mat-icon></span>
+                <span>{{recipe?.rating}} <mat-icon>stars</mat-icon></span>
             </div>
             <br>
             <div class="header">
@@ -29,11 +29,11 @@
     <div class="container">
         <div class="ingredients">
             <div class="subtitle">
-                {{ingredients}} 
+                {{ingredients}}
             </div>
             <br>
-            <ng-container *ngFor="let ingredient of recipe.ingredients" >
-                <p> - {{ingredient}}</p>
+            <ng-container *ngFor="let ingredient of recipe?.recipeIngredientList">
+                <p> - {{ingredient.ingredientName}} x {{ingredient.amount}}</p>
             </ng-container>
         </div>
         <div class="utensils">
@@ -41,19 +41,19 @@
                 {{utensils}}
             </div>
             <br>
-            <ng-container *ngFor="let utensil of recipe.utensils" >
-                <p> - {{utensil}}</p>
+            <ng-container *ngFor="let utensil of recipe?.recipeUtensilList">
+                <p> - {{utensil.utensilName}}</p>
             </ng-container>
         </div>
     </div>
-    
+
     <div class="instructions">
         <div class="subtitle">
             {{instructions}}
         </div>
         <br>
         <div class="inside">
-            {{recipe.preparationInstructions}}
+            {{recipe?.steps}}
         </div>
     </div>
     <div class="notes">
@@ -62,7 +62,7 @@
         </div>
         <br>
         <div class="inside">
-            {{recipe.extraNotes}}
+            {{recipe?.notes}}
         </div>
     </div>
 </div>

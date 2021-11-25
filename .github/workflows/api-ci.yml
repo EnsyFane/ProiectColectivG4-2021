@@ -41,7 +41,7 @@ jobs:
       - name: Start Server
         run: |
           cd iChef-WebApi/target
-          java -jar iChef-0.0.1-SNAPSHOT.jar &
+          java -jar iChef-1.0.0.jar &
 
       - name: Test
         run: |

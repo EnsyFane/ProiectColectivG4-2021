@@ -1,0 +1,103 @@
+<body>
+
+    <h1>{{create}}</h1>
+    <div class="left">
+
+        <div class="form-field">
+            <input [formControl]="title" class="input" text-align="center" placeholder="{{titlePlaceHolder}}">
+        </div>
+
+        <table>
+            <tr>
+                <td>
+                    <label class="form-field-smaller">{{ingredient}}</label>
+                </td>
+                <td>
+                    <span class="form-field-smaller">
+                        <input [formControl]="ingredientName" class="input-smaller">
+                    </span>
+                </td>
+                <td>
+                    <span class="form-field-smaller">
+                        <input type="number" [formControl]="amount" class="input-smaller">
+                    </span>
+                </td>
+                <td>
+                    <select [formControl]="quantity">
+                        <option value="g">{{g}}</option>
+                        <option value="kg">{{kg}}</option>
+                        <option value="ml">{{ml}}</option>
+                        <option value="l">{{l}}</option>
+                    </select>
+
+                    <button (click)="addIngredient();" mat-raised-button class="add-button">+</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="form-field-smaller">{{utensil}}</label>
+                </td>
+                <td id="utensils">
+                    <span class="form-field-smaller">
+                        <input [formControl]="utensilName" id="utensil-name">
+                    </span>
+                    <button (click)="addUtensil();" mat-raised-button class="add-button">+</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="form-field-smaller">{{timeTitle}}</label>
+                </td>
+                <td>
+                    <span class="form-field-smaller">
+                        <input [formControl]="time" class="input-smaller">
+                    </span>
+                </td>
+                <td>
+                    <label class="form-field-smaller">{{difficultyTitle}}</label>
+                </td>
+                <td>
+                    <select [formControl]="difficulty" name="Difficulty">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <div class="field">
+            <p>{{instructionsTitle}}</p>
+            <textarea [formControl]="instructions" rows="8" cols="85">
+          </textarea>
+            <br>
+        </div>
+
+        <div class="field">
+            <p>{{notesTitle}}</p>
+            <textarea [formControl]="notes" rows="6" cols="85">
+          </textarea>
+            <br>
+        </div>
+    </div>
+
+    <div class="right">
+
+        <div class="up">
+            <h2>{{ingredientsUtensilsTitle}}</h2>
+            <div #ingredientsContainer class="ingredients">
+                <h3>{{ingredientsTitle}}</h3>
+            </div>
+            <div #utensilsContainer class="utensils">
+                <h3>{{utensilsTitle}}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <button (click)="saveRecipe();" mat-raised-button class="save">
+        {{saveBtn}}
+    </button>
+</body>

@@ -1,6 +1,6 @@
 package com.kitchen.iChef.Controller;
 
-import com.kitchen.iChef.Controller.Mapper.AppUserMapper;
+import com.kitchen.iChef.Mapper.AppUserMapper;
 import com.kitchen.iChef.Controller.Model.Request.AppUserRequest;
 import com.kitchen.iChef.Controller.Model.Response.AppUserResponse;
 import com.kitchen.iChef.Domain.AppUser;
