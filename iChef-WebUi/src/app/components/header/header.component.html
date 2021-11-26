@@ -3,12 +3,11 @@
         <span class="font">{{appTitle}}</span>
     </div>
     <div class="links">
-        <a class="font link" [routerLinkActive]="'active-tab'" routerLink="home"
-            (click)="setActiveTab(homeLink)">{{homeLink}}</a>
-        <a class="font link" [routerLinkActive]="'active-tab'" routerLink="recipes"
-            (click)="setActiveTab(recipesLink)">{{recipesLink}}</a>
-        <a class="font link" [routerLinkActive]="'active-tab'" routerLink="my-account"
-            (click)="setActiveTab(myAccountLink)">{{myAccountLink}}</a>
+        <a id="home-link" class="font link" [routerLinkActive]="'active-tab'" routerLink="home">{{homeLink}}</a>
+        <a id="recipes-link" class="font link" [routerLinkActive]="'active-tab'"
+            routerLink="recipes">{{recipesLink}}</a>
+        <a id="account-link" class="font link" [routerLinkActive]="'active-tab'"
+            routerLink="my-account">{{myAccountLink}}</a>
     </div>
     <div class="credential-buttons">
         <button mat-raised-button class="font primary-button">
