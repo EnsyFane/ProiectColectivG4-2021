@@ -15118,7 +15118,7 @@
 															"top": 47,
 															"width": 163.10546875,
 															"height": 13,
-															"text": "AuthenticationController"
+															"text": "AuthController"
 														},
 														{
 															"_type": "LabelView",
@@ -15235,7 +15235,7 @@
 															"top": 47,
 															"width": 149.4072265625,
 															"height": 13,
-															"text": "AuthenticationFacade"
+															"text": "UserService"
 														},
 														{
 															"_type": "LabelView",
@@ -17747,7 +17747,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8dcbgnq+cxio="
 									},
-									"name": "AuthenticationController",
+									"name": "AuthController",
 									"represent": {
 										"$ref": "AAAAAAF8dcbgn7AypMM="
 									},
@@ -17759,7 +17759,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8dcbgnq+cxio="
 									},
-									"name": "AuthenticationFacade",
+									"name": "UserService",
 									"represent": {
 										"$ref": "AAAAAAF8dcbgn7Azyg0="
 									},
@@ -17824,9 +17824,9 @@
 														"$ref": "AAAAAAF8dclQ8QSBQFU="
 													},
 													"font": "Arial;13;0",
-													"left": 30.55908203125,
+													"left": 32.72998046875,
 													"top": 13,
-													"width": 90.5400390625,
+													"width": 102.18798828125,
 													"height": 13,
 													"text": "SignUpSequence"
 												},
@@ -17839,7 +17839,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 12.55908203125,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "sd"
 												}
@@ -18015,7 +18015,7 @@
 															"top": 47,
 															"width": 163.10546875,
 															"height": 13,
-															"text": "AuthenticationController"
+															"text": "AuthController"
 														},
 														{
 															"_type": "LabelView",
@@ -18130,7 +18130,7 @@
 															"top": 47,
 															"width": 145.79541015625,
 															"height": 13,
-															"text": "AuthenticationFacade"
+															"text": "UserService"
 														},
 														{
 															"_type": "LabelView",
@@ -18459,9 +18459,9 @@
 														"$ref": "AAAAAAF8dcz+JQYgfLo="
 													},
 													"font": "Arial;13;0",
-													"left": 129,
+													"left": 126,
 													"top": 122,
-													"width": 128.60986328125,
+													"width": 135.10986328125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -18469,7 +18469,7 @@
 														"$ref": "AAAAAAF8dcz+JQYh1t4="
 													},
 													"edgePosition": 1,
-													"text": "1 : POST user/sign-up"
+													"text": "1 : POST users/sign-up"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -21942,7 +21942,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8dclQ8QR/xtc="
 									},
-									"name": "POST user/sign-up",
+									"name": "POST users/sign-up",
 									"source": {
 										"$ref": "AAAAAAF8dcp7ZwVM1d0="
 									},
@@ -22418,7 +22418,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8dclQ8QR/xtc="
 									},
-									"name": "AuthenticationController",
+									"name": "AuthController",
 									"represent": {
 										"$ref": "AAAAAAF8dcsULwWb9BU="
 									},
@@ -22430,7 +22430,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8dclQ8QR/xtc="
 									},
-									"name": "AuthenticationFacade",
+									"name": "UserService",
 									"represent": {
 										"$ref": "AAAAAAF8dctZOAW700w="
 									},
@@ -22503,9 +22503,9 @@
 														"$ref": "AAAAAAF8deBrZiByYi4="
 													},
 													"font": "Arial;13;0",
-													"left": 30.55908203125,
+													"left": 32.72998046875,
 													"top": 13,
-													"width": 109.2783203125,
+													"width": 124.576171875,
 													"height": 13,
 													"text": "DeleteUserSequence"
 												},
@@ -22518,7 +22518,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 12.55908203125,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "sd"
 												}
@@ -22695,7 +22695,7 @@
 															"top": 47,
 															"width": 163.10546875,
 															"height": 13,
-															"text": "AuthenticationController"
+															"text": "UserController"
 														},
 														{
 															"_type": "LabelView",
@@ -22812,7 +22812,7 @@
 															"top": 47,
 															"width": 145.79541015625,
 															"height": 13,
-															"text": "AuthenticationFacade"
+															"text": "UserService"
 														},
 														{
 															"_type": "LabelView",
@@ -23151,7 +23151,7 @@
 														"$ref": "AAAAAAF8deKFSiFl+JQ="
 													},
 													"edgePosition": 1,
-													"text": "1 : DELETE user/delete-user"
+													"text": "1 : DELETE users/{user-id}"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -25045,7 +25045,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8deBrZiBwD5w="
 									},
-									"name": "DELETE user/delete-user",
+									"name": "DELETE users/{user-id}",
 									"source": {
 										"$ref": "AAAAAAF8deDbBSC3DFE="
 									},
@@ -25312,7 +25312,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8deBrZiBwD5w="
 									},
-									"name": "AuthenticationController",
+									"name": "UserController",
 									"represent": {
 										"$ref": "AAAAAAF8deHU9iDel88="
 									},
@@ -25324,7 +25324,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8deBrZiBwD5w="
 									},
-									"name": "AuthenticationFacade",
+									"name": "UserService",
 									"represent": {
 										"$ref": "AAAAAAF8deHxASD+EKQ="
 									},
@@ -25389,9 +25389,9 @@
 														"$ref": "AAAAAAF8eVwPKibiI0U="
 													},
 													"font": "Arial;13;0",
-													"left": 30.55908203125,
+													"left": 32.72998046875,
 													"top": 13,
-													"width": 112.896484375,
+													"width": 128.91796875,
 													"height": 13,
 													"text": "UpdateUserSequence"
 												},
@@ -25404,7 +25404,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 12.55908203125,
+													"width": 14.72998046875,
 													"height": 13,
 													"text": "sd"
 												}
@@ -25581,7 +25581,7 @@
 															"top": 47,
 															"width": 163.10546875,
 															"height": 13,
-															"text": "AuthenticationController"
+															"text": "UserController"
 														},
 														{
 															"_type": "LabelView",
@@ -25698,7 +25698,7 @@
 															"top": 47,
 															"width": 145.79541015625,
 															"height": 13,
-															"text": "AuthenticationFacade"
+															"text": "UserService"
 														},
 														{
 															"_type": "LabelView",
@@ -26037,7 +26037,7 @@
 														"$ref": "AAAAAAF8eV50aCfVTEw="
 													},
 													"edgePosition": 1,
-													"text": "1 : POST user/update-user"
+													"text": "1 : PUT users/{id}"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -27931,7 +27931,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8eVwPKSbg/2A="
 									},
-									"name": "POST user/update-user",
+									"name": "PUT users/{id}",
 									"source": {
 										"$ref": "AAAAAAF8eVzcNycn+EM="
 									},
@@ -28198,7 +28198,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8eVwPKSbg/2A="
 									},
-									"name": "AuthenticationController",
+									"name": "UserController",
 									"represent": {
 										"$ref": "AAAAAAF8eVzicidFo/4="
 									},
@@ -28210,7 +28210,7 @@
 									"_parent": {
 										"$ref": "AAAAAAF8eVwPKSbg/2A="
 									},
-									"name": "AuthenticationFacade",
+									"name": "UserService",
 									"represent": {
 										"$ref": "AAAAAAF8eV0FOidlfKQ="
 									},
@@ -28261,8 +28261,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role2",
-							"type": ""
+							"name": "Role2"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28270,8 +28269,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role3",
-							"type": ""
+							"name": "Role3"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28308,8 +28306,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role7",
-							"type": ""
+							"name": "Role7"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28317,8 +28314,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role8",
-							"type": ""
+							"name": "Role8"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28355,8 +28351,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role12",
-							"type": ""
+							"name": "Role12"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28364,8 +28359,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role13",
-							"type": ""
+							"name": "Role13"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28402,8 +28396,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role17",
-							"type": ""
+							"name": "Role17"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -28411,8 +28404,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF8dcbgnq+bVPU="
 							},
-							"name": "Role18",
-							"type": ""
+							"name": "Role18"
 						},
 						{
 							"_type": "UMLAttribute",
