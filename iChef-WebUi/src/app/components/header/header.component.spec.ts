@@ -1,9 +1,9 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 import { HeaderComponent } from './header.component';
 import { routes } from '../../app-routing.module';
-import { Router } from '@angular/router';
 import { HeaderPageObject } from './header.pageobject';
 
 describe('HeaderComponent', () => {
