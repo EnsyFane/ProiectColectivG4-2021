@@ -43,7 +43,13 @@ public class RecipeService {
 
     public RecipeDTO addRecipe(RecipeDTO recipeDTO) {
         Recipe recipe = recipeMapper.mapToEntity(recipeDTO);
-        recipe.setAppUser(userRepository.findOne(recipeDTO.getUserId()));
+        AppUser user;
+        try {
+            user = userRepository.findOne(recipeDTO.getUserId());
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("No user with this id");
+        }
+        recipe.setAppUser(user);
         try {
             recipeRepository.save(recipe);
         } catch (Exception ex) {
