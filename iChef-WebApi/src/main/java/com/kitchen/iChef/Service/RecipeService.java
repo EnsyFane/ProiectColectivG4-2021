@@ -131,12 +131,8 @@ public class RecipeService {
     }
     public List<RecipeDTO> simpleRecipeFiltering(String text)
     {
-        List<RecipeDTO> list = new ArrayList<>();
-        List<Recipe> filteredList=recipeRepository.findAll()
-                .stream()
-                .filter(recipe->recipe.getTitle().contains(text))
-                .collect(Collectors.toList());
-        for (Recipe r : filteredList) {
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        for (Recipe r : recipeRepository.findRecipesByTitle(text)) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
             List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
@@ -145,10 +141,10 @@ public class RecipeService {
             List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
             recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
 
-            list.add(recipeDTO);
+            recipeDTOS.add(recipeDTO);
         }
+        return recipeDTOS;
 
-        return list;
     }
 
     public RecipeDTO deleteRecipe(String id) {
