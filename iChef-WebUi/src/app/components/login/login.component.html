@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{loginBtn}}</h1>
+
+<form [formGroup]="form">
+    <mat-dialog-content>
+            <mat-form-field>
+                <input type="email" pattern="^[a-zA-Z]+[a-zA-Z0-9.]*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" class="field username" matInput placeholder="{{email}}" formControlName="email" required>
+                <mat-error *ngIf="form.controls['email'].touched">{{emailRequired}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <div class="field">
+                    <input matInput type="password" placeholder="{{password}}" formControlName="password" required [type]="hide ? 'password' : 'text'">
+                    <button mat-button matSuffix mat-icon-button class="button-password">
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </div>
+                <mat-error *ngIf="form.controls['password'].touched">{{passwordRequired}}</mat-error>       
+            </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button class="mat-raised-button secondary-button button" (click)="close()">{{closeBtn}}</button>
+        <button [disabled]="form.status !== 'VALID'" class="mat-raised-button primary-button button" type="submit" (click)="login()">{{loginBtn}}</button>
+    </mat-dialog-actions>
+</form>
+<br>

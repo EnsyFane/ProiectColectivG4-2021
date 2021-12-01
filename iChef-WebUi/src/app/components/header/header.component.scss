@@ -64,3 +64,8 @@
 a:hover {
     cursor: pointer;
 }
+
+::ng-deep.mat-dialog-container {
+    background-color: $primary-background-color !important;
+    border-radius: 25px !important;
+}
