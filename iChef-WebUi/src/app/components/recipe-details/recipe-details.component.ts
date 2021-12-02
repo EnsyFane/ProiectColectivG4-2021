@@ -4,6 +4,7 @@ import { BUTTON_STRINGS, TITLES } from 'src/app/constants/texts';
 import { Recipe } from 'src/app/data-types/recipe';
 import { Review } from 'src/app/data-types/review';
 import { RecipesService } from 'src/app/services/recipes.service';
+import {SharedService} from '../../services/shared.service';
 
 @Component({
     selector: 'app-recipe-details',
