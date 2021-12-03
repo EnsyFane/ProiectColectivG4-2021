@@ -47,7 +47,6 @@ export class HeaderComponent {
   login() : void {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '30%';
     dialogConfig.panelClass = 'dialog';

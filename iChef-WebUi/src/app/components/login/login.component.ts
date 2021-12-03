@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { catchError } from 'rxjs/operators';
 import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS } from 'src/app/constants/texts';
-import { User } from 'src/app/data-types/user';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -36,10 +35,7 @@ export class LoginComponent {
   }
 
   login() : void {
-    const user = new User();
-    user.email = this.form.value.email;
-    user.password = this.form.value.password;
-    this.userService.login(user).pipe(
+    this.userService.login(this.form.value.email, this.form.value.password).pipe(
       tap(() => {
         this.dialogRef.close();
       }),

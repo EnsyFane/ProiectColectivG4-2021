@@ -14,7 +14,8 @@ export class UsersService {
     @Inject('BASE_API_URL') private baseUrl: string
   ) { }
 
-  login(user: User) : Observable<string> {
+  login(email: string, password: string) : Observable<string> {
+    const user: User = {'email': email, 'password': password};
     return this.http.post(this.baseUrl + '/users/login', user).pipe(
       map((response: any) => {
           return response as string;

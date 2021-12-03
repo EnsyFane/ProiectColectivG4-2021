@@ -64,3 +64,9 @@ body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+
+::ng-deep.mat-dialog-container {
+    background-color: $primary-background-color !important;
+    border-radius: 25px !important;
+}
