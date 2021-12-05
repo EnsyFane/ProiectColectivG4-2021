@@ -9,7 +9,7 @@ import { FakeHttpClient } from 'src/app/testing/fake-http-client';
 import { RecipeDetailsComponent } from './recipe-details.component';
 import { RecipeDetailsPageObject } from './recipe-details.pageobject';
 
-fdescribe('RecipeDetailsComponent', () => {
+describe('RecipeDetailsComponent', () => {
     let component: RecipeDetailsComponent;
     let fixture: ComponentFixture<RecipeDetailsComponent>;
     let fakeHttpClient: FakeHttpClient;

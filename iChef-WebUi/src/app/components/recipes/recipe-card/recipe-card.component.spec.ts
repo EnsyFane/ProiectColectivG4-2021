@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeCardComponent } from './recipe-card.component';
 
-describe('RecipeCardComponent', () => {
+fdescribe('RecipeCardComponent', () => {
     let component: RecipeCardComponent;
     let fixture: ComponentFixture<RecipeCardComponent>;
 
@@ -19,13 +19,15 @@ describe('RecipeCardComponent', () => {
         fixture = TestBed.createComponent(RecipeCardComponent);
         component = fixture.componentInstance;
         component.recipe = {
-            title: '',
+            title: 'Title',
             difficulty: 1,
             portions: 1,
             preparationTime: 1,
             recipeIngredientList: [],
             steps: '',
-            userId: ''
+            userId: '',
+            rating: 2.2,
+            imagePath: '/assets/imgs/burger.jpg'
         };
         fixture.detectChanges();
     });
