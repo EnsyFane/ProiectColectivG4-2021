@@ -35,7 +35,7 @@ describe('HeaderComponent', () => {
     });
 
     describe('Link highlight', () => {
-        async function delay(time: number) {
+        async function delay(time: number): Promise<any> {
             return new Promise(resolve => setTimeout(resolve, time));
         }
 

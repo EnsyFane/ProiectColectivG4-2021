@@ -47,20 +47,20 @@ describe('RecipesComponent', () => {
                 portions: 1,
                 preparationTime: 60,
                 recipeIngredientList: [],
-                steps: "steps",
-                title: "title",
-                userId: "user-id"
+                steps: 'steps',
+                title: 'title',
+                userId: 'user-id'
             },
             {
                 difficulty: 2,
                 portions: 1,
                 preparationTime: 60,
                 recipeIngredientList: [],
-                steps: "steps",
-                title: "title2",
-                userId: "user-id"
+                steps: 'steps',
+                title: 'title2',
+                userId: 'user-id'
             }
-        ]
+        ];
 
         fakeHttpClient.setRecipesResponse(recipes);
 

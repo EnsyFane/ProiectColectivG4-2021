@@ -40,7 +40,7 @@ describe('RecipeDetailsComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should populate fields correctly', async () => {
+    it('should populate fields correctly', () => {
         const ingredient: RecipeIngredient = {
             ingredientName: 'name',
             amount: 2,
@@ -48,7 +48,7 @@ describe('RecipeDetailsComponent', () => {
         };
         const utensil: Utensil = {
             utensilName: 'name'
-        }
+        };
         const recipe: Recipe = {
             title: 'title',
             difficulty: 2,
