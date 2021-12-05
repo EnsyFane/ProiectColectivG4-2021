@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -133,6 +134,23 @@ public class RecipeService {
             list.add(recipeDTO);
         }
         return list;
+    }
+    public List<RecipeDTO> simpleRecipeFiltering(String text)
+    {
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        for (Recipe r : recipeRepository.findRecipesByTitle(text)) {
+            RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
+
+            List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
+            recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+            List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
+            recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+            recipeDTOS.add(recipeDTO);
+        }
+        return recipeDTOS;
+
     }
 
     public RecipeDTO deleteRecipe(String id) {
