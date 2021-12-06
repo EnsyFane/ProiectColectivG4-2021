@@ -1,5 +1,6 @@
 package com.kitchen.iChef.Service;
 
+import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
 import com.kitchen.iChef.DTO.RecipeDTO;
 import com.kitchen.iChef.DTO.RecipeIngredientDTO;
 import com.kitchen.iChef.DTO.RecipeUtensilDTO;
@@ -9,9 +10,11 @@ import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
 import com.kitchen.iChef.Repository.*;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -139,6 +142,30 @@ public class RecipeService {
     {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
         for (Recipe r : recipeRepository.findRecipesByTitle(text)) {
+            RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
+
+            List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
+            recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+            List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
+            recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+            recipeDTOS.add(recipeDTO);
+        }
+        return recipeDTOS;
+
+    }
+    private String getFilterFunctionName(FilterRequest filterRequest)
+    {
+        String name="findRecipesByTitleContainsAndDifficulty"+filterRequest.getDifficultyOperation()+"AndPreparationTimeLessThanEqualAndPortions"+filterRequest.getPortionsOperation();
+        return name;
+
+    }
+    public List<RecipeDTO> complexRecipeFiltering(FilterRequest filterRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        List<Recipe> recipes= (List<Recipe>) recipeRepository.getClass().getMethod(getFilterFunctionName(filterRequest), String.class,Float.class,Integer.class,Integer.class).invoke(recipeRepository,filterRequest.getTitle(), filterRequest.getDifficulty(), filterRequest.getPreparationTime(), filterRequest.getPortions());
+
+        for (Recipe r : recipes) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
             List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
