@@ -62,4 +62,12 @@ public class RecipeController {
                 .map(recipeMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
+    @GetMapping(value = "/filter/{title}")
+    public List<RecipeResponse> simpleFilterRecipes(@PathVariable String title) {
+        return recipeService.simpleRecipeFiltering(title)
+                .stream()
+                .map(recipeMapper::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
 }
