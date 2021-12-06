@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 
 import { HeaderComponent } from './header.component';
 import { routes } from '../../app-routing.module';
 import { HeaderPageObject } from './header.pageobject';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -15,7 +15,10 @@ describe('HeaderComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes(routes)],
+            imports: [
+                RouterTestingModule.withRoutes(routes),
+                MatDialogModule
+            ],
             declarations: [HeaderComponent]
         }).compileComponents();
     });
