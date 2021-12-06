@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HEADER_LINKS } from 'src/app/constants/header';
 import { BUTTON_STRINGS, LANDING_PAGE_STRINGS } from 'src/app/constants/texts';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +25,8 @@ export class HeaderComponent {
       [this.myAccountLink, false]
   ]);
 
+  constructor(private dialog: MatDialog) { }
+
   resetTabs() : void {
       for (const key of this.headerLinks.keys()) {
           this.headerLinks.set(key, false);
@@ -38,5 +42,14 @@ export class HeaderComponent {
       } else if (tab === this.myAccountLink) {
           this.headerLinks.set(this.myAccountLink, true);
       }
+  }
+
+  login() : void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    dialogConfig.panelClass = 'dialog';
+    this.dialog.open(LoginComponent, dialogConfig);
   }
 }
