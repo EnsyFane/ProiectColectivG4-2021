@@ -25,6 +25,15 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         }
         return null;
     }
+    public List<Recipe> findRecipesByTitle(String title)
+    {
+        List<Recipe> filteredRecipes = new ArrayList<>();
+        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContains(title);
+        for (Recipe recipe : recipes) {
+            filteredRecipes.add(recipe);
+        }
+        return filteredRecipes;
+    }
 
     @Override
     public List<Recipe> findAll() {
