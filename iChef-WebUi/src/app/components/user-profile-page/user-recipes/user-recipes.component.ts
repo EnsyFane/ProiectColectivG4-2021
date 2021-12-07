@@ -4,6 +4,7 @@ import { Recipe } from '../../../data-types/recipe';
 import { Router } from '@angular/router';
 import { RecipesService } from '../../../services/recipes.service';
 import { tap } from 'rxjs/operators';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
     selector: 'app-user-recipes',
@@ -22,6 +23,7 @@ export class UserRecipesComponent implements OnInit {
 
     constructor(
         private recipeService: RecipesService,
+        private sharedService: SharedService,
         private router: Router) { }
 
     ngOnInit(): void {
@@ -35,7 +37,11 @@ export class UserRecipesComponent implements OnInit {
 
     goToRecipeEdit(recipe: Recipe): void {
         // TODO change the following line so it takes the user to the update page
-        this.router.navigate(['/recipes/details/' + recipe.recipeId]);
+        if (recipe.recipeId) {
+            this.sharedService.setId(recipe.recipeId);
+            this.sharedService.setRecipeEditMode(true);
+        }
+        this.router.navigate(['/recipes/update/' + recipe.recipeId]);
     }
 
     deleteRecipe(recipe: Recipe): void {

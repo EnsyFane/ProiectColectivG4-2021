@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TITLES, PLACEHOLDERS_STRINGS, BUTTON_STRINGS } from 'src/app/constants/texts';
@@ -6,6 +6,8 @@ import { RecipeIngredient } from 'src/app/data-types/ingredient';
 import { Recipe } from 'src/app/data-types/recipe';
 import { Utensil } from 'src/app/data-types/utensil';
 import { RecipesService } from 'src/app/services/recipes.service';
+import {tap} from 'rxjs/operators';
+import {SharedService} from '../../services/shared.service';
 
 /**
  * @title Dynamic grid-list
@@ -16,9 +18,8 @@ import { RecipesService } from 'src/app/services/recipes.service';
     styleUrls: ['./recipe-page.component.scss']
 
 })
-export class RecipePageComponent {
+export class RecipePageComponent implements OnInit {
 
-    readonly create = TITLES.CREATE;
     readonly titlePlaceHolder = PLACEHOLDERS_STRINGS.TITLE;
     readonly ingredient = TITLES.INGREDIENT;
     readonly utensil = TITLES.UTENSIL;
@@ -29,7 +30,6 @@ export class RecipePageComponent {
     readonly ingredientsUtensilsTitle = TITLES.INGREDIENTSUTENSILS;
     readonly ingredientsTitle = TITLES.INGREDIENTS;
     readonly utensilsTitle = TITLES.UTENSILS;
-    readonly saveBtn = BUTTON_STRINGS.SAVE;
     readonly g = TITLES.G;
     readonly kg = TITLES.KG;
     readonly ml = TITLES.ML;
@@ -38,9 +38,15 @@ export class RecipePageComponent {
     readonly medium = TITLES.MEDIUM;
     readonly hard = TITLES.HARD;
 
+    pageTitle: string = TITLES.CREATE;
+    saveBtn: string = BUTTON_STRINGS.SAVE;
+    editMode!: boolean;
+    selectedRecipe: Recipe | null = null;
+
     constructor(
         private renderer: Renderer2,
         private recipeService: RecipesService,
+        private sharedService: SharedService,
         private router: Router
     ) { }
 
@@ -53,8 +59,11 @@ export class RecipePageComponent {
     amount = new FormControl('');
     quantity = new FormControl('');
 
-    ingredients: string[] = [];
-    utensils: string[] = [];
+    ingredientsList: RecipeIngredient[] = [];
+    utensilsList: Utensil[] = [];
+
+    recipeIngredient: RecipeIngredient = {amount: 0, ingredientName: '', measurementUnit: ''};
+    recipeUtensil: Utensil = {};
 
     title = new FormControl('');
     time = new FormControl('');
@@ -62,34 +71,64 @@ export class RecipePageComponent {
     instructions = new FormControl('');
     notes = new FormControl('');
 
+    ngOnInit(): void {
+        this.editMode = this.sharedService.getRecipeEditMode();
+        if (this.editMode) {
+            this.saveBtn = BUTTON_STRINGS.UPDATE;
+            this.pageTitle = TITLES.UPDATE;
+            const recipeId = this.sharedService.getId();
+            this.recipeService.getRecipe(recipeId).pipe(
+                tap(recipe => {
+                    this.selectedRecipe = recipe;
+                    this.fillFields();
+                })
+            ).subscribe();
+        }
+    }
+
+    fillFields(): void {
+        this.title.setValue(this.selectedRecipe?.title);
+        this.time.setValue(this.selectedRecipe?.preparationTime);
+        this.difficulty.setValue(this.selectedRecipe?.difficulty);
+        this.instructions.setValue(this.selectedRecipe?.steps);
+        this.notes.setValue(this.selectedRecipe?.notes);
+
+        if (this.selectedRecipe?.recipeIngredientList) {
+            this.ingredientsList = this.selectedRecipe?.recipeIngredientList;
+        }
+
+        if (this.selectedRecipe?.recipeUtensilList) {
+            this.utensilsList = this.selectedRecipe?.recipeUtensilList;
+        }
+    }
+
+    clearIngredientFields(): void {
+        this.ingredientName.setValue('');
+        this.amount.setValue('');
+        this.quantity.setValue('');
+    }
+
+    clearUtensilField(): void {
+        this.utensilName.setValue('');
+    }
+
     addIngredient(): void {
         if (this.ingredientName.value === '' || this.amount.value === '' || this.quantity.value === '') {
             window.alert('Insert name, amount and quantity for ingredient!');
         } else {
-            const div: HTMLDivElement = this.renderer.createElement('div');
-            const span: HTMLSpanElement = this.renderer.createElement('span');
-            const button: HTMLButtonElement = this.renderer.createElement('button');
+            this.recipeIngredient = {amount: 0, ingredientName: '', measurementUnit: ''};
+            this.recipeIngredient.ingredientName = this.ingredientName.value;
+            this.recipeIngredient.amount = this.amount.value;
+            this.recipeIngredient.measurementUnit = this.quantity.value;
+            this.ingredientsList.push(this.recipeIngredient);
+            this.clearIngredientFields();
+        }
+    }
 
-            span.innerText = this.ingredientName.value + ' ' + this.amount.value + ' ' + this.quantity.value;
-            span.className = 'ingredient-name';
-            button.innerText = 'x';
-            button.className = 'mat-raised-button delete-button';
-            button.onclick = () => {
-                this.renderer.removeChild(this.utensilsContainer.nativeElement, div);
-                const index: number = this.ingredients.indexOf(span.innerText);
-                if (index !== -1) {
-                    this.ingredients.splice(index, 1);
-                }
-            };
-
-            this.ingredients.push(span.innerText);
-            div.appendChild(span);
-            div.appendChild(button);
-            this.renderer.appendChild(this.ingredientsContainer.nativeElement, div);
-
-            this.ingredientName.setValue('');
-            this.amount.setValue('');
-            this.quantity.setValue('');
+    removeIngredient(ingredient: RecipeIngredient): void {
+        const index: number = this.ingredientsList.indexOf(ingredient);
+        if (index !== -1) {
+            this.ingredientsList.splice(index, 1);
         }
     }
 
@@ -97,51 +136,33 @@ export class RecipePageComponent {
         if (this.utensilName.value === '') {
             window.alert('Insert name for utensil!');
         } else {
-            const div: HTMLDivElement = this.renderer.createElement('div');
-            const span: HTMLSpanElement = this.renderer.createElement('span');
-            const button: HTMLButtonElement = this.renderer.createElement('button');
+            this.recipeUtensil = {};
+            this.recipeUtensil.utensilName = this.utensilName.value;
+            this.utensilsList.push(this.recipeUtensil);
+            this.clearUtensilField();
+        }
+    }
 
-            div.className = 'element';
-            span.innerText = this.utensilName.value;
-            span.className = 'ingredient-name';
-            button.innerText = 'x';
-            button.className = 'mat-raised-button delete-button';
-            button.onclick = () => {
-                this.renderer.removeChild(this.utensilsContainer.nativeElement, div);
-                const index: number = this.utensils.indexOf(span.innerText);
-                if (index !== -1) {
-                    this.utensils.splice(index, 1);
-                }
-            };
-
-            this.utensils.push(span.innerText);
-
-            div.appendChild(span);
-            div.appendChild(button);
-            this.renderer.appendChild(this.utensilsContainer.nativeElement, div);
-
-            this.utensilName.setValue('');
+    removeUtensil(utensil: Utensil): void {
+        const index: number = this.utensilsList.indexOf(utensil);
+        if (index !== -1) {
+            this.utensilsList.splice(index, 1);
         }
     }
 
     saveRecipe(): void {
-        if (!this.title.value || !this.ingredients.length || !this.utensils.length || !this.time.value || !this.difficulty.value || !this.instructions.value || !this.notes.value) {
+        if (!this.title.value || !this.ingredientsList.length || !this.utensilsList.length || !this.time.value || !this.difficulty.value || !this.instructions.value || !this.notes.value) {
             window.alert('Insert title, ingredients, utensils, time to prepare, difficulty, instructions and extra notes for recipe!');
         } else {
             const ingredientObjects: RecipeIngredient[] = [];
             const utensilObjects: Utensil[] = [];
 
-            this.ingredients.forEach(element => {
-                const elements = element.split(' ');
-                ingredientObjects.push({
-                    ingredientName: elements[0],
-                    amount: parseInt(elements[1], 10),
-                    measurementUnit: elements[2]
-                });
+            this.ingredientsList.forEach(element => {
+                ingredientObjects.push(element);
             });
 
-            this.utensils.forEach(element => {
-                utensilObjects.push({ utensilName: element });
+            this.utensilsList.forEach(element => {
+                utensilObjects.push(element);
             });
 
             const recipe: Recipe = {
@@ -158,9 +179,15 @@ export class RecipePageComponent {
                 userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'
             };
 
-            this.recipeService.createRecipe(recipe).subscribe(() => {
-                this.router.navigate(['recipes']);
-            });
+            if (this.editMode && this.selectedRecipe?.recipeId) {
+                this.recipeService.updateRecipe(recipe, this.selectedRecipe.recipeId).subscribe(() => {
+                    this.router.navigate(['recipes']);
+                });
+            } else {
+                this.recipeService.createRecipe(recipe).subscribe(() => {
+                    this.router.navigate(['recipes']);
+                });
+            }
         }
     }
 
