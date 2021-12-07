@@ -15,7 +15,8 @@ export const BUTTON_STRINGS = {
     UPDATE: 'Update Recipe',
     FILTER: 'Filters',
     REVIEW: 'Add Review',
-    SAVE: 'Save'
+    SAVE: 'Save',
+    CLOSE: 'Close'
 };
 
 export const TITLES = {
@@ -42,5 +43,9 @@ export const TITLES = {
 
 export const PLACEHOLDERS_STRINGS = {
     SEARCH: 'Easy Recipes',
-    TITLE: 'Recipe Title'
+    TITLE: 'Recipe Title',
+    EMAIL: 'Email',
+    PASSWORD: 'Password',
+    EMAIL_REQUIRED: 'Email is required',
+    PASSWORD_REQUIRED: 'Password is required'
 };
