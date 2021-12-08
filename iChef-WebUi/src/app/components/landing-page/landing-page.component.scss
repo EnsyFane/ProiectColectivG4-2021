@@ -21,8 +21,15 @@
 }
 
 .secondary-button {
+    @include thick;
     margin-top: 20px;
-    width: 150px;
+    width: 10%;
+}
+
+.search-input {
+    display: inline-block;
+    height: 32px;
+    min-width: 16%;
 }
 
 .crop-image {

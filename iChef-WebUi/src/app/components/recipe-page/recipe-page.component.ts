@@ -155,7 +155,7 @@ export class RecipePageComponent {
                 recipeUtensilList: utensilObjects,
                 steps: this.instructions.value,
                 title: this.title.value,
-                userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'
+                userId: '7ba38ead-8fd1-4fce-91ae-eeb3beafd05c'
             };
 
             this.recipeService.createRecipe(recipe).subscribe(() => {
