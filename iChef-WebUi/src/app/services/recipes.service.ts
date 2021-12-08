@@ -64,7 +64,6 @@ export class RecipesService {
             );
     }
 
-    // TODO: Create model for recipe update
     updateRecipe(recipe: any, recipeId: string): Observable<Recipe> {
         return this.http.put<Recipe>(this.baseUrl + `/recipes/${recipeId}`, recipe)
             .pipe(
