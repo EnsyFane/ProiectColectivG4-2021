@@ -9,7 +9,7 @@
         <div class="details">
             <div class="header">
                 <span>Difficulty: {{recipe?.difficulty}}</span>
-                <span>{{recipe?.preparationTime}}<mat-icon>schedule</mat-icon></span>
+                <span>{{recipe?.preparationTime}} min <mat-icon>schedule</mat-icon></span>
                 <span>{{recipe?.rating}} <mat-icon>stars</mat-icon></span>
             </div>
             <br>
@@ -33,7 +33,7 @@
             </div>
             <br>
             <ng-container *ngFor="let ingredient of recipe?.recipeIngredientList">
-                <p> - {{ingredient.ingredientName}} x {{ingredient.amount}}</p>
+                <p> - {{ingredient.ingredientName}} {{ingredient.amount}} {{ingredient.measurementUnit}}</p>
             </ng-container>
         </div>
         <div class="utensils">

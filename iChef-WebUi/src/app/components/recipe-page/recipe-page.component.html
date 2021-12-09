@@ -8,6 +8,13 @@
         </div>
 
         <table>
+            <colgroup>
+                <col width="25%">
+                <col width="25%">
+                <col width="17%">
+                <col width="8%">
+                <col width="25%">
+            </colgroup>
             <tr>
                 <td>
                     <label class="form-field-smaller">{{ingredient}}</label>
@@ -22,7 +29,7 @@
                         <input type="number" [formControl]="amount" class="input-smaller">
                     </span>
                 </td>
-                <td>
+                <td colspan="2">
                     <select [formControl]="quantity">
                         <option value="g">{{g}}</option>
                         <option value="kg">{{kg}}</option>
@@ -37,11 +44,11 @@
                 <td>
                     <label class="form-field-smaller">{{utensil}}</label>
                 </td>
-                <td id="utensils">
+                <td colspan="4">
                     <span class="form-field-smaller">
                         <input [formControl]="utensilName" id="utensil-name">
                     </span>
-                    <button (click)="addUtensil();" mat-raised-button class="add-button">+</button>
+                    <button (click)="addUtensil();" mat-raised-button class="add-button-utensil">+</button>
                 </td>
             </tr>
             <tr>
@@ -50,13 +57,13 @@
                 </td>
                 <td>
                     <span class="form-field-smaller">
-                        <input [formControl]="time" class="input-smaller">
+                        <input type="number" [formControl]="time" class="input-smaller">
                     </span>
                 </td>
                 <td>
                     <label class="form-field-smaller">{{difficultyTitle}}</label>
                 </td>
-                <td>
+                <td colspan="2">
                     <select [formControl]="difficulty" name="Difficulty">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -90,7 +97,9 @@
             <div id="#ingredientsContainer" class="ingredients">
                 <h3>{{ingredientsTitle}}</h3>
                 <div *ngFor="let ingredient of ingredientsList" class="element">
-                    <span class="ingredient-name">{{ingredient.ingredientName}} {{ingredient.amount}} {{ingredient.measurementUnit}}</span>
+                    <span class="ingredient-name">{{ingredient.ingredientName}}</span>
+                    <span class="ingredient-name">{{ingredient.amount}}</span>
+                    <span class="ingredient-name">{{ingredient.measurementUnit}}</span>
                     <button class="mat-raised-button delete-button" (click)="removeIngredient(ingredient)">x</button>
                 </div>
             </div>

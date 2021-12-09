@@ -11,13 +11,18 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
+h1{
+    margin: 1% 0;
+    font-size: 1.7vw;
+}
+
 h2{
-    font-size: 17px;
+    font-size: 1.2vw;
     margin-bottom: 5px;
 }
 
 h3{
-    font-size: 15px;
+    font-size: 1vw;
     margin-bottom: 2px;
 }
 
@@ -58,9 +63,11 @@ body {
   @include secondary-button();
   @include thick();
   @include font();
-  margin-top: 10px;
-  padding: 2px 45px !important;
+  margin-top: 1%;
+  padding: 0.2% 4% !important;
   margin-left: 45%;
+  line-height: 23px !important;
+  box-sizing: border-box;
 }
 
 mat-form-field {
@@ -70,21 +77,20 @@ mat-form-field {
 }
 
 .input{
-    margin-left: 20px;
+    margin-left: 5%;
     background-color:  transparent;
     border: none;
     color:black;
-    font-size: 20px;
-
+    font-size: 1.2vw;
 }
 
 .input-smaller {
-    margin-left: 20px;
+    margin-left: 5%;
     background-color:  transparent;
     border: none;
     color:black;
-    font-size: 15px;
-    width: 100px;
+    font-size: 1vw;
+    width: 80%;
 }
 
 input:focus {
@@ -99,25 +105,29 @@ input-smaller:focus {
     position: relative;
     background-color: $white-transparent;
     z-index: 1;
-    width: 200px;
+    width: 40%;
     border-radius: 25px;
-    top: 20px;
-    margin: auto auto 20px;
+    top: 3%;
+    margin: auto auto 4%;
     font-weight: bold;
 }
 
 .form-field-smaller {
     background-color: $white-transparent;
     z-index: 1;
-    width: 200px;
     border-radius: 25px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 6px 0;
     font-weight: bold;
+    box-sizing: border-box;
+    width: 90%;
 }
 
 label {
-    padding: 0 15px;
+    padding: 2px 12% !important;
+    display: inline-block;
+    width: 90%;
+    box-sizing: border-box;
+    font-size: 0.85vw;
 }
 
 select {
@@ -126,6 +136,7 @@ select {
     border: none;
     padding: 5px 15px;
     font-weight: bold;
+    width: 80%;
 }
 
 textarea {
@@ -160,34 +171,33 @@ table{
     table-layout: fixed;
 }
 
-td{
-    width: 25%;
-}
-
-#utensils{
-    width: 420px;
-    display: block;
-    input{
-        margin-left: 20px;
-        background-color:  transparent;
-        border: none;
-        color:black;
-        font-size: 15px;
-        width: 355px;
-    }
+#utensil-name{
+    margin-left: 2%;
+    background-color:  transparent;
+    border: none;
+    color:black;
+    font-size: 15px;
+    width: 88%;
 }
 
 .add-button{
-  @include secondary-button();
-  font-weight: bold;
-  padding: 0 !important;
-  font-size: 10px;
-  margin-left: 5px;
+    @include secondary-button();
+    @include thick();
+    padding: 0 !important;
+    font-size: 0.9vw;
+    margin-left: 2%;
+    min-width: 14% !important;
+    line-height: 17px !important;
 }
 
-.mat-raised-button{
-    min-width: 35px;
-    line-height: 25px;
+.add-button-utensil{
+    @include secondary-button();
+    @include thick();
+    padding: 0 !important;
+    font-size: 0.9vw;
+    margin-left: 1%;
+    min-width: 6% !important;
+    line-height: 17px !important;
 }
 
 .ingredients{
@@ -213,22 +223,23 @@ td{
 }
 
 .ingredient-name{
-    margin-left: 30px;
+    margin-left: 10%;
     float: left;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 0.8vw;
+    white-space: pre-wrap;
 }
 
 .delete-button{
     @include secondary-button();
+    @include thick();
     float: right;
-    margin-right: 30px;
-    font-size: 12px;
-    font-weight: bold;
-    min-width: 15px ;
-    line-height: 15px ;
-    padding: 2px 7px;
+    margin-right: 10%;
+    font-size: 0.9vw;
+    padding: 0 2% !important;
     visibility: hidden;
+    min-width: 6% !important;
+    line-height: 17px !important;
 }
 
 .element{
