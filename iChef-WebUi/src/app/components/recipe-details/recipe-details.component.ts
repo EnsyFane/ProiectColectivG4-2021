@@ -21,8 +21,16 @@ export class RecipeDetailsComponent implements OnInit {
 
     recipe: Recipe | null = null;
 
-    review1: Review = new Review('Lorem ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat egestas mi tempor condimentum. Pellentesque eu arcu eu libero maximus luctus id ut lorem. Proin et justo sed turpis ', 4.7);
-    review2: Review = new Review('Lorem ipsum 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ', 4);
+    review1: Review = {
+        username: 'Lorem ipsum',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consequat egestas mi tempor condimentum. Pellentesque eu arcu eu libero maximus luctus id ut lorem. Proin et justo sed turpis ',
+        rating: 4.7
+    };
+    review2: Review = {
+        username: 'Lorem ipsum 2',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+        rating: 4
+    };
 
     constructor(
         private recipeService: RecipesService
