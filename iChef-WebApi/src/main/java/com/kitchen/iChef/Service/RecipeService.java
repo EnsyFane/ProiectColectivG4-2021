@@ -10,6 +10,7 @@ import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
 import com.kitchen.iChef.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -135,8 +136,8 @@ public class RecipeService {
         }
         return list;
     }
-    public List<RecipeDTO> simpleRecipeFiltering(String text)
-    {
+
+    public List<RecipeDTO> simpleRecipeFiltering(String text) {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
         for (Recipe r : recipeRepository.findRecipesByTitle(text)) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
@@ -198,6 +199,14 @@ public class RecipeService {
         throw new ResourceNotFoundException("Not yet implemented.");
     }
 
+    public List<RecipeDTO> sortRecipes(String field, boolean ascending) {
+        List<Recipe> sortedRecipes = new ArrayList<>();
+        Iterable<Recipe> recipes = recipeRepository.findAll(ascending ? Sort.by(field).ascending() : Sort.by("title").descending());
+        recipes.forEach(sortedRecipes::add);
+
+        return getRecipeDTOs(sortedRecipes);
+    }
+
     public List<RecipeDTO> getAllUserRecipes(String userId) {
         List<RecipeDTO> list = new ArrayList<>();
         for (Recipe r : recipeRepository.findAll()) {
@@ -212,6 +221,22 @@ public class RecipeService {
 
                 list.add(recipeDTO);
             }
+        }
+        return list;
+    }
+
+    public List<RecipeDTO> getRecipeDTOs(List<Recipe> recipes) {
+        List<RecipeDTO> list = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            RecipeDTO recipeDTO = recipeMapper.mapToDTO(recipe);
+
+            List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(recipe);
+            recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+            List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(recipe);
+            recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+            list.add(recipeDTO);
         }
         return list;
     }

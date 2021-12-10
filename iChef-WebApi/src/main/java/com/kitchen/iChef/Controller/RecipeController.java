@@ -1,6 +1,7 @@
 package com.kitchen.iChef.Controller;
 
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
+import com.kitchen.iChef.Controller.Model.Request.SortingRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
 import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
@@ -45,6 +46,14 @@ public class RecipeController {
                 recipeMapper.mapFromRequest(recipeRequest)));
     }
 
+    @PostMapping(value = "/sort")
+    public List<RecipeResponse> sortRecipes(@Valid @RequestBody SortingRequest sortingRequest) {
+        return recipeService.sortRecipes(sortingRequest.getField(), sortingRequest.isAscending())
+                .stream()
+                .map(recipeMapper::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
     @DeleteMapping(value = "/{id}")
     public RecipeResponse deleteRecipe(@PathVariable String id) {
         return recipeMapper.mapToResponse(recipeService.deleteRecipe(id));
@@ -62,6 +71,7 @@ public class RecipeController {
                 .map(recipeMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
+
     @GetMapping(value = "/filter/{title}")
     public List<RecipeResponse> simpleFilterRecipes(@PathVariable String title) {
         return recipeService.simpleRecipeFiltering(title)

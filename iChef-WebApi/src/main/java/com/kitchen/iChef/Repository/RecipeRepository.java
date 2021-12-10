@@ -4,6 +4,7 @@ import com.kitchen.iChef.Domain.Recipe;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         }
         return null;
     }
-    public List<Recipe> findRecipesByTitle(String title)
-    {
+
+    public List<Recipe> findRecipesByTitle(String title) {
         List<Recipe> filteredRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContains(title);
         for (Recipe recipe : recipes) {
@@ -39,6 +40,15 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
     public List<Recipe> findAll() {
         List<Recipe> allRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = iRecipeRepository.findAll();
+        for (Recipe recipe : recipes) {
+            allRecipes.add(recipe);
+        }
+        return allRecipes;
+    }
+
+    public List<Recipe> findAll(Sort sort) {
+        List<Recipe> allRecipes = new ArrayList<>();
+        Iterable<Recipe> recipes = iRecipeRepository.findAll(sort);
         for (Recipe recipe : recipes) {
             allRecipes.add(recipe);
         }
