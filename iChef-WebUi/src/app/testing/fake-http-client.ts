@@ -15,6 +15,14 @@ export class FakeHttpClient {
         this.recipeDetailsResponse = this.getDefaulRecipeResponse();
     }
 
+    setRecipeDetailsResponse(recipe: Recipe): void {
+        this.recipeDetailsResponse = recipe;
+    }
+
+    setRecipesResponse(recipes: Recipe[]): void {
+        this.recipesResponse = recipes;
+    }
+
     // ------- PUBLIC SETUP API -------
     // Public HTTP API
 
