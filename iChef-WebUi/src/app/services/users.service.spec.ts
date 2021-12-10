@@ -11,7 +11,7 @@ describe('UsersService', () => {
 
     beforeEach(() => {
         fakeHttpClient = new FakeHttpClient();
-        var fakeSnackbarService = jasmine.createSpyObj(['displaySnackbar', 'displayErrorSnackbar']);
+        const fakeSnackbarService = jasmine.createSpyObj(['displaySnackbar', 'displayErrorSnackbar']);
 
         TestBed.configureTestingModule({
             providers: [

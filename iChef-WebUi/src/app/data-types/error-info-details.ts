@@ -1,5 +1,5 @@
 export interface ErrorInfoDetails {
     header: string;
     message: string;
-    isError: boolean
+    isError: boolean;
 }

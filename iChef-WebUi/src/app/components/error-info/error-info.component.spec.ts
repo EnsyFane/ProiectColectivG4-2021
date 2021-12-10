@@ -13,12 +13,12 @@ const message: ErrorInfoDetails = {
     header: 'test',
     message: 'test',
     isError: true
-}
+};
 
 describe('ErrorInfoComponent', () => {
     let component: ErrorInfoComponent;
     let fixture: ComponentFixture<ErrorInfoComponent>;
-    let mockMatSnackbarRef: jasmine.SpyObj<MatSnackBarRef<ErrorInfoComponent>>
+    let mockMatSnackbarRef: jasmine.SpyObj<MatSnackBarRef<ErrorInfoComponent>>;
     let page: ErrorInfoPageObject;
 
     beforeEach(async () => {
@@ -37,7 +37,7 @@ describe('ErrorInfoComponent', () => {
                 MatSnackBarModule,
                 NoopAnimationsModule
             ]
-        })
+        });
 
         await testBedStatic.compileComponents();
 

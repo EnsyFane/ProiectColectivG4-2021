@@ -34,6 +34,7 @@ $snackbar-header-background-color-info: green;
 
     .header-icon {
         font-size: 14px;
+        margin-top: 3px;
         grid-area: icon;
         place-self: center;
     }
@@ -52,6 +53,7 @@ $snackbar-header-background-color-info: green;
         line-height: normal;
         min-width: auto;
         padding: 0;
+        margin-bottom: 9px;
         width: 16px;
 
         .mat-icon {

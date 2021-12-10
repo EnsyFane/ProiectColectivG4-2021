@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { MatSnackBar, MatSnackBarRef } from "@angular/material/snack-bar";
-import { Observable } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { ErrorInfoComponent } from "src/app/components/error-info/error-info.component";
-import { ErrorInfoDetails } from "src/app/data-types/error-info-details";
+import { Injectable } from '@angular/core';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ErrorInfoComponent } from 'src/app/components/error-info/error-info.component';
+import { ErrorInfoDetails } from 'src/app/data-types/error-info-details';
 
 export interface DisplayErrorConfig {
     message: ErrorInfoDetails;
@@ -27,9 +27,9 @@ export class SnackbarService {
     displayErrorSnackbar(message: string, header: string = 'Error'): MatSnackBarRef<ErrorInfoComponent> {
         return this.displaySnackbar({
             message: {
-                header: header,
+                header,
                 isError: true,
-                message: message
+                message
             }
         });
     }
@@ -37,9 +37,9 @@ export class SnackbarService {
     displayInfoSnackbar(message: string, header: string = 'Info'): MatSnackBarRef<ErrorInfoComponent> {
         return this.displaySnackbar({
             message: {
-                header: header,
+                header,
                 isError: false,
-                message: message
+                message
             }
         });
     }
@@ -74,5 +74,9 @@ export class SnackbarService {
         }
 
         return ref;
+    }
+
+    dismissSnackbar(): void {
+        this.snackBar.dismiss();
     }
 }

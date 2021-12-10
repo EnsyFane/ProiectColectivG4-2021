@@ -12,12 +12,12 @@ export class ErrorInfoPageObject {
 
     getMainMessageTextContent(): string {
         const mainMessage = this.element.querySelector('.main-message') as HTMLElement;
-        return mainMessage.textContent ?? "";
+        return mainMessage.textContent ?? '';
     }
 
     getHeaderTextContent(): string {
         const headerText = this.element.querySelector('.header-text') as HTMLElement;
-        return headerText.textContent ?? "";
+        return headerText.textContent ?? '';
     }
 
     getHederElement(): HTMLElement {

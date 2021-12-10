@@ -8,7 +8,7 @@ import { SnackbarService } from './snackbar/snackbar.service';
 describe('RecipesService', () => {
     let service: RecipesService;
     let fakeHttpClient: FakeHttpClient;
-    var fakeSnackbarService = jasmine.createSpyObj(['displaySnackbar', 'displayErrorSnackbar']);
+    const fakeSnackbarService = jasmine.createSpyObj(['displaySnackbar', 'displayErrorSnackbar']);
 
     beforeEach(() => {
         fakeHttpClient = new FakeHttpClient();
