@@ -1,5 +1,6 @@
 package com.kitchen.iChef.Repository;
 
+import com.kitchen.iChef.Domain.Recipe;
 import com.kitchen.iChef.Domain.RecipeIngredient;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IRecipeIngredientRepository;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Repository
 public class RecipeIngredientRepository implements ICrudRepository<RecipeIngredient, String> {
@@ -51,8 +54,18 @@ public class RecipeIngredientRepository implements ICrudRepository<RecipeIngredi
 
     @Override
     public RecipeIngredient update(RecipeIngredient entity) {
-        iRecipeIngredientRepository.deleteById(entity.getRecipeIngredientId());
-        iRecipeIngredientRepository.save(entity);
-        return entity;
+        RecipeIngredient recipeIngredientInDb = findOne(entity.getRecipeIngredientId());
+        recipeIngredientInDb.setMeasurementUnit(entity.getMeasurementUnit());
+        recipeIngredientInDb.setIngredient(entity.getIngredient());
+        recipeIngredientInDb.setAmount(entity.getAmount());
+        recipeIngredientInDb.setRecipe(entity.getRecipe());
+        iRecipeIngredientRepository.save(recipeIngredientInDb);
+        return recipeIngredientInDb;
     }
+
+    public List<RecipeIngredient> findRecipeIngredientsByRecipe(Recipe recipe) {
+        return StreamSupport.stream(iRecipeIngredientRepository.findRecipeIngredientsByRecipe(recipe).spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
 }
