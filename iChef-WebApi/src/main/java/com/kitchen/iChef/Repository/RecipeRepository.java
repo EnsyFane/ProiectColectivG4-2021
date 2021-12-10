@@ -25,8 +25,8 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         }
         return null;
     }
-    public List<Recipe> findRecipesByTitle(String title)
-    {
+
+    public List<Recipe> findRecipesByTitle(String title) {
         List<Recipe> filteredRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContains(title);
         for (Recipe recipe : recipes) {
@@ -59,8 +59,15 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
 
     @Override
     public Recipe update(Recipe entity) {
-        iRecipeRepository.deleteById(entity.getRecipeId());
-        iRecipeRepository.save(entity);
-        return entity;
+        Recipe recipeInDb = findOne(entity.getRecipeId());
+        recipeInDb.setTitle(entity.getTitle());
+        recipeInDb.setImagePath(entity.getImagePath());
+        recipeInDb.setDifficulty(entity.getDifficulty());
+        recipeInDb.setNotes(entity.getNotes());
+        recipeInDb.setPortions(entity.getPortions());
+        recipeInDb.setPreparationTime(entity.getPreparationTime());
+        recipeInDb.setSteps(entity.getSteps());
+        iRecipeRepository.save(recipeInDb);
+        return recipeInDb;
     }
 }
