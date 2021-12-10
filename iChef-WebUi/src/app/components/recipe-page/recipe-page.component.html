@@ -1,6 +1,6 @@
 <body>
 
-    <h1>{{create}}</h1>
+    <h1>{{pageTitle}}</h1>
     <div class="left">
 
         <div class="form-field">
@@ -87,11 +87,19 @@
 
         <div class="up">
             <h2>{{ingredientsUtensilsTitle}}</h2>
-            <div #ingredientsContainer class="ingredients">
+            <div id="#ingredientsContainer" class="ingredients">
                 <h3>{{ingredientsTitle}}</h3>
+                <div *ngFor="let ingredient of ingredientsList" class="element">
+                    <span class="ingredient-name">{{ingredient.ingredientName}} {{ingredient.amount}} {{ingredient.measurementUnit}}</span>
+                    <button class="mat-raised-button delete-button" (click)="removeIngredient(ingredient)">x</button>
+                </div>
             </div>
-            <div #utensilsContainer class="utensils">
+            <div id="utensilsContainer" class="utensils">
                 <h3>{{utensilsTitle}}</h3>
+                <div *ngFor="let utensil of utensilsList" class="element">
+                    <span class="ingredient-name">{{utensil.utensilName}}</span>
+                    <button class="mat-raised-button delete-button" (click)="removeUtensil(utensil)">x</button>
+                </div>
             </div>
         </div>
 
