@@ -6,23 +6,30 @@
     @include font;
     @include thick;
     color: black;
-    font-size: 144px;
-    margin-top: 70px;
+    font-size: 9vw;
+    margin-top: 6%;
 }
 
 .description {
     @include font;
     @include thick;
     color: black;
-    font-size: 18px;
-    margin-top: 70px;
-    margin-bottom: 40px;
+    font-size: 1.2vw;
+    margin-top: 6%;
+    margin-bottom: 3%;
     width: 60%;
 }
 
 .secondary-button {
+    @include thick;
     margin-top: 20px;
-    width: 150px;
+    width: 10%;
+}
+
+.search-input {
+    display: inline-block;
+    height: 32px;
+    min-width: 16%;
 }
 
 .crop-image {

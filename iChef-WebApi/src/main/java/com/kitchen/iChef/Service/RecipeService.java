@@ -4,11 +4,13 @@ import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
 import com.kitchen.iChef.DTO.RecipeDTO;
 import com.kitchen.iChef.DTO.RecipeIngredientDTO;
 import com.kitchen.iChef.DTO.RecipeUtensilDTO;
+import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Domain.*;
 import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
+import com.kitchen.iChef.Mapper.UpdateRecipeMapper;
 import com.kitchen.iChef.Repository.*;
 import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class RecipeService {
@@ -32,6 +33,7 @@ public class RecipeService {
     private final RecipeIngredientMapper recipeIngredientMapper = new RecipeIngredientMapper();
     private final RecipeUtensilMapper recipeUtensilMapper = new RecipeUtensilMapper();
     private final RecipeMapper recipeMapper = new RecipeMapper(recipeIngredientMapper, recipeUtensilMapper);
+    private final UpdateRecipeMapper updateRecipeMapper = new UpdateRecipeMapper(recipeIngredientMapper, recipeUtensilMapper);
 
 
     @Autowired
@@ -138,8 +140,8 @@ public class RecipeService {
         }
         return list;
     }
-    public List<RecipeDTO> simpleRecipeFiltering(String text)
-    {
+
+    public List<RecipeDTO> simpleRecipeFiltering(String text) {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
         for (Recipe r : recipeRepository.findRecipesByTitle(text)) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
@@ -185,12 +187,6 @@ public class RecipeService {
         recipeDTO.setRecipeIngredientDTOSList(getRecipeIngredientsList(r));
         recipeDTO.setRecipeUtensilDTOSList(getRecipeUtensilsList(r));
 
-        try {
-            recipeRepository.delete(id);
-        } catch (Exception ex) {
-            throw new ResourceNotFoundException("No recipe with this id");
-        }
-
         for (RecipeUtensil ru : recipeUtensilRepository.findAll()) {
             if (ru.getRecipe().getRecipeId().equals(r.getRecipeId())) {
                 try {
@@ -211,12 +207,78 @@ public class RecipeService {
             }
         }
 
+        try {
+            recipeRepository.delete(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("No recipe with this id");
+        }
 
         return recipeDTO;
     }
 
-    public RecipeDTO updateRecipe(RecipeDTO recipeDTO) {
-        throw new ResourceNotFoundException("Not yet implemented.");
+    public UpdateRecipeDTO updateRecipe(UpdateRecipeDTO recipeDTO) {
+        Recipe recipe = recipeRepository.update(updateRecipeMapper.mapToEntity(recipeDTO));
+
+
+        List<RecipeIngredientDTO> recipeIngredientDTOS = recipeDTO.getRecipeIngredientDTOSList();
+        List<RecipeIngredient> recipeIngredientsInDb = recipeIngredientRepository.findRecipeIngredientsByRecipe(recipe);
+        for (RecipeIngredient riDb : recipeIngredientsInDb) {
+            recipeIngredientRepository.delete(riDb.getRecipeIngredientId());
+        }
+
+        for (RecipeIngredientDTO r : recipeIngredientDTOS) {
+            Optional<Ingredient> ingredient = ingredientRepository.findByName(r.getIngredientName());
+            if (!ingredient.isPresent()) {
+                Ingredient i = new Ingredient();
+                i.setName(r.getIngredientName());
+                ingredientRepository.save(i);
+                RecipeIngredient ri = new RecipeIngredient();
+                ri.setAmount(r.getAmount());
+                ri.setMeasurementUnit(r.getMeasurementUnit());
+                ri.setIngredient(i);
+                ri.setRecipe(recipe);
+                recipeIngredientRepository.save(ri);
+            } else {
+                RecipeIngredient ri = new RecipeIngredient();
+                ri.setAmount(r.getAmount());
+                ri.setMeasurementUnit(r.getMeasurementUnit());
+                ri.setIngredient(ingredient.get());
+                ri.setRecipe(recipe);
+                recipeIngredientRepository.save(ri);
+            }
+        }
+
+        List<RecipeUtensilDTO> recipeUtensilDTOS = recipeDTO.getRecipeUtensilDTOSList();
+        List<RecipeUtensil> recipeUtensilsInDb = recipeUtensilRepository.findRecipeUtensilsByRecipe(recipe);
+
+        for (RecipeUtensil ruDb : recipeUtensilsInDb) {
+            recipeUtensilRepository.delete(ruDb.getRecipeUtensilId());
+        }
+        for (RecipeUtensilDTO ruDto : recipeUtensilDTOS) {
+            Optional<Utensil> utensil = utensilRepository.findByName(ruDto.getUtensilName());
+            if (!utensil.isPresent()) {
+                Utensil u = new Utensil();
+                u.setName(ruDto.getUtensilName());
+                utensilRepository.save(u);
+                RecipeUtensil ru = new RecipeUtensil();
+                ru.setRecipe(recipe);
+                ru.setUtensil(u);
+                recipeUtensilRepository.save(ru);
+            } else {
+                RecipeUtensil ru = new RecipeUtensil();
+                ru.setRecipe(recipe);
+                ru.setUtensil(utensil.get());
+                recipeUtensilRepository.save(ru);
+            }
+        }
+
+        List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(recipe);
+        recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+        List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(recipe);
+        recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+        return recipeDTO;
     }
 
     public List<RecipeDTO> getAllUserRecipes(String userId) {
