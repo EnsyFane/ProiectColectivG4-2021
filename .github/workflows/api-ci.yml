@@ -27,16 +27,16 @@ jobs:
           distribution: 'adopt'
           cache: maven
 
+      - name: Setup MySql
+        run: |
+          sudo systemctl start mysql
+          mysql -e 'CREATE DATABASE `${{ secrets.DB_DATABASE_NAME }}`;' -u${{ secrets.DB_USER }} -proot
+          mysql -e "ALTER USER '${{ secrets.DB_USER }}'@'localhost' IDENTIFIED BY '${{ secrets.DB_PASSWORD }}'; FLUSH PRIVILEGES;" -u${{ secrets.DB_USER }} -proot
+
       - name: Build
         run: |
           cd iChef-WebApi
           mvn -B -DskipTests package --file pom.xml
-
-      - name: Setup MySql
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE `${{ secrets.DB_DATABASE_NAME }}`;' -u${{ secrets.DB_USER }} -proot
-          mysql -e "ALTER USER '${{ secrets.DB_USER }}'@'localhost' IDENTIFIED BY '${{ secrets.DB_PASSWORD }}'; FLUSH PRIVILEGES;" -u${{ secrets.DB_USER }} -proot
 
       - name: Start Server
         run: |
