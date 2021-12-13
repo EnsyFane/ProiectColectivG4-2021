@@ -134,11 +134,7 @@ class RecipeServiceTest {
         AppUser appUser = createUser("1","Andrei", "Pop", "andrei.pop","andreipop@gmail.com",ZonedDateTime.now(),ZonedDateTime.now(),false,"popcorn");
         RecipeDTO recipeDTO = createRecipeDTO("1","Paste","steps",9.5f,4f,40,5,"notes",70,"path.png", "1",list1,list2);
         Recipe recipe = createRecipe("1","Paste","steps",9.5f,4f,40,5,"notes",70,"path.png", appUser);
-//        Mockito.when(recipeMapper.mapToEntity(recipeDTO)).thenReturn(recipe);
         Mockito.when(userRepository.findOne("1")).thenReturn(appUser);
-
-//        Mockito.when(recipeRepository.save(recipe));
-
         recipeService.addRecipe(recipeDTO);
         recipe.setAppUser(appUser);
         Mockito.verify(recipeRepository).save(any());
