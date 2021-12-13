@@ -1,18 +1,17 @@
 package com.kitchen.iChef.Service;
 
-import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
 import com.kitchen.iChef.DTO.RecipeDTO;
 import com.kitchen.iChef.DTO.RecipeIngredientDTO;
 import com.kitchen.iChef.DTO.RecipeUtensilDTO;
 import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Domain.*;
 import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
+import com.kitchen.iChef.Exceptions.ValidationException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
 import com.kitchen.iChef.Mapper.UpdateRecipeMapper;
 import com.kitchen.iChef.Repository.*;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -158,9 +157,15 @@ public class RecipeService {
 
     }
 
-    public List<RecipeDTO> complexRecipeFilter(RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public List<RecipeDTO> complexRecipeFilter(RecipeFilterCriteria recipeFilterCriteria) {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        List <Recipe> recipes=recipeRepository.findBySteps(recipeFilterCriteria);
+        List<Recipe> recipes;
+        try {
+            recipes = recipeRepository.findByIngredients(recipeFilterCriteria);
+
+        } catch (Exception ex) {
+            throw new ValidationException("Invalid number!");
+        }
         for (Recipe r : recipes) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 

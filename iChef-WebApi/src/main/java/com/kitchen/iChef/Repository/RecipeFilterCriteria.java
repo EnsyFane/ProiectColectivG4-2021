@@ -1,17 +1,13 @@
 package com.kitchen.iChef.Repository;
 
 import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class RecipeFilterCriteria {
-   private List<FilterRequest> filters;
-
-    public List<FilterRequest> getFilters() {
-        return filters;
-    }
-
-    public void setFilters(List<FilterRequest> filters) {
-        this.filters = filters;
-    }
+    private List<FilterRequest> filters;
 }

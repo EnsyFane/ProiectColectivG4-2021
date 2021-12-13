@@ -13,8 +13,6 @@ import javax.persistence.criteria.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Repository
 public class RecipeRepository implements ICrudRepository<Recipe, String> {
@@ -56,35 +54,36 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         }
         return allRecipes;
     }
-    public List<Recipe> findBySteps(RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        CriteriaQuery<Recipe> criteriaQuery= criteriaBuilder.createQuery(Recipe.class);
-        Root<Recipe> recipeRoot=criteriaQuery.from(Recipe.class);
-        Predicate predicate=getPredicate(recipeFilterCriteria,recipeRoot);
+
+    public List<Recipe> findByIngredients(RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        CriteriaQuery<Recipe> criteriaQuery = criteriaBuilder.createQuery(Recipe.class);
+        Root<Recipe> recipeRoot = criteriaQuery.from(Recipe.class);
+        Predicate predicate = getPredicate(recipeFilterCriteria, recipeRoot);
         criteriaQuery.where(predicate);
-        TypedQuery<Recipe> typedQuery=entityManager.createQuery(criteriaQuery);
+        TypedQuery<Recipe> typedQuery = entityManager.createQuery(criteriaQuery);
         return typedQuery.getResultList();
     }
 
     private Predicate getPredicate(RecipeFilterCriteria recipeFilterCriteria, Root<Recipe> recipeRoot) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    List<Predicate> predicates=new ArrayList<>();
-    for(FilterRequest filterRequest:recipeFilterCriteria.getFilters()) {
-        if (filterRequest.getField().equals("title"))
-            predicates.add(criteriaBuilder.like(recipeRoot.get("title"), "%" + filterRequest.getText() + "%")
-            );
-        if (filterRequest.getField().equals("difficulty"))
-            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("difficulty"), filterRequest.getText())
-            );
-        if (filterRequest.getField().equals("portions"))
-            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("portions"), filterRequest.getText())
-            );
-        if (filterRequest.getField().equals("preparationTime"))
-            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Object.class).invoke(criteriaBuilder, recipeRoot.get("preparationTime"), filterRequest.getText())
-            );
-        if (filterRequest.getField().equals("rating"))
-            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("rating"), filterRequest.getText())
-            );
-    }
-    return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        List<Predicate> predicates = new ArrayList<>();
+        for (FilterRequest filterRequest : recipeFilterCriteria.getFilters()) {
+            if (filterRequest.getField().equals("title"))
+                predicates.add(criteriaBuilder.like(recipeRoot.get("title"), "%" + filterRequest.getText() + "%")
+                );
+            if (filterRequest.getField().equals("difficulty"))
+                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("difficulty"), filterRequest.getText())
+                );
+            if (filterRequest.getField().equals("portions"))
+                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("portions"), filterRequest.getText())
+                );
+            if (filterRequest.getField().equals("preparationTime"))
+                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Object.class).invoke(criteriaBuilder, recipeRoot.get("preparationTime"), filterRequest.getText())
+                );
+            if (filterRequest.getField().equals("rating"))
+                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("rating"), filterRequest.getText())
+                );
+        }
+        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 
     @Override
