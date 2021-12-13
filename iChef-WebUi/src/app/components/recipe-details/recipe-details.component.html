@@ -1,6 +1,6 @@
 <div class="left">
     <div class="up">
-        <img src={{recipe?.imagePath}} alt="food">
+        <img id="image" src={{recipe?.imagePath}} alt="food">
     </div>
     <div class="down">
         <div class="title">
@@ -8,9 +8,9 @@
         </div>
         <div class="details">
             <div class="header">
-                <span>Difficulty: {{recipe?.difficulty}}</span>
-                <span>{{recipe?.preparationTime}} min <mat-icon>schedule</mat-icon></span>
-                <span>{{recipe?.rating}} <mat-icon>stars</mat-icon></span>
+                <span class="difficulty">Difficulty: {{recipe?.difficulty}} / 5</span>
+                <span class="preparation-time">{{recipe?.preparationTime}} minutes<mat-icon>schedule</mat-icon></span>
+                <span class="rating">{{recipe?.rating}} <mat-icon>stars</mat-icon></span>
             </div>
             <br>
             <div class="header">
@@ -33,7 +33,7 @@
             </div>
             <br>
             <ng-container *ngFor="let ingredient of recipe?.recipeIngredientList">
-                <p> - {{ingredient.ingredientName}} {{ingredient.amount}} {{ingredient.measurementUnit}}</p>
+                <p> - {{ingredient.ingredientName}} x {{ingredient.amount}} {{ingredient.measurementUnit}}</p>
             </ng-container>
         </div>
         <div class="utensils">
@@ -52,7 +52,7 @@
             {{instructions}}
         </div>
         <br>
-        <div class="inside">
+        <div id="steps" class="inside">
             {{recipe?.steps}}
         </div>
     </div>
@@ -61,7 +61,7 @@
             {{notes}}
         </div>
         <br>
-        <div class="inside">
+        <div id="notes" class="inside">
             {{recipe?.notes}}
         </div>
     </div>

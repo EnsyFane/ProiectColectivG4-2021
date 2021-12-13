@@ -67,6 +67,15 @@ img{
     margin-top: 10px;
 }
 
+.difficulty, .preparation-time{
+    width: 40%;
+}
+
+.rating{
+    text-align: right;
+    width: 20%;
+}
+
 .ingredients{
     width: 60%;
     margin-right: 3%;
@@ -115,6 +124,8 @@ p{
 
 mat-icon{
     vertical-align: middle;
+    width: 20% !important;
+    height: 100% !important;
 }
 
 button{

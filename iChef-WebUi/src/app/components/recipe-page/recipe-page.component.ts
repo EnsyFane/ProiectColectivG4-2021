@@ -119,7 +119,7 @@ export class RecipePageComponent implements OnInit {
             this.recipeIngredient = {amount: 0, ingredientName: ''};
             this.recipeIngredient.ingredientName = this.ingredientName.value;
             this.recipeIngredient.amount = this.amount.value;
-            if (this.quantity.value === '') {
+            if (this.quantity.value !== '') {
                 this.recipeIngredient.measurementUnit = this.quantity.value;
             }
             this.ingredientsList.push(this.recipeIngredient);
