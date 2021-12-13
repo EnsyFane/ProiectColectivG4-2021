@@ -5,17 +5,25 @@
 .font {
     @include font;
     @include thick;
-    font-size: 18px;
     color: black;
 }
 
 .link {
+    width: 31.3333%;
     @include thick;
-    margin: 0 20px;
+    margin: 0 1%;
+}
+
+.links{
+    width: 30%;
 }
 
 .links > a {
+    width: 31.3333%;
+    margin: 0 1%;
+    display: inline-block;
     text-decoration: none;
+    overflow: hidden;
 }
 
 .inactive-tab {
@@ -35,30 +43,35 @@
     height: 60px;
     background-color: $secondary-background-color;
     position: relative;
+    overflow: hidden;
 }
 
 .app-title {
     position: absolute;
     left: 20px;
     top: 23px;
+    width: 10%;
+    overflow: hidden;
 }
 
 .credential-buttons {
     position: absolute;
     right: 0;
     top: 9px;
+    width: 28%;
 }
 
 .primary-button {
     @include primary-button;
-    width: 150px;
-    margin: 0 10px 0 10px;
+    width: 45%;
+    margin-right: 2%;
+    overflow: hidden;
 }
 
 .secondary-button {
     @include secondary-button;
-    width: 150px;
-    margin: 0 10px 0 10px;
+    width: 45%;
+    overflow: hidden;
 }
 
 a:hover {

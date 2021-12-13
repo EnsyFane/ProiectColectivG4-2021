@@ -33,20 +33,21 @@
 img{
     width: 100%;
     height: 100%;
+    border-radius: 25px;
 }
 
 .title{
     @include background();
     text-align: center;
     padding: 5px 0;
-    font-size: 25px;
+    font-size: 2vw;
     font-weight: bold;
 }
 
 .subtitle{
     margin-top: 10px;
     text-align: center;
-    font-size: 18px;
+    font-size: 1.5vw;
     font-weight: bold;
 }
 
@@ -58,6 +59,7 @@ img{
 }
 
 .container{
+    min-height: 49%;
     width: 90%;
     margin: 0 auto;
     display: flex;
@@ -65,8 +67,16 @@ img{
     margin-top: 10px;
 }
 
+.difficulty, .preparation-time{
+    width: 40%;
+}
+
+.rating{
+    text-align: right;
+    width: 20%;
+}
+
 .ingredients{
-    min-height: 50%;
     width: 60%;
     margin-right: 3%;
     background-color: $white-transparent;
@@ -74,7 +84,6 @@ img{
 }
 
 .utensils{
-    min-height: 50%;
     width: 37%;
     background-color: $white-transparent;
     border-radius: 25px;
@@ -115,6 +124,8 @@ p{
 
 mat-icon{
     vertical-align: middle;
+    width: 20% !important;
+    height: 100% !important;
 }
 
 button{

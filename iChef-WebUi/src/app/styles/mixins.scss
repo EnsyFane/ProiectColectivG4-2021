@@ -12,6 +12,8 @@
 }
 
 @mixin primary-button {
+    overflow: hidden;
+    font-size: 1.1vw;
     background-color: $primary-color;
     color: white;
     border: 3px solid $primary-color;
@@ -19,6 +21,8 @@
 }
 
 @mixin secondary-button {
+    overflow: hidden;
+    font-size: 1.1vw;
     background-color: white;
     color: $primary-color;
     border: 3px solid $primary-color;
@@ -26,7 +30,7 @@
 }
 
 @mixin split-horizontal {
-    height: 85%;
+    height: 82%;
     width: 45%;
     display: inline-block;
     border-radius: 25px;
