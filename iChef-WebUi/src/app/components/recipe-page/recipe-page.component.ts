@@ -113,13 +113,15 @@ export class RecipePageComponent implements OnInit {
     }
 
     addIngredient(): void {
-        if (this.ingredientName.value === '' || this.amount.value === '' || this.quantity.value === '') {
-            window.alert('Insert name, amount and quantity for ingredient!');
+        if (this.ingredientName.value === '' || this.amount.value === '') {
+            window.alert('Insert name and amount for ingredient!');
         } else {
-            this.recipeIngredient = {amount: 0, ingredientName: '', measurementUnit: ''};
+            this.recipeIngredient = {amount: 0, ingredientName: ''};
             this.recipeIngredient.ingredientName = this.ingredientName.value;
             this.recipeIngredient.amount = this.amount.value;
-            this.recipeIngredient.measurementUnit = this.quantity.value;
+            if (this.quantity.value !== '') {
+                this.recipeIngredient.measurementUnit = this.quantity.value;
+            }
             this.ingredientsList.push(this.recipeIngredient);
             this.clearIngredientFields();
         }
@@ -176,7 +178,7 @@ export class RecipePageComponent implements OnInit {
                 recipeUtensilList: utensilObjects,
                 steps: this.instructions.value,
                 title: this.title.value,
-                userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'
+                userId: '7ba38ead-8fd1-4fce-91ae-eeb3beafd05c'
             };
 
             if (this.editMode && this.selectedRecipe?.recipeId) {
