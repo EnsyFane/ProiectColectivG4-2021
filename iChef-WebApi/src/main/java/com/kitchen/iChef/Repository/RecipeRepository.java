@@ -1,21 +1,32 @@
 package com.kitchen.iChef.Repository;
 
+import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
 import com.kitchen.iChef.Domain.Recipe;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 public class RecipeRepository implements ICrudRepository<Recipe, String> {
     private final IRecipeRepository iRecipeRepository;
+    private final EntityManager entityManager;
+    private final CriteriaBuilder criteriaBuilder;
 
     @Autowired
-    public RecipeRepository(IRecipeRepository iRecipeRepository) {
+    public RecipeRepository(IRecipeRepository iRecipeRepository, EntityManager entityManager) {
         this.iRecipeRepository = iRecipeRepository;
+        this.entityManager = entityManager;
+        this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
     @Override
@@ -34,97 +45,7 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         }
         return filteredRecipes;
     }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsEquals(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsEquals(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsLessThanEqual(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsLessThanEqual(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsGreaterThanEqual(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsGreaterThanEqual(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyGreaterThanEqualAndPreparationTimeLessThanEqualAndPortionsEquals(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyGreaterThanEqualAndPreparationTimeLessThanEqualAndPortionsEquals(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanEqualAndPortionsEquals(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyLessThanEqualAndPreparationTimeLessThanEqualAndPortionsEquals(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
 
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyGreaterThanEqualAndPreparationTimeLessThanEqualAndPortionsGreaterThanEqual(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyGreaterThanEqualAndPreparationTimeLessThanEqualAndPortionsGreaterThanEqual(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyGreaterThanEqualAndPreparationTimeLessThanEqualAndPortionsLessThanEqual(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyGreaterThanEqualAndPreparationTimeLessThanEqualAndPortionsLessThanEqual(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanAndPortionsEquals(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanAndPortionsEquals(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanEqualAndPortionsLessThanEqual(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanEqualAndPortionsLessThanEqual(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
-    public List<Recipe> findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanEqualAndPortionsGreaterThanEqual(String title,Float difficulty,Integer preparationTime,Integer portions)
-    {
-        List<Recipe> filteredRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = iRecipeRepository.findRecipesByTitleContainsAndDifficultyEqualsAndPreparationTimeLessThanEqualAndPortionsGreaterThanEqual(title,difficulty,preparationTime, portions);
-        for (Recipe recipe : recipes) {
-            filteredRecipes.add(recipe);
-        }
-        return filteredRecipes;
-    }
 
     @Override
     public List<Recipe> findAll() {
@@ -134,6 +55,36 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
             allRecipes.add(recipe);
         }
         return allRecipes;
+    }
+    public List<Recipe> findBySteps(RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        CriteriaQuery<Recipe> criteriaQuery= criteriaBuilder.createQuery(Recipe.class);
+        Root<Recipe> recipeRoot=criteriaQuery.from(Recipe.class);
+        Predicate predicate=getPredicate(recipeFilterCriteria,recipeRoot);
+        criteriaQuery.where(predicate);
+        TypedQuery<Recipe> typedQuery=entityManager.createQuery(criteriaQuery);
+        return typedQuery.getResultList();
+    }
+
+    private Predicate getPredicate(RecipeFilterCriteria recipeFilterCriteria, Root<Recipe> recipeRoot) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    List<Predicate> predicates=new ArrayList<>();
+    for(FilterRequest filterRequest:recipeFilterCriteria.getFilters()) {
+        if (filterRequest.getField().equals("title"))
+            predicates.add(criteriaBuilder.like(recipeRoot.get("title"), "%" + filterRequest.getText() + "%")
+            );
+        if (filterRequest.getField().equals("difficulty"))
+            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("difficulty"), filterRequest.getText())
+            );
+        if (filterRequest.getField().equals("portions"))
+            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("portions"), filterRequest.getText())
+            );
+        if (filterRequest.getField().equals("preparationTime"))
+            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Object.class).invoke(criteriaBuilder, recipeRoot.get("preparationTime"), filterRequest.getText())
+            );
+        if (filterRequest.getField().equals("rating"))
+            predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("rating"), filterRequest.getText())
+            );
+    }
+    return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 
     @Override

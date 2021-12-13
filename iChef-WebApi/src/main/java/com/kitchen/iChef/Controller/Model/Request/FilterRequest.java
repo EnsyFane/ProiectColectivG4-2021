@@ -5,14 +5,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @ToString
 public class FilterRequest {
-    private String title="";
-    private Float difficulty=0f;
-    private OperationType difficultyOperation=OperationType.GreaterThanEqual;
-    private Integer preparationTime=1000;
-    private Integer portions=0;
-    private OperationType portionsOperation=OperationType.GreaterThanEqual;
+    @NotBlank(message = "The field cannot be null!")
+    private String field;
+    @NotBlank(message = "The operation cannot be null!")
+    private String operation;
+    @NotBlank(message = "The text cannot be null!")
+    private String text;
+
 }

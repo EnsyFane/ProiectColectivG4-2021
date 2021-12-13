@@ -7,6 +7,7 @@ import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
+import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,8 +73,8 @@ public class RecipeController {
                 .collect(Collectors.toList());
     }
     @PostMapping(value = "/complex_filter")
-    public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody FilterRequest filterRequest) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        return recipeService.complexRecipeFiltering(filterRequest)
+    public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        return recipeService.complexRecipeFilter(recipeFilterCriteria)
                 .stream()
                 .map(recipeMapper::mapToResponse)
                 .collect(Collectors.toList());

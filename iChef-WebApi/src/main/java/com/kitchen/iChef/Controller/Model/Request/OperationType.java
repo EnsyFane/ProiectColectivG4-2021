@@ -1,5 +1,5 @@
 package com.kitchen.iChef.Controller.Model.Request;
 
 public enum OperationType {
-    LessThanEqual,Equals,GreaterThanEqual
+ greaterThan,lessThan,equals,greaterThanOrEqualTo,lessThanOrEqualTo,like
 }

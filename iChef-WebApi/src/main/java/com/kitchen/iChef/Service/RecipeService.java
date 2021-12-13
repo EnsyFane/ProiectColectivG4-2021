@@ -18,7 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class RecipeService {
@@ -155,16 +155,10 @@ public class RecipeService {
         return recipeDTOS;
 
     }
-    private String getFilterFunctionName(FilterRequest filterRequest)
-    {
-        String name="findRecipesByTitleContainsAndDifficulty"+filterRequest.getDifficultyOperation()+"AndPreparationTimeLessThanEqualAndPortions"+filterRequest.getPortionsOperation();
-        return name;
 
-    }
-    public List<RecipeDTO> complexRecipeFiltering(FilterRequest filterRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public List<RecipeDTO> complexRecipeFilter(RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
-        List<Recipe> recipes= (List<Recipe>) recipeRepository.getClass().getMethod(getFilterFunctionName(filterRequest), String.class,Float.class,Integer.class,Integer.class).invoke(recipeRepository,filterRequest.getTitle(), filterRequest.getDifficulty(), filterRequest.getPreparationTime(), filterRequest.getPortions());
-
+        List <Recipe> recipes=recipeRepository.findBySteps(recipeFilterCriteria);
         for (Recipe r : recipes) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
