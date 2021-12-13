@@ -6,12 +6,13 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 import { RecipePageComponent } from './components/recipe-page/recipe-page.component';
 import { UserProfilePageComponent } from './components/user-profile-page/user-profile-page.component';
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPageComponent },
     { path: 'recipes', component: RecipesComponent },
     { path: 'recipes/details/:id', component: RecipeDetailsComponent },
     { path: 'recipes/create', component: RecipePageComponent },
+    { path: 'recipes/update/:id', component: RecipePageComponent },
     { path: 'my-account', component: UserProfilePageComponent }
 ];
 

@@ -64,7 +64,6 @@ export class RecipesService {
             );
     }
 
-    // TODO: Create model for recipe update
     updateRecipe(recipe: any, recipeId: string): Observable<Recipe> {
         return this.http.put<Recipe>(this.baseUrl + `/recipes/${recipeId}`, recipe)
             .pipe(
@@ -85,6 +84,18 @@ export class RecipesService {
                 }),
                 map((response: any) => {
                     return response as Recipe;
+                })
+            );
+    }
+
+    searchRecipes(title: string): Observable<Recipe[]> {
+        return this.http.get<Recipe[]>(this.baseUrl + `/recipes/filter/${title}`)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to search recipes failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe[];
                 })
             );
     }
