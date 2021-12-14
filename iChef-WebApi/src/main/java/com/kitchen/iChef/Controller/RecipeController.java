@@ -1,5 +1,6 @@
 package com.kitchen.iChef.Controller;
 
+import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
 import com.kitchen.iChef.Controller.Model.Request.UpdateRecipeRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
@@ -7,11 +8,13 @@ import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
+import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Mapper.UpdateRecipeMapper;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,6 +75,13 @@ public class RecipeController {
     @GetMapping(value = "/filter/{title}")
     public List<RecipeResponse> simpleFilterRecipes(@PathVariable String title) {
         return recipeService.simpleRecipeFiltering(title)
+                .stream()
+                .map(recipeMapper::mapToResponse)
+                .collect(Collectors.toList());
+    }
+    @PostMapping(value = "/complex_filter")
+    public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        return recipeService.complexRecipeFilter(recipeFilterCriteria)
                 .stream()
                 .map(recipeMapper::mapToResponse)
                 .collect(Collectors.toList());
