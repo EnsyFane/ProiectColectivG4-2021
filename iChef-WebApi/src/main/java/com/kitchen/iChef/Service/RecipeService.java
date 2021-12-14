@@ -6,6 +6,7 @@ import com.kitchen.iChef.DTO.RecipeUtensilDTO;
 import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Domain.*;
 import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
+import com.kitchen.iChef.Exceptions.ValidationException;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
@@ -14,6 +15,7 @@ import com.kitchen.iChef.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -141,6 +143,30 @@ public class RecipeService {
     public List<RecipeDTO> simpleRecipeFiltering(String text) {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
         for (Recipe r : recipeRepository.findRecipesByTitle(text)) {
+            RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
+
+            List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
+            recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+            List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(r);
+            recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+            recipeDTOS.add(recipeDTO);
+        }
+        return recipeDTOS;
+
+    }
+
+    public List<RecipeDTO> complexRecipeFilter(RecipeFilterCriteria recipeFilterCriteria) {
+        List<RecipeDTO> recipeDTOS = new ArrayList<>();
+        List<Recipe> recipes;
+        try {
+            recipes = recipeRepository.findByIngredients(recipeFilterCriteria);
+
+        } catch (Exception ex) {
+            throw new ValidationException("Invalid number!");
+        }
+        for (Recipe r : recipes) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
 
             List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(r);
