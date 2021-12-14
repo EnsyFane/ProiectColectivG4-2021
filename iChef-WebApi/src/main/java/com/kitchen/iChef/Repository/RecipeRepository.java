@@ -111,4 +111,11 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         iRecipeRepository.save(recipeInDb);
         return recipeInDb;
     }
+
+    public Recipe updateNoViews(String id) {
+        Recipe recipeInDb = findOne(id);
+        recipeInDb.setNumberOfViews(recipeInDb.getNumberOfViews() + 1);
+        iRecipeRepository.save(recipeInDb);
+        return recipeInDb;
+    }
 }

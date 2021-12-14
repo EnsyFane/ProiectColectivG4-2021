@@ -1,6 +1,5 @@
 package com.kitchen.iChef.Controller;
 
-import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
 import com.kitchen.iChef.Controller.Model.Request.UpdateRecipeRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
@@ -8,8 +7,8 @@ import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
-import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Mapper.UpdateRecipeMapper;
+import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,6 +78,7 @@ public class RecipeController {
                 .map(recipeMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
+
     @PostMapping(value = "/complex_filter")
     public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         return recipeService.complexRecipeFilter(recipeFilterCriteria)
@@ -87,4 +87,10 @@ public class RecipeController {
                 .collect(Collectors.toList());
     }
 
+    @PutMapping(value = "/viewed/{id}")
+    public RecipeResponse updateNoViewsRecipe(@PathVariable String id) {
+        /*UpdateRecipeDTO recipeDto = updateRecipeMapper.mapFromRequest(recipeRequest);
+        recipeDto.setRecipeId(id);*/
+        return recipeMapper.mapToResponse(recipeService.updateNoViews(id));
+    }
 }

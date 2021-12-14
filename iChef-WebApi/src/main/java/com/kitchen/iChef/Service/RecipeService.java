@@ -15,7 +15,6 @@ import com.kitchen.iChef.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +54,7 @@ public class RecipeService {
             throw new ResourceNotFoundException("No user with this id");
         }
         recipe.setAppUser(user);
+        recipe.setNumberOfViews(0);
         try {
             recipeRepository.save(recipe);
         } catch (Exception ex) {
@@ -102,6 +102,7 @@ public class RecipeService {
             }
         }
         recipeDTO.setRecipeId(recipe.getRecipeId());
+        recipeDTO.setNumberOfViews(0);
         return recipeDTO;
     }
 
@@ -276,6 +277,21 @@ public class RecipeService {
                 recipeUtensilRepository.save(ru);
             }
         }
+
+        List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(recipe);
+        recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+        List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(recipe);
+        recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+        return recipeDTO;
+    }
+
+    public RecipeDTO updateNoViews(String id) {
+
+        Recipe recipe = recipeRepository.updateNoViews(id);
+
+        RecipeDTO recipeDTO = recipeMapper.mapToDTO(recipe);
 
         List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(recipe);
         recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
