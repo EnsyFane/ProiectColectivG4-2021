@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { EMPTY, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -39,7 +39,7 @@ export class CloudinaryService {
     }
 
     private hash(input: string): string {
-        return shajs('sha256').update(input).digest('hex')
+        return shajs('sha256').update(input).digest('hex');
     }
 
     private handleHttpError(errorMessage: string): Observable<never> {

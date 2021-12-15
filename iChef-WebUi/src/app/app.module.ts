@@ -53,7 +53,7 @@ import { CloudinaryService } from './services/cloudinary.service';
         MatInputModule,
         SnackbarModule,
         CommonModule,
-        MatSnackBarModule,
+        MatSnackBarModule
     ],
     providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
