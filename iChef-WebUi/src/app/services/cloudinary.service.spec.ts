@@ -14,6 +14,9 @@ describe('ImgurService', () => {
         fakeHttpClient = new FakeHttpClient();
         TestBed.configureTestingModule({
             providers: [
+                { provide: 'CLOUDINARY_CLOUD_NAME', useValue: '' },
+                { provide: 'CLOUDINARY_API_KEY', useValue: '' },
+                { provide: 'CLOUDINARY_API_SECRET', useValue: '' },
                 { provide: SnackbarService, useValue: fakeSnackbarService },
                 { provide: HttpClient, useValue: fakeHttpClient }
             ]

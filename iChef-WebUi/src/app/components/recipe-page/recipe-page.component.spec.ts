@@ -19,6 +19,9 @@ describe('RecipePageComponent', () => {
             imports: [RouterTestingModule, MatSnackBarModule],
             declarations: [RecipePageComponent],
             providers: [
+                { provide: 'CLOUDINARY_CLOUD_NAME', useValue: '' },
+                { provide: 'CLOUDINARY_API_KEY', useValue: '' },
+                { provide: 'CLOUDINARY_API_SECRET', useValue: '' },
                 { provide: 'BASE_API_URL', useValue: '' },
                 { provide: HttpClient, useValue: fakeHttpClient }
             ],
