@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'src/app/styles/variables.scss';
-@import 'src/app/styles/mixins.scss';
+@import "src/app/styles/variables.scss";
+@import "src/app/styles/mixins.scss";
 
-*{
+* {
     font-size: 1.1vw;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     background-color: $primary-background-color;
     overflow: auto;
@@ -18,11 +19,13 @@ body {
     background-color: $primary-background-color;
 }
 
-.primary-button, .primary-button.mat-raised-button {
+.primary-button,
+.primary-button.mat-raised-button {
     @include primary-button;
 }
 
-.secondary-button, .secondary-button.mat-raised-button {
+.secondary-button,
+.secondary-button.mat-raised-button {
     @include secondary-button;
 }
 
@@ -65,16 +68,16 @@ body {
     margin-right: auto;
 }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
+.mat-snack-bar-container {
+    padding: 0 !important;
+}
 
 ::ng-deep.mat-dialog-container {
     background-color: $primary-background-color !important;
     border-radius: 25px !important;
 }
 
-::ng-deep.mat-raised-button{
+::ng-deep.mat-raised-button {
     box-sizing: border-box;
     padding: 0 1vw !important;
 }

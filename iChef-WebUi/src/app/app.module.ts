@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipesModule } from './components/recipes/recipes.module';
@@ -22,6 +22,8 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { UsersService } from './services/users.service';
+import { SnackbarModule } from './services/snackbar/snackbar.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,9 @@ import { UsersService } from './services/users.service';
         RecipePageModule,
         FormsModule,
         ReactiveFormsModule,
-        MatInputModule
+        MatInputModule,
+        SnackbarModule,
+        MatSnackBarModule
     ],
     providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
