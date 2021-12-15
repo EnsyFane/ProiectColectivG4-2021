@@ -2,16 +2,12 @@
 @import "src/app/styles/variables.scss";
 @import "src/app/styles/mixins.scss";
 
-<<<<<<< HEAD
-html,
-body {
-=======
-*{
+* {
     font-size: 1.1vw;
 }
 
-html, body {
->>>>>>> main
+html,
+body {
     height: 100%;
     background-color: $primary-background-color;
     overflow: auto;
@@ -72,16 +68,6 @@ body {
     margin-right: auto;
 }
 
-html,
-body {
-    height: 100%;
-}
-
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 .mat-snack-bar-container {
     padding: 0 !important;
 }
@@ -91,7 +77,7 @@ body {
     border-radius: 25px !important;
 }
 
-::ng-deep.mat-raised-button{
+::ng-deep.mat-raised-button {
     box-sizing: border-box;
     padding: 0 1vw !important;
 }
