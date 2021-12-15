@@ -1,4 +1,4 @@
-<div class="flex-column-center page font">
+<div *ngIf="isUserLogged()" class="flex-column-center page font">
     <img class="profile-cover" src="{{landingPageImage}}" alt="Recipes Image">
     <div class="horizontal-separator">
         <div class="border">

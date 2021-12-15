@@ -1,20 +1,26 @@
 <div class="toolbar" role="banner">
     <div class="app-title">
-        <span class="font">{{appTitle}}</span>
+        <a class="font title-link" routerLink="home">{{appTitle}}</a>
     </div>
     <div class="links">
         <a id="home-link" class="font link" [routerLinkActive]="'active-tab'" routerLink="home">{{homeLink}}</a>
         <a id="recipes-link" class="font link" [routerLinkActive]="'active-tab'"
             routerLink="recipes">{{recipesLink}}</a>
-        <a id="account-link" class="font link" [routerLinkActive]="'active-tab'"
+        <a *ngIf="isUserLogged()" id="account-link" class="font link" [routerLinkActive]="'active-tab'"
             routerLink="my-account">{{myAccountLink}}</a>
     </div>
     <div class="credential-buttons">
-        <button mat-raised-button class="font primary-button">
+        <button *ngIf="!isUserLogged()" mat-raised-button class="font primary-button">
             {{registerBtn}}
         </button>
-        <button (click)="login()" mat-raised-button class="font secondary-button">
+        <button *ngIf="!isUserLogged()" (click)="login()" mat-raised-button class="font secondary-button">
             {{loginBtn}}
+        </button>
+        <button *ngIf="isUserLogged()" mat-raised-button class="font primary-button">
+            {{createRecipeBtn}}
+        </button>
+        <button *ngIf="isUserLogged()" (click)="logout()" mat-raised-button class="font secondary-button">
+            {{logoutBtn}}
         </button>
     </div>
 </div>

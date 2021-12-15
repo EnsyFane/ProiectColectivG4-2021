@@ -9,6 +9,7 @@ export const LANDING_PAGE_STRINGS = {
 
 export const BUTTON_STRINGS = {
     LOGIN: 'Login',
+    LOGOUT: 'Logout',
     REGISTER: 'Register',
     SEARCH: 'Search',
     CREATE: 'Create Recipe',
