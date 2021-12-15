@@ -89,6 +89,17 @@ export class RecipesService {
                 })
             );
     }
+    searchRecipes(title: string): Observable<Recipe[]> {
+        return this.http.get<Recipe[]>(this.baseUrl + `/recipes/filter/${title}`)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to search recipes failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe[];
+                })
+            );
+    }
 
     private handleHttpError(errorMessage: string): Observable<never> {
         this.snackbarService.displayErrorSnackbar(errorMessage);
