@@ -4,12 +4,52 @@ import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Recipe } from 'src/app/data-types/recipe';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS } from '../../constants/texts';
+import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS, TITLES } from '../../constants/texts';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { RecipeIngredient } from 'src/app/data-types/ingredient';
+import { Utensil } from 'src/app/data-types/utensil';
+import { IngredientsService } from 'src/app/services/ingredients.service';
+import { UtensilsService } from 'src/app/services/utensils.service';
+import { Filter } from 'src/app/data-types/filter';
+import { FilterCriteria } from 'src/app/data-types/filter-criteria';
 
 @Component({
     selector: 'app-recipes',
     templateUrl: './recipes.component.html',
-    styleUrls: ['./recipes.component.scss']
+    styleUrls: ['./recipes.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+          state('in', style({
+            transform: 'translate3d(0,0,0)'
+          })),
+          state('out', style({
+            transform: 'translate3d(-100%, 0, 0)'
+          })),
+          transition('in => out', animate('400ms ease-in-out')),
+          transition('out => in', animate('400ms ease-in-out'))
+        ]),
+        trigger('slideInOut2', [
+            state('in', style({
+              width: '80%',
+              margin: '0 0 0 20%'
+            })),
+            state('out', style({
+                width: '100%'
+            })),
+            transition('in => out', animate('400ms ease-in-out')),
+            transition('out => in', animate('400ms ease-in-out'))
+        ]),
+        trigger('slideInOut3', [
+            state('in', style({
+              width: '48%'
+            })),
+            state('out', style({
+                width: '31.3333%'
+            })),
+            transition('in => out', animate('400ms ease-in-out')),
+            transition('out => in', animate('400ms ease-in-out'))
+        ])
+      ]
 })
 export class RecipesComponent implements OnInit {
 
@@ -17,12 +57,27 @@ export class RecipesComponent implements OnInit {
     readonly searchPlaceHolder = PLACEHOLDERS_STRINGS.SEARCH;
     readonly createBtn = BUTTON_STRINGS.CREATE;
     readonly filterBtn = BUTTON_STRINGS.FILTER;
+    readonly difficultyTitle = TITLES.DIFFICULTY;
+    readonly timeTitle = TITLES.TIME;
+    readonly portionsTitle = TITLES.PORTIONS;
+    readonly ingredientsTitle = TITLES.INGREDIENTS;
+    readonly utensilsTitle = TITLES.UTENSILS;
+    readonly numberPlaceHolder = PLACEHOLDERS_STRINGS.NUMBER;
+    readonly applyBtn = BUTTON_STRINGS.APPLY;
 
     recipes: Recipe[] = [];
     searchTextPrevPage: string = '';
 
+    ingredients: RecipeIngredient[] = [];
+    utensils: Utensil[] = [];
+
+    checkBoxIngredients: boolean[] = [];
+    checkBoxUtensils: boolean[] = [];
+
     constructor(
         private recipeService: RecipesService,
+        private ingredientsService: IngredientsService,
+        private utensilsService: UtensilsService,
         private router: Router) {
             if (this.router.getCurrentNavigation()?.extras.state?.text !== undefined) {
                 this.searchTextPrevPage = this.router.getCurrentNavigation()?.extras.state?.text;
@@ -30,6 +85,22 @@ export class RecipesComponent implements OnInit {
         }
 
     searchText = new FormControl('');
+
+    difficultyOperation = new FormControl('');
+    difficultyNumber = new FormControl('');
+
+    timeOperation = new FormControl('');
+    timeNumber = new FormControl('');
+
+    portionsOperation = new FormControl('');
+    portionsNumber = new FormControl('');
+
+    checkedIngredients: string[] = [];
+    checkedUtensils: string[] = [];
+
+    filtersCriteria: FilterCriteria = {filters: []};
+
+    menuState: string = 'out';
 
     ngOnInit(): void {
 
@@ -46,6 +117,24 @@ export class RecipesComponent implements OnInit {
                 })
             ).subscribe();
         }
+
+        this.ingredientsService.getIngredients().pipe(
+            tap(ingredients => {
+                this.ingredients = ingredients;
+                for (let i = 0; i < this.ingredients.length; i++) {
+                    this.checkBoxIngredients[i] = false;
+                }
+            })
+        ).subscribe();
+
+        this.utensilsService.getUtensils().pipe(
+            tap(utensils => {
+                this.utensils = utensils;
+                for (let i = 0; i < this.utensils.length; i++) {
+                    this.checkBoxUtensils[i] = false;
+                }
+            })
+        ).subscribe();
     }
 
     onCreateEvent(): void {
@@ -62,6 +151,129 @@ export class RecipesComponent implements OnInit {
                 })
             ).subscribe();
             this.searchText.setValue('');
+        }
+    }
+
+    openMenu(): void {
+        this.menuState = 'in';
+    }
+
+    closeMenu(): void {
+        this.menuState = 'out';
+    }
+
+    clearFields(): void {
+        this.difficultyOperation.setValue('');
+        this.difficultyNumber.setValue('');
+
+        this.timeOperation.setValue('');
+        this.timeNumber.setValue('');
+
+        this.portionsOperation.setValue('');
+        this.portionsNumber.setValue('');
+
+        this.filtersCriteria.filters = [];
+        for (let i = 0; i < this.ingredients.length; i++) {
+            this.checkBoxIngredients[i] = false;
+        }
+        for (let i = 0; i < this.utensils.length; i++) {
+            this.checkBoxUtensils[i] = false;
+        }
+
+        this.checkedIngredients = [];
+        this.checkedUtensils = [];
+    }
+
+    getOperation(operation: string): string {
+        if (operation === '=') {
+            return 'equal';
+        }
+
+        if (operation === '<=') {
+            return 'lessThanOrEqualTo';
+        }
+
+        if (operation === '>=') {
+            return 'greaterThanOrEqualTo';
+        }
+
+        if (operation === '<') {
+            return 'lessThan';
+        }
+
+        if (operation === '>') {
+            return 'greaterThan';
+        }
+
+        return '';
+    }
+
+    applyFilters(): void {
+        let errors: string = '';
+
+        if (this.difficultyOperation.value !== '' && this.difficultyNumber.value !== '') {
+            const filter: Filter = {field: 'difficulty', operation: this.getOperation(this.difficultyOperation.value), text: this.difficultyNumber.value.toString()};
+            this.filtersCriteria.filters.push(filter);
+        }
+
+        if (this.difficultyOperation.value === '' && this.difficultyNumber.value !== '' || this.difficultyOperation.value !== '' && this.difficultyNumber.value === '') {
+            errors += 'Insert operation and number for difficulty!\n';
+        }
+
+        if (this.timeOperation.value !== '' && this.timeNumber.value !== '') {
+            const filter: Filter = {field: 'preparation_time', operation: this.getOperation(this.timeOperation.value), text: this.timeNumber.value.toString()};
+            this.filtersCriteria.filters.push(filter);
+        }
+
+        if (this.timeOperation.value === '' && this.timeNumber.value !== '' || this.timeOperation.value !== '' && this.timeNumber.value === '') {
+            errors += 'Insert operation and number for preparation time!\n';
+        }
+
+        if (this.portionsOperation.value !== '' && this.portionsNumber.value !== '') {
+            const filter: Filter = {field: 'portions', operation: this.getOperation(this.portionsOperation.value), text: this.portionsNumber.value.toString()};
+            this.filtersCriteria.filters.push(filter);
+        }
+
+        if (this.portionsOperation.value === '' && this.portionsNumber.value !== '' || this.portionsOperation.value !== '' && this.portionsNumber.value === '') {
+            errors += 'Insert operation and number for portions!\n';
+        }
+
+        if (errors !== '') {
+            alert(errors);
+            this.clearFields();
+        } else {
+            if (this.filtersCriteria.filters.length === 0) {
+                alert('Insert a filter!');
+                this.clearFields();
+            } else {
+                this.recipeService.filterRecipes(this.filtersCriteria).pipe(
+                    tap(recipes => {
+                        this.recipes = recipes;
+                        this.closeMenu();
+                        this.clearFields();
+                    })
+                ).subscribe();
+            }
+        }
+    }
+
+    updateCheckedIngredient(ingredient: string, event: any): void {
+        if (event.target.checked) {
+            this.checkedIngredients.push(ingredient);
+        } else {
+            this.checkedIngredients.forEach((value, index) => {
+                if (value === ingredient) this.checkedIngredients.splice(index, 1);
+            });
+        }
+    }
+
+    updateCheckedUtensil(utensil: string, event: any): void {
+        if (event.target.checked) {
+            this.checkedUtensils.push(utensil);
+        } else {
+            this.checkedUtensils.forEach((value, index) => {
+                if (value === utensil) this.checkedUtensils.splice(index, 1);
+            });
         }
     }
 }

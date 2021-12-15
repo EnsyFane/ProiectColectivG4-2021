@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { Recipe } from '../data-types/recipe';
 import { catchError, map } from 'rxjs/operators';
+import { FilterCriteria } from '../data-types/filter-criteria';
 
 @Injectable({
     providedIn: 'root'
@@ -93,6 +94,18 @@ export class RecipesService {
             .pipe(
                 catchError((error: any) => {
                     return this.handleHttpError(`The request to search recipes failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe[];
+                })
+            );
+    }
+
+    filterRecipes(filters: FilterCriteria): Observable<Recipe[]> {
+        return this.http.post<Recipe[]>(this.baseUrl + `/recipes/complex_filter`, filters)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to filter recipes failed with error code ${error.status}.`);
                 }),
                 map((response: any) => {
                     return response as Recipe[];

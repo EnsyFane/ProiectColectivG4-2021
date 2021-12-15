@@ -1,5 +1,5 @@
 export interface RecipeIngredient {
     ingredientName: string;
-    amount: number;
+    amount?: number;
     measurementUnit?: string;
 }
