@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { Recipe } from '../data-types/recipe';
 import { catchError, map } from 'rxjs/operators';
+import { SnackbarService } from './snackbar/snackbar.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ export class RecipesService {
 
     constructor(
         private http: HttpClient,
+        private snackbarService: SnackbarService,
         @Inject('BASE_API_URL') private baseUrl: string
     ) { }
 
@@ -87,7 +89,6 @@ export class RecipesService {
                 })
             );
     }
-
     searchRecipes(title: string): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(this.baseUrl + `/recipes/filter/${title}`)
             .pipe(
@@ -100,8 +101,8 @@ export class RecipesService {
             );
     }
 
-    // TODO: Add error snackbar
     private handleHttpError(errorMessage: string): Observable<never> {
+        this.snackbarService.displayErrorSnackbar(errorMessage);
         return EMPTY;
     }
 }
