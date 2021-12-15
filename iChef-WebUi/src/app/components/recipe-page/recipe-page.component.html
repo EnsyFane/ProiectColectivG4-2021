@@ -91,7 +91,6 @@
     </div>
 
     <div class="right">
-
         <div class="up">
             <h2>{{ingredientsUtensilsTitle}}</h2>
             <div id="#ingredientsContainer" class="ingredients">
@@ -111,7 +110,9 @@
                 </div>
             </div>
         </div>
-
+        <div class="down image-upload">
+            <app-upload-image-form (imageLoaded)="onImageLoaded($event)"></app-upload-image-form>
+        </div>
     </div>
 
     <button (click)="saveRecipe();" mat-raised-button class="save">

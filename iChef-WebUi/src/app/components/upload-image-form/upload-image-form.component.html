@@ -1,0 +1,11 @@
+<form #form="ngForm" class="upload-image-form" [formGroup]="uploadImageFormGroup">
+    <div class="upload-image-container" (dragover)="dragOver($event)" (dragleave)="dragLeave($event)"
+        (drop)="imageDropped($event)">
+        <input type="file" class="image-input" formControlName="image" (change)="imageUploaded($event)" #imageUpload>
+        <div class="image-upload">
+            <p class="upload-text">Drag image here or <button class="upload-btn" (click)="imageUpload.click()">
+                    <u>browse</u></button>.
+            </p>
+        </div>
+    </div>
+</form>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TITLES, PLACEHOLDERS_STRINGS, BUTTON_STRINGS } from 'src/app/constants/texts';
@@ -6,8 +6,11 @@ import { RecipeIngredient } from 'src/app/data-types/ingredient';
 import { Recipe } from 'src/app/data-types/recipe';
 import { Utensil } from 'src/app/data-types/utensil';
 import { RecipesService } from 'src/app/services/recipes.service';
-import {tap} from 'rxjs/operators';
-import {SharedService} from '../../services/shared.service';
+import { tap } from 'rxjs/operators';
+import { SharedService } from '../../services/shared.service';
+import { ImgurService } from 'src/app/services/imgur.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 /**
  * @title Dynamic grid-list
@@ -16,9 +19,8 @@ import {SharedService} from '../../services/shared.service';
     selector: 'app-recipe-page',
     templateUrl: './recipe-page.component.html',
     styleUrls: ['./recipe-page.component.scss']
-
 })
-export class RecipePageComponent implements OnInit {
+export class RecipePageComponent implements OnInit, OnDestroy {
 
     readonly titlePlaceHolder = PLACEHOLDERS_STRINGS.TITLE;
     readonly ingredient = TITLES.INGREDIENT;
@@ -43,12 +45,18 @@ export class RecipePageComponent implements OnInit {
     editMode!: boolean;
     selectedRecipe: Recipe | null = null;
 
+    private subscription: Subscription = new Subscription();
+
     constructor(
-        private renderer: Renderer2,
+        private imgurService: ImgurService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
         private router: Router
     ) { }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 
     @ViewChild('ingredientsContainer') ingredientsContainer!: ElementRef;
     @ViewChild('utensilsContainer') utensilsContainer!: ElementRef;
@@ -62,7 +70,7 @@ export class RecipePageComponent implements OnInit {
     ingredientsList: RecipeIngredient[] = [];
     utensilsList: Utensil[] = [];
 
-    recipeIngredient: RecipeIngredient = {amount: 0, ingredientName: '', measurementUnit: ''};
+    recipeIngredient: RecipeIngredient = { amount: 0, ingredientName: '', measurementUnit: '' };
     recipeUtensil: Utensil = {};
 
     title = new FormControl('');
@@ -116,7 +124,7 @@ export class RecipePageComponent implements OnInit {
         if (this.ingredientName.value === '' || this.amount.value === '') {
             window.alert('Insert name and amount for ingredient!');
         } else {
-            this.recipeIngredient = {amount: 0, ingredientName: ''};
+            this.recipeIngredient = { amount: 0, ingredientName: '' };
             this.recipeIngredient.ingredientName = this.ingredientName.value;
             this.recipeIngredient.amount = this.amount.value;
             if (this.quantity.value !== '') {
@@ -150,6 +158,22 @@ export class RecipePageComponent implements OnInit {
         if (index !== -1) {
             this.utensilsList.splice(index, 1);
         }
+    }
+
+    onImageLoaded(image: File): void {
+        if (!image) {
+            return;
+        }
+        const subscription = this.imgurService.uploadImage(image).subscribe(event => {
+            if (event.type === HttpEventType.UploadProgress) {
+                // Add spinner
+            }
+            if (event instanceof HttpResponse) {
+                // get the file path to add it to the db
+            }
+        });
+
+        this.subscription.add(subscription);
     }
 
     saveRecipe(): void {

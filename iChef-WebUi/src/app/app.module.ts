@@ -24,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { UsersService } from './services/users.service';
 import { SnackbarModule } from './services/snackbar/snackbar.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { ImgurService } from './services/imgur.service';
 
 @NgModule({
     declarations: [
@@ -50,12 +52,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         ReactiveFormsModule,
         MatInputModule,
         SnackbarModule,
+        CommonModule,
         MatSnackBarModule
     ],
     providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
         RecipesService,
-        UsersService
+        UsersService,
+        ImgurService
     ],
     bootstrap: [AppComponent]
 })
