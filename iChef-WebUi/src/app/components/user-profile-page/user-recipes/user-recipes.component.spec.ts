@@ -4,6 +4,7 @@ import { UserRecipesComponent } from './user-recipes.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClient } from '@angular/common/http';
 import { FakeHttpClient } from 'src/app/testing/fake-http-client';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('UserRecipesComponent', () => {
     let component: UserRecipesComponent;
@@ -13,7 +14,7 @@ describe('UserRecipesComponent', () => {
     beforeEach(async () => {
         fakeHttpClient = new FakeHttpClient();
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule],
+            imports: [RouterTestingModule, MatSnackBarModule],
             declarations: [UserRecipesComponent],
             providers: [
                 { provide: 'BASE_API_URL', useValue: '' },
