@@ -8,7 +8,7 @@ import { Utensil } from 'src/app/data-types/utensil';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { tap } from 'rxjs/operators';
 import { SharedService } from '../../services/shared.service';
-import { ImgurService } from 'src/app/services/imgur.service';
+import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
@@ -48,7 +48,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     private subscription: Subscription = new Subscription();
 
     constructor(
-        private imgurService: ImgurService,
+        private imgurService: CloudinaryService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
         private router: Router
@@ -78,6 +78,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     difficulty = new FormControl('');
     instructions = new FormControl('');
     notes = new FormControl('');
+    imageUrl = '';
+    imageIsUploading = false;
 
     ngOnInit(): void {
         this.editMode = this.sharedService.getRecipeEditMode();
@@ -166,10 +168,11 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         }
         const subscription = this.imgurService.uploadImage(image).subscribe(event => {
             if (event.type === HttpEventType.UploadProgress) {
-                // Add spinner
+                this.imageIsUploading = true;
             }
             if (event instanceof HttpResponse) {
-                // get the file path to add it to the db
+                this.imageUrl = event.body.url;
+                this.imageIsUploading = false;
             }
         });
 

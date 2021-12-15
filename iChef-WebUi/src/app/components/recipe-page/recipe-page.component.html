@@ -111,7 +111,10 @@
             </div>
         </div>
         <div class="down image-upload">
-            <app-upload-image-form (imageLoaded)="onImageLoaded($event)"></app-upload-image-form>
+            <app-upload-image-form *ngIf="!imageUrl && !imageIsUploading" (imageLoaded)="onImageLoaded($event)">
+            </app-upload-image-form>
+            <mat-spinner *ngIf="imageIsUploading"></mat-spinner>
+            <img *ngIf="imageUrl" [src]="imageUrl" alt="image">
         </div>
     </div>
 

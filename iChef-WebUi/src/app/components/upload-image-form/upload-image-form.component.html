@@ -3,8 +3,8 @@
         (drop)="imageDropped($event)">
         <input type="file" class="image-input" formControlName="image" (change)="imageUploaded($event)" #imageUpload>
         <div class="image-upload">
-            <p class="upload-text">Drag image here or <button class="upload-btn" (click)="imageUpload.click()">
-                    <u>browse</u></button>.
+            <p class="upload-text">
+                Drag image here or <button class="upload-btn" (click)="imageUpload.click()"><u>browse</u></button>.
             </p>
         </div>
     </div>

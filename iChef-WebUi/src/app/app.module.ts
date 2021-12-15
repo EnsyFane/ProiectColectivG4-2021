@@ -25,7 +25,7 @@ import { UsersService } from './services/users.service';
 import { SnackbarModule } from './services/snackbar/snackbar.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { ImgurService } from './services/imgur.service';
+import { CloudinaryService } from './services/cloudinary.service';
 
 @NgModule({
     declarations: [
@@ -53,13 +53,16 @@ import { ImgurService } from './services/imgur.service';
         MatInputModule,
         SnackbarModule,
         CommonModule,
-        MatSnackBarModule
+        MatSnackBarModule,
     ],
     providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        { provide: 'CLOUDINARY_CLOUD_NAME', useValue: environment.cloudinaryCloudName },
+        { provide: 'CLOUDINARY_API_KEY', useValue: environment.cloudinaryAPIKey },
+        { provide: 'CLOUDINARY_API_SECRET', useValue: environment.cloudinaryAPISecret },
         RecipesService,
         UsersService,
-        ImgurService
+        CloudinaryService
     ],
     bootstrap: [AppComponent]
 })
