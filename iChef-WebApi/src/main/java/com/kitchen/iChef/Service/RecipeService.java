@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -285,14 +284,6 @@ public class RecipeService {
         recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
 
         return recipeDTO;
-    }
-
-    public List<RecipeDTO> sortRecipes(String field, boolean ascending) {
-        List<Recipe> sortedRecipes = new ArrayList<>();
-        Iterable<Recipe> recipes = recipeRepository.findAll(ascending ? Sort.by(field).ascending() : Sort.by(field).descending());
-        recipes.forEach(sortedRecipes::add);
-
-        return getRecipeDTOs(sortedRecipes);
     }
 
     public List<RecipeDTO> sortRecipes(String field, boolean ascending) {
