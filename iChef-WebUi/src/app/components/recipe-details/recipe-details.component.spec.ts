@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RecipeIngredient } from 'src/app/data-types/ingredient';
 import { Recipe } from 'src/app/data-types/recipe';
 import { Utensil } from 'src/app/data-types/utensil';
@@ -20,6 +21,9 @@ describe('RecipeDetailsComponent', () => {
         fakeHttpClient = new FakeHttpClient();
         await TestBed.configureTestingModule({
             declarations: [RecipeDetailsComponent],
+            imports: [
+                MatSnackBarModule
+            ],
             providers: [
                 { provide: 'BASE_API_URL', useValue: '' },
                 { provide: HttpClient, useValue: fakeHttpClient }

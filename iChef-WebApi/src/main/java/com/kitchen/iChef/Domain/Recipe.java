@@ -17,11 +17,13 @@ public class Recipe {
     @Column(name = "recipe_id")
     private String recipeId;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String steps;
     private Float rating;
     private Float difficulty;
     private Integer preparationTime;
     private Integer portions;
+    @Column(columnDefinition = "TEXT")
     private String notes;
     private Integer numberOfViews;
     private String imagePath;

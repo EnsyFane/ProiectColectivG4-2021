@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Recipe } from 'src/app/data-types/recipe';
@@ -18,20 +19,49 @@ export class RecipesComponent implements OnInit {
     readonly filterBtn = BUTTON_STRINGS.FILTER;
 
     recipes: Recipe[] = [];
+    searchTextPrevPage: string = '';
 
     constructor(
         private recipeService: RecipesService,
-        private router: Router) { }
+        private router: Router) {
+            if (this.router.getCurrentNavigation()?.extras.state?.text !== undefined) {
+                this.searchTextPrevPage = this.router.getCurrentNavigation()?.extras.state?.text;
+            }
+        }
+
+    searchText = new FormControl('');
 
     ngOnInit(): void {
-        this.recipeService.getRecipes().pipe(
-            tap(recipes => {
-                this.recipes = recipes;
-            })
-        ).subscribe();
+
+        if (this.searchTextPrevPage === '') {
+            this.recipeService.getRecipes().pipe(
+                tap(recipes => {
+                    this.recipes = recipes;
+                })
+            ).subscribe();
+        } else {
+            this.recipeService.searchRecipes(this.searchTextPrevPage).pipe(
+                tap(recipes => {
+                    this.recipes = recipes;
+                })
+            ).subscribe();
+        }
     }
 
     onCreateEvent(): void {
         this.router.navigate(['details']);
+    }
+
+    search(): void {
+        if (this.searchText.value === '') {
+            alert('Insert a recipe title for search!');
+        } else {
+            this.recipeService.searchRecipes(this.searchText.value).pipe(
+                tap(recipes => {
+                    this.recipes = recipes;
+                })
+            ).subscribe();
+            this.searchText.setValue('');
+        }
     }
 }
