@@ -1,11 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'src/app/styles/variables.scss';
-@import 'src/app/styles/mixins.scss';
+@import "src/app/styles/variables.scss";
+@import "src/app/styles/mixins.scss";
 
-html, body {
+* {
+    font-size: 1.1vw;
+}
+
+html,
+body {
     height: 100%;
     background-color: $primary-background-color;
-    overflow: hidden;
+    overflow: auto;
 }
 
 body {
@@ -14,11 +19,13 @@ body {
     background-color: $primary-background-color;
 }
 
-.primary-button, .primary-button.mat-raised-button {
+.primary-button,
+.primary-button.mat-raised-button {
     @include primary-button;
 }
 
-.secondary-button, .secondary-button.mat-raised-button {
+.secondary-button,
+.secondary-button.mat-raised-button {
     @include secondary-button;
 }
 
@@ -39,7 +46,6 @@ body {
 
 .search-bar-input {
     position: relative;
-    top: -3px;
     left: 8px;
     background-color: transparent;
     border: none;
@@ -61,12 +67,17 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
+.mat-snack-bar-container {
+    padding: 0 !important;
+}
 
 ::ng-deep.mat-dialog-container {
     background-color: $primary-background-color !important;
     border-radius: 25px !important;
+}
+
+::ng-deep.mat-raised-button {
+    box-sizing: border-box;
+    padding: 0 1vw !important;
 }

@@ -2,11 +2,15 @@ package com.kitchen.iChef.Controller;
 
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
 import com.kitchen.iChef.Controller.Model.Request.SortingRequest;
+import com.kitchen.iChef.Controller.Model.Request.UpdateRecipeRequest;
+import com.kitchen.iChef.Controller.Model.Request.SortingRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
-import com.kitchen.iChef.Exceptions.ResourceNotFoundException;
+import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
+import com.kitchen.iChef.Repository.RecipeFilterCriteria;
+import com.kitchen.iChef.Mapper.UpdateRecipeMapper;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +23,14 @@ import java.util.stream.Collectors;
 public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeMapper recipeMapper;
+    private final UpdateRecipeMapper updateRecipeMapper;
     private final RecipeIngredientMapper recipeIngredientMapper = new RecipeIngredientMapper();
     private final RecipeUtensilMapper recipeUtensilMapper = new RecipeUtensilMapper();
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
         this.recipeMapper = new RecipeMapper(recipeIngredientMapper, recipeUtensilMapper);
+        this.updateRecipeMapper = new UpdateRecipeMapper(recipeIngredientMapper, recipeUtensilMapper);
     }
 
     @GetMapping
@@ -60,8 +66,10 @@ public class RecipeController {
     }
 
     @PutMapping(value = "/{id}")
-    public RecipeResponse updateRecipe(@PathVariable String id, @Valid @RequestBody RecipeRequest recipeRequest) {
-        throw new ResourceNotFoundException("Not yet implemented.");
+    public RecipeResponse updateRecipe(@PathVariable String id, @Valid @RequestBody UpdateRecipeRequest recipeRequest) {
+        UpdateRecipeDTO recipeDto = updateRecipeMapper.mapFromRequest(recipeRequest);
+        recipeDto.setRecipeId(id);
+        return updateRecipeMapper.mapToResponse(recipeService.updateRecipe(recipeDto));
     }
 
     @GetMapping(value = "/userId/{userId}")
@@ -75,6 +83,14 @@ public class RecipeController {
     @GetMapping(value = "/filter/{title}")
     public List<RecipeResponse> simpleFilterRecipes(@PathVariable String title) {
         return recipeService.simpleRecipeFiltering(title)
+                .stream()
+                .map(recipeMapper::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping(value = "/complex_filter")
+    public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody RecipeFilterCriteria recipeFilterCriteria) {
+        return recipeService.complexRecipeFilter(recipeFilterCriteria)
                 .stream()
                 .map(recipeMapper::mapToResponse)
                 .collect(Collectors.toList());
