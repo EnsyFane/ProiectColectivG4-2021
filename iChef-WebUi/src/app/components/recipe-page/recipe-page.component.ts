@@ -197,7 +197,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
             const recipe: Recipe = {
                 difficulty: this.difficulty.value,
                 // TODO: Remove hardcoding once image uploading is supported.
-                imagePath: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+                imagePath: this.imageUrl,
                 notes: this.notes.value,
                 portions: 1,
                 preparationTime: this.time.value,
@@ -205,7 +205,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
                 recipeUtensilList: utensilObjects,
                 steps: this.instructions.value,
                 title: this.title.value,
-                userId: '7ba38ead-8fd1-4fce-91ae-eeb3beafd05c'
+                userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'
             };
 
             if (this.editMode && this.selectedRecipe?.recipeId) {
