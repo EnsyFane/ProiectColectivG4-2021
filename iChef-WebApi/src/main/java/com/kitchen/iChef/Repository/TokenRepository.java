@@ -5,9 +5,11 @@ import com.kitchen.iChef.Repository.Interfaces.ITokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class TokenRepository {
 
     private final ITokenRepository tokenRepository;
@@ -29,7 +31,7 @@ public class TokenRepository {
         return tokenRepository.findByUserId(userId);
     }
 
-    public int deleteByUserId(String userId) {
+    public long deleteByUserId(String userId) {
         return tokenRepository.deleteByUserId(userId);
     }
 }
