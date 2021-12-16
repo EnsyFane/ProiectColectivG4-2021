@@ -179,8 +179,12 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         this.subscription.add(subscription);
     }
 
+    canSaveRecipe(): boolean {
+        return this.title.value && this.ingredientsList.length && this.utensilsList.length && this.time.value && this.difficulty.value && this.instructions.value && this.notes.value && this.imageUrl;
+    }
+
     saveRecipe(): void {
-        if (!this.title.value || !this.ingredientsList.length || !this.utensilsList.length || !this.time.value || !this.difficulty.value || !this.instructions.value || !this.notes.value) {
+        if (!this.canSaveRecipe()) {
             window.alert('Insert title, ingredients, utensils, time to prepare, difficulty, instructions and extra notes for recipe!');
         } else {
             const ingredientObjects: RecipeIngredient[] = [];
@@ -219,5 +223,4 @@ export class RecipePageComponent implements OnInit, OnDestroy {
             }
         }
     }
-
 }

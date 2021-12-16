@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <button (click)="saveRecipe();" mat-raised-button class="save">
+    <button (click)="saveRecipe();" mat-raised-button class="save" [disabled]="!canSaveRecipe()">
         {{saveBtn}}
     </button>
 </body>
