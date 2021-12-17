@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UsersService } from './services/users.service';
 import { SnackbarModule } from './services/snackbar/snackbar.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
         RecipesService,
-        UsersService
+        UsersService,
+        SharedService
     ],
     bootstrap: [AppComponent]
 })
