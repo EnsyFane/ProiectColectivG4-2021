@@ -249,10 +249,11 @@ export class RecipesComponent implements OnInit {
                 this.recipeService.filterRecipes(this.filtersCriteria).pipe(
                     tap(recipes => {
                         this.recipes = recipes;
-                        this.closeMenu();
-                        this.clearFields();
                     })
-                ).subscribe();
+                ).subscribe( () => {
+                    this.closeMenu();
+                    this.clearFields();
+                });
             }
         }
     }

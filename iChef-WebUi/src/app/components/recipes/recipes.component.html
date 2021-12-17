@@ -43,7 +43,7 @@
             <div class="ingredients">
                 <li>{{ingredientsTitle}}:</li>
                     <li class="element" *ngFor="let ingredient of ingredients; index as i">
-                        {{ingredient.name}}
+                        {{ingredient.ingredientName}}
                         <input type="checkbox" value="{{ingredient}}" [checked]="checkBoxIngredients[i]" (change)="updateCheckedIngredient(ingredient, $event)">
                     </li>
             </div>
@@ -51,7 +51,7 @@
             <div class="utensils">
                 <li>{{utensilsTitle}}:</li>
                     <li class="element" *ngFor="let utensil of utensils; index as i">
-                        {{utensil.name}}
+                        {{utensil.utensilName}}
                         <input type="checkbox" value="{{utensil}}" [checked]="checkBoxUtensils[i]" (change)="updateCheckedUtensil(utensil, $event)">
                     </li>
             </div>
