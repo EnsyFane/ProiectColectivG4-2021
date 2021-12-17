@@ -18,6 +18,8 @@ export class RecipeDetailsComponent implements OnInit {
     readonly instructions = TITLES.INSTRUCTIONS;
     readonly notes = TITLES.NOTES;
     readonly addReviewBtn = BUTTON_STRINGS.REVIEW;
+    readonly difficultyTitle = TITLES.DIFFICULTY;
+    readonly portionsTitle = TITLES.PORTIONS;
 
     recipe: Recipe | null = null;
 

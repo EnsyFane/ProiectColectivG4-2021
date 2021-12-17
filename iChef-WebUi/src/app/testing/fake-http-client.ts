@@ -1,8 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { RecipeIngredient } from '../data-types/ingredient';
 import { Recipe } from '../data-types/recipe';
+import { Utensil } from '../data-types/utensil';
 
 export class FakeHttpClient {
+    private ingredientsResponse!: RecipeIngredient[];
+    private utensilsResponse!: Utensil[];
     private recipesResponse!: Recipe[];
     private recipeDetailsResponse!: Recipe;
 
@@ -11,6 +15,8 @@ export class FakeHttpClient {
     }
 
     resetDefaultValues(): void {
+        this.ingredientsResponse = this.getDefaultIngredientsResponse();
+        this.utensilsResponse = this.getDefaultUtensilsResponse();
         this.recipesResponse = this.getDefaultRecipesResponse();
         this.recipeDetailsResponse = this.getDefaulRecipeResponse();
     }
@@ -23,6 +29,14 @@ export class FakeHttpClient {
         this.recipesResponse = recipes;
     }
 
+    setIngredientsResponse(ingredients: RecipeIngredient[]): void {
+        this.ingredientsResponse = ingredients;
+    }
+
+    setUtensilsResponse(utensils: Utensil[]): void {
+        this.utensilsResponse = utensils;
+    }
+
     // ------- PUBLIC SETUP API -------
     // Public HTTP API
 
@@ -33,6 +47,14 @@ export class FakeHttpClient {
 
         if (this.matches(/recipes\/.*$/i, url)) {
             return of(this.recipeDetailsResponse);
+        }
+
+        if (this.matches(/ingredients$/i, url)) {
+            return of(this.ingredientsResponse);
+        }
+
+        if (this.matches(/utensils$/i, url)) {
+            return of(this.utensilsResponse);
         }
 
         return of(this.getNotFoundResponse());
@@ -84,5 +106,17 @@ export class FakeHttpClient {
                 utensilName: 'Utensils'
             }]
         };
+    }
+
+    private getDefaultIngredientsResponse(): RecipeIngredient[] {
+        return [{
+            ingredientName: 'Ingredient'
+        }];
+    }
+
+    private getDefaultUtensilsResponse(): Utensil[] {
+        return [{
+            utensilName: 'Utensil'
+        }];
     }
 }

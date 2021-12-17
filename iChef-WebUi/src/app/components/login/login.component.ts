@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS } from 'src/app/constants/texts';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -28,15 +29,15 @@ export class LoginComponent {
     hide = true;
 
     constructor(
+        private snackbarService: SnackbarService,
         private formBuilder: FormBuilder,
         private dialogRef: MatDialogRef<LoginComponent>,
-        private userService: UsersService) {
-    }
+        private userService: UsersService) { }
 
-    login() : void {
+    login(): void {
         this.userService.login(this.form.value.email, this.form.value.password).pipe(
             catchError(error => {
-                alert('Invalid credentials!');
+                this.snackbarService.displayErrorSnackbar('Invalid credentials!');
                 this.form.reset();
                 return of(0);
             })
@@ -45,8 +46,7 @@ export class LoginComponent {
         });
     }
 
-    close() : void {
+    close(): void {
         this.dialogRef.close();
     }
-
 }
