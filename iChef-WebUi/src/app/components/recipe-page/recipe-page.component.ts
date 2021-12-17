@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TITLES, PLACEHOLDERS_STRINGS, BUTTON_STRINGS } from 'src/app/constants/texts';
@@ -53,7 +53,7 @@ export class RecipePageComponent implements OnInit {
         private userService: UsersService
     ) {
         if (!sharedService.isUserLogged) {
-            snackbarService.displayErrorSnackbar('Please login to be able to create recipes.')
+            snackbarService.displayErrorSnackbar('Please login to be able to create recipes.');
             router.navigate(['home']);
         }
     }
