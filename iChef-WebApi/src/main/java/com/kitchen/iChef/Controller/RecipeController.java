@@ -89,8 +89,6 @@ public class RecipeController {
 
     @PutMapping(value = "/viewed/{id}")
     public RecipeResponse updateNoViewsRecipe(@PathVariable String id) {
-        /*UpdateRecipeDTO recipeDto = updateRecipeMapper.mapFromRequest(recipeRequest);
-        recipeDto.setRecipeId(id);*/
         return recipeMapper.mapToResponse(recipeService.updateNoViews(id));
     }
 }
