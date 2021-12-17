@@ -8,5 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UtensilResponse {
-    private String name;
+    private String utensilName;
 }

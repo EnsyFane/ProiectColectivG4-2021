@@ -166,7 +166,7 @@ public class RecipeService {
             recipes = recipeRepository.findByIngredients(recipeFilterCriteria);
 
         } catch (Exception ex) {
-            throw new ValidationException("Invalid number!");
+            throw new ValidationException(ex.getMessage());
         }
         for (Recipe r : recipes) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);

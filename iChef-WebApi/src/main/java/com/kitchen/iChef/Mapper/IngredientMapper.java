@@ -13,7 +13,7 @@ public class IngredientMapper {
 
     public IngredientResponse mapToResponse(Ingredient ingredient) {
         IngredientResponse ingredientResponse = new IngredientResponse();
-        ingredientResponse.setName(ingredient.getName());
+        ingredientResponse.setIngredientName(ingredient.getName());
         return ingredientResponse;
     }
 }

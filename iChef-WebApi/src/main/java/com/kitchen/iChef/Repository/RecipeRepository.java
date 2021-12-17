@@ -76,21 +76,23 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
     private Predicate getPredicate(RecipeFilterCriteria recipeFilterCriteria, Root<Recipe> recipeRoot) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<Predicate> predicates = new ArrayList<>();
         for (FilterRequest filterRequest : recipeFilterCriteria.getFilters()) {
+
+            String fieldName = filterRequest.getField();
+
             if (filterRequest.getField().equals("title"))
                 predicates.add(criteriaBuilder.like(recipeRoot.get("title"), "%" + filterRequest.getText() + "%")
                 );
-            if (filterRequest.getField().equals("difficulty"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("difficulty"), filterRequest.getText())
+            else if (filterRequest.getOperation().toString().equals("equal")) {
+
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(recipeRoot.get(fieldName), filterRequest.getText()));
+
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(recipeRoot.get(fieldName), filterRequest.getText()));
+
+            } else
+                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get(fieldName), filterRequest.getText())
                 );
-            if (filterRequest.getField().equals("portions"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("portions"), filterRequest.getText())
-                );
-            if (filterRequest.getField().equals("preparationTime"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Object.class).invoke(criteriaBuilder, recipeRoot.get("preparationTime"), filterRequest.getText())
-                );
-            if (filterRequest.getField().equals("rating"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("rating"), filterRequest.getText())
-                );
+
+
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
