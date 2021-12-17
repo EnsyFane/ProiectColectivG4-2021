@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { Recipe } from '../data-types/recipe';
 import { catchError, map } from 'rxjs/operators';
+import { SnackbarService } from './snackbar/snackbar.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ export class RecipesService {
 
     constructor(
         private http: HttpClient,
+        private snackbarService: SnackbarService,
         @Inject('BASE_API_URL') private baseUrl: string
     ) { }
 
@@ -64,7 +66,6 @@ export class RecipesService {
             );
     }
 
-    // TODO: Create model for recipe update
     updateRecipe(recipe: any, recipeId: string): Observable<Recipe> {
         return this.http.put<Recipe>(this.baseUrl + `/recipes/${recipeId}`, recipe)
             .pipe(
@@ -88,9 +89,20 @@ export class RecipesService {
                 })
             );
     }
+    searchRecipes(title: string): Observable<Recipe[]> {
+        return this.http.get<Recipe[]>(this.baseUrl + `/recipes/filter/${title}`)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to search recipes failed with error code ${error.status}.`);
+                }),
+                map((response: any) => {
+                    return response as Recipe[];
+                })
+            );
+    }
 
-    // TODO: Add error snackbar
     private handleHttpError(errorMessage: string): Observable<never> {
+        this.snackbarService.displayErrorSnackbar(errorMessage);
         return EMPTY;
     }
 }

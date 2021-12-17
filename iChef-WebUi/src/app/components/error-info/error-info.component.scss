@@ -1,0 +1,71 @@
+@use "~@angular/material" as mat;
+
+$details-header-text-color: #746d69;
+$snackbar-border-radius: 2px;
+$snackbar-header-background-color-error: red;
+$snackbar-header-background-color-info: green;
+
+:host {
+    background-color: white;
+    border-radius: $snackbar-border-radius;
+    color: black;
+    font-size: 13px;
+}
+
+.header {
+    &.error {
+        background-color: $snackbar-header-background-color-error;
+    }
+    &.info {
+        background-color: $snackbar-header-background-color-info;
+    }
+
+    border-radius: $snackbar-border-radius 0 0;
+    color: white;
+    display: grid;
+    grid-template-areas: "icon . text . dismiss";
+    grid-template-columns: 16px 8px auto 1fr auto;
+    height: 30px;
+    padding: 0 14px;
+
+    * {
+        align-self: center;
+    }
+
+    .header-icon {
+        font-size: 14px;
+        margin-top: 3px;
+        grid-area: icon;
+        place-self: center;
+    }
+
+    .header-text {
+        font-size: 14px;
+        font-weight: bold;
+        grid-area: text;
+        margin: auto 0;
+    }
+
+    .header-dismiss {
+        color: white;
+        grid-area: dismiss;
+        height: 16px;
+        line-height: normal;
+        min-width: auto;
+        padding: 0;
+        margin-bottom: 9px;
+        width: 16px;
+
+        .mat-icon {
+            display: flex;
+            height: auto;
+            justify-content: center;
+            width: auto;
+        }
+    }
+}
+
+.info-body {
+    background-color: inherit;
+    padding: 15px 20px;
+}

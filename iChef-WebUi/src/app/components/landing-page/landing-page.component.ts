@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { NavigationExtras, Router } from '@angular/router';
 import { PATHS } from 'src/app/constants/paths';
 import { BUTTON_STRINGS, LANDING_PAGE_STRINGS, PLACEHOLDERS_STRINGS } from 'src/app/constants/texts';
 
@@ -14,4 +16,17 @@ export class LandingPageComponent {
   readonly description = LANDING_PAGE_STRINGS.DESCRIPTION;
   readonly searchBtn = BUTTON_STRINGS.SEARCH;
   readonly searchPlaceHolder = PLACEHOLDERS_STRINGS.SEARCH;
+
+  searchText = new FormControl('');
+
+  constructor(private router: Router) {}
+
+  search(): void {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        text: this.searchText.value
+      }
+    };
+    this.router.navigate(['recipes'], navigationExtras);
+  }
 }

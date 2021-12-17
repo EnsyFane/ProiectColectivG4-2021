@@ -4,6 +4,8 @@ import { Recipe } from '../../../data-types/recipe';
 import { Router } from '@angular/router';
 import { RecipesService } from '../../../services/recipes.service';
 import { tap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
     selector: 'app-user-recipes',
@@ -19,13 +21,15 @@ export class UserRecipesComponent implements OnInit {
     readonly createBtn = BUTTON_STRINGS.CREATE;
 
     recipes: Recipe[] = [];
+    searchText = new FormControl('');
 
     constructor(
         private recipeService: RecipesService,
+        private sharedService: SharedService,
         private router: Router) { }
 
     ngOnInit(): void {
-        this.userId = 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'; // This is preventive (it will be changed when we will have a user Service)
+        this.userId = '7ba38ead-8fd1-4fce-91ae-eeb3beafd05c'; // This is preventive (it will be changed when we will have a user Service)
         this.refrehRecipes();
     }
 
@@ -35,7 +39,11 @@ export class UserRecipesComponent implements OnInit {
 
     goToRecipeEdit(recipe: Recipe): void {
         // TODO change the following line so it takes the user to the update page
-        this.router.navigate(['/recipes/details/' + recipe.recipeId]);
+        if (recipe.recipeId) {
+            this.sharedService.setId(recipe.recipeId);
+            this.sharedService.setRecipeEditMode(true);
+        }
+        this.router.navigate(['/recipes/update/' + recipe.recipeId]);
     }
 
     deleteRecipe(recipe: Recipe): void {
@@ -50,5 +58,18 @@ export class UserRecipesComponent implements OnInit {
                 this.recipes = recipes;
             })
         ).subscribe();
+    }
+
+    search(): void {
+        if (this.searchText.value === '') {
+            alert('Insert a recipe title for search!');
+        } else {
+            this.recipeService.searchRecipes(this.searchText.value).pipe(
+                tap(recipes => {
+                    this.recipes = recipes;
+                })
+            ).subscribe();
+            this.searchText.setValue('');
+        }
     }
 }
