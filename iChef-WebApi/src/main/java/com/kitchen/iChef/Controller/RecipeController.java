@@ -8,8 +8,8 @@ import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
 import com.kitchen.iChef.Mapper.RecipeMapper;
 import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
-import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Mapper.UpdateRecipeMapper;
+import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -95,4 +95,8 @@ public class RecipeController {
                 .collect(Collectors.toList());
     }
 
+    @PutMapping(value = "/viewed/{id}")
+    public RecipeResponse updateNoViewsRecipe(@PathVariable String id) {
+        return recipeMapper.mapToResponse(recipeService.updateNoViews(id));
+    }
 }
