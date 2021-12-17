@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { RecipesService } from '../../../services/recipes.service';
 import { tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import {SharedService} from '../../../services/shared.service';
+import { SharedService } from '../../../services/shared.service';
 
 @Component({
     selector: 'app-user-recipes',
@@ -29,7 +29,6 @@ export class UserRecipesComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.userId = '7ba38ead-8fd1-4fce-91ae-eeb3beafd05c'; // This is preventive (it will be changed when we will have a user Service)
         this.refrehRecipes();
     }
 
@@ -71,5 +70,9 @@ export class UserRecipesComponent implements OnInit {
             ).subscribe();
             this.searchText.setValue('');
         }
+    }
+
+    createRecipe(): void {
+        this.router.navigate(['recipes/create']);
     }
 }

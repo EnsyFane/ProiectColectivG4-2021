@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { UsersService } from '../../services/users.service';
 import { SharedService } from '../../services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -22,15 +23,17 @@ export class HeaderComponent {
     readonly createRecipeBtn = BUTTON_STRINGS.CREATE;
     readonly appTitle = LANDING_PAGE_STRINGS.TITLE;
 
-    constructor(private dialog: MatDialog,
-              private userService: UsersService,
-              private sharedService: SharedService) { }
+    constructor(
+        private router: Router,
+        private dialog: MatDialog,
+        private userService: UsersService,
+        private sharedService: SharedService) { }
 
-    isUserLogged() : boolean {
+    isUserLogged(): boolean {
         return this.sharedService.getIsUserLogged();
     }
 
-    login() : void {
+    login(): void {
         const dialogConfig = new MatDialogConfig();
 
         dialogConfig.autoFocus = true;
@@ -39,7 +42,11 @@ export class HeaderComponent {
         this.dialog.open(LoginComponent, dialogConfig);
     }
 
-    logout() : void {
+    createRecipe(): void {
+        this.router.navigate(['recipes/create']);
+    }
+
+    logout(): void {
         this.userService.logout();
     }
 }

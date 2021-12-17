@@ -7,13 +7,12 @@ import { SharedService } from '../../services/shared.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-profile-page',
-  templateUrl: './user-profile-page.component.html',
-  styleUrls: ['./user-profile-page.component.scss']
+    selector: 'app-user-profile-page',
+    templateUrl: './user-profile-page.component.html',
+    styleUrls: ['./user-profile-page.component.scss']
 })
 export class UserProfilePageComponent implements OnInit {
 
-    @Input() userId?: string;
     user!: LoggedUser;
 
     readonly landingPageImage = PATHS.LANDING_PAGE_IMAGE;
@@ -23,7 +22,7 @@ export class UserProfilePageComponent implements OnInit {
     readonly settingsLink = ACCOUNT_MENU_LINKS.SETTINGS;
     readonly logoutLink = ACCOUNT_MENU_LINKS.LOGOUT;
 
-    profileName! : string;
+    profileName!: string;
 
     accountLinks = new Map<string, boolean>([
         [this.overviewLink, false],
@@ -46,17 +45,17 @@ export class UserProfilePageComponent implements OnInit {
         this.profileName = this.user.firstName + ' ' + this.user.lastName;
     }
 
-    isUserLogged() : boolean {
+    isUserLogged(): boolean {
         return this.sharedService.isUserLogged;
     }
 
-    resetOptions() : void {
+    resetOptions(): void {
         for (const key of this.accountLinks.keys()) {
             this.accountLinks.set(key, false);
         }
     }
 
-    setActiveOption(tab: string) : void  {
+    setActiveOption(tab: string): void {
         this.resetOptions();
         if (tab === this.overviewLink) {
             this.accountLinks.set(this.overviewLink, true);

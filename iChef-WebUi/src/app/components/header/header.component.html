@@ -16,7 +16,7 @@
         <button *ngIf="!isUserLogged()" (click)="login()" mat-raised-button class="font secondary-button">
             {{loginBtn}}
         </button>
-        <button *ngIf="isUserLogged()" mat-raised-button class="font primary-button">
+        <button *ngIf="isUserLogged()" mat-raised-button class="font primary-button" (click)="createRecipe()">
             {{createRecipeBtn}}
         </button>
         <button *ngIf="isUserLogged()" (click)="logout()" mat-raised-button class="font secondary-button">

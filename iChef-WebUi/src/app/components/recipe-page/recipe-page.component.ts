@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TITLES, PLACEHOLDERS_STRINGS, BUTTON_STRINGS } from 'src/app/constants/texts';
@@ -6,9 +6,10 @@ import { RecipeIngredient } from 'src/app/data-types/ingredient';
 import { Recipe } from 'src/app/data-types/recipe';
 import { Utensil } from 'src/app/data-types/utensil';
 import { RecipesService } from 'src/app/services/recipes.service';
-import {tap} from 'rxjs/operators';
-import {SharedService} from '../../services/shared.service';
+import { tap } from 'rxjs/operators';
+import { SharedService } from '../../services/shared.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { UsersService } from 'src/app/services/users.service';
 
 /**
  * @title Dynamic grid-list
@@ -20,7 +21,6 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 })
 export class RecipePageComponent implements OnInit {
-
     readonly titlePlaceHolder = PLACEHOLDERS_STRINGS.TITLE;
     readonly ingredient = TITLES.INGREDIENT;
     readonly utensil = TITLES.UTENSIL;
@@ -46,12 +46,17 @@ export class RecipePageComponent implements OnInit {
     selectedRecipe: Recipe | null = null;
 
     constructor(
-        private renderer: Renderer2,
         private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
-        private router: Router
-    ) { }
+        private router: Router,
+        private userService: UsersService
+    ) {
+        if (!sharedService.isUserLogged) {
+            snackbarService.displayErrorSnackbar('Please login to be able to create recipes.')
+            router.navigate(['home']);
+        }
+    }
 
     @ViewChild('ingredientsContainer') ingredientsContainer!: ElementRef;
     @ViewChild('utensilsContainer') utensilsContainer!: ElementRef;
@@ -67,7 +72,7 @@ export class RecipePageComponent implements OnInit {
     ingredientsList: RecipeIngredient[] = [];
     utensilsList: Utensil[] = [];
 
-    recipeIngredient: RecipeIngredient = {amount: 0, ingredientName: '', measurementUnit: ''};
+    recipeIngredient: RecipeIngredient = { amount: 0, ingredientName: '', measurementUnit: '' };
     recipeUtensil: Utensil = {};
 
     title = new FormControl('');
@@ -122,7 +127,7 @@ export class RecipePageComponent implements OnInit {
         if (this.ingredientName.value === '' || this.amount.value === '') {
             this.snackbarService.displayErrorSnackbar('Insert name and amount for ingredient!');
         } else {
-            this.recipeIngredient = {amount: 0, ingredientName: ''};
+            this.recipeIngredient = { amount: 0, ingredientName: '' };
             this.recipeIngredient.ingredientName = this.ingredientName.value;
             this.recipeIngredient.amount = this.amount.value;
             if (this.quantity.value !== '') {
@@ -184,7 +189,7 @@ export class RecipePageComponent implements OnInit {
                 recipeUtensilList: utensilObjects,
                 steps: this.instructions.value,
                 title: this.title.value,
-                userId: '7ba38ead-8fd1-4fce-91ae-eeb3beafd05c'
+                userId: this.userService.user.userId ?? ''
             };
 
             if (this.editMode && this.selectedRecipe?.recipeId) {
