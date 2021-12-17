@@ -5,6 +5,7 @@ import com.kitchen.iChef.Domain.Recipe;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -44,11 +45,19 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         return filteredRecipes;
     }
 
-
     @Override
     public List<Recipe> findAll() {
         List<Recipe> allRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = iRecipeRepository.findAll();
+        for (Recipe recipe : recipes) {
+            allRecipes.add(recipe);
+        }
+        return allRecipes;
+    }
+
+    public List<Recipe> findAll(Sort sort) {
+        List<Recipe> allRecipes = new ArrayList<>();
+        Iterable<Recipe> recipes = iRecipeRepository.findAll(sort);
         for (Recipe recipe : recipes) {
             allRecipes.add(recipe);
         }

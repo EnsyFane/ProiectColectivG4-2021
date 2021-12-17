@@ -2,6 +2,7 @@ package com.kitchen.iChef.Controller;
 
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
 import com.kitchen.iChef.Controller.Model.Request.UpdateRecipeRequest;
+import com.kitchen.iChef.Controller.Model.Request.SortingRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
 import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
@@ -13,7 +14,6 @@ import com.kitchen.iChef.Service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +51,14 @@ public class RecipeController {
                 recipeMapper.mapFromRequest(recipeRequest)));
     }
 
+    @PostMapping(value = "/sort")
+    public List<RecipeResponse> sortRecipes(@Valid @RequestBody SortingRequest sortingRequest) {
+        return recipeService.sortRecipes(sortingRequest.getField(), sortingRequest.isAscending())
+                .stream()
+                .map(recipeMapper::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
     @DeleteMapping(value = "/{id}")
     public RecipeResponse deleteRecipe(@PathVariable String id) {
         return recipeMapper.mapToResponse(recipeService.deleteRecipe(id));
@@ -80,7 +88,7 @@ public class RecipeController {
     }
 
     @PostMapping(value = "/complex_filter")
-    public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public List<RecipeResponse> complexFilterRecipes(@Valid @RequestBody RecipeFilterCriteria recipeFilterCriteria) {
         return recipeService.complexRecipeFilter(recipeFilterCriteria)
                 .stream()
                 .map(recipeMapper::mapToResponse)
