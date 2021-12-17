@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UsersService } from './services/users.service';
 import { SnackbarModule } from './services/snackbar/snackbar.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         ReviewCardComponent,
         UserProfilePageComponent,
         UserRecipesComponent,
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,

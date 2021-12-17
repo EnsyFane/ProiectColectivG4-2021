@@ -4,13 +4,11 @@
     </div>
     <div class="links">
         <a id="home-link" class="font link" [routerLinkActive]="'active-tab'" routerLink="home">{{homeLink}}</a>
-        <a id="recipes-link" class="font link" [routerLinkActive]="'active-tab'"
-            routerLink="recipes">{{recipesLink}}</a>
-        <a id="account-link" class="font link" [routerLinkActive]="'active-tab'"
-            routerLink="my-account">{{myAccountLink}}</a>
+        <a id="recipes-link" class="font link" [routerLinkActive]="'active-tab'" routerLink="recipes">{{recipesLink}}</a>
+        <a id="account-link" class="font link" [routerLinkActive]="'active-tab'" routerLink="my-account">{{myAccountLink}}</a>
     </div>
     <div class="credential-buttons">
-        <button mat-raised-button class="font primary-button">
+        <button (click)="register()" mat-raised-button class="font primary-button">
             {{registerBtn}}
         </button>
         <button (click)="login()" mat-raised-button class="font secondary-button">

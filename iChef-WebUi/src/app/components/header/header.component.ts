@@ -3,6 +3,7 @@ import { HEADER_LINKS } from 'src/app/constants/header';
 import { BUTTON_STRINGS, LANDING_PAGE_STRINGS } from 'src/app/constants/texts';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
     selector: 'app-header',
@@ -26,5 +27,14 @@ export class HeaderComponent {
     dialogConfig.width = '30%';
     dialogConfig.panelClass = 'dialog';
     this.dialog.open(LoginComponent, dialogConfig);
+  }
+
+
+  register() : void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '30%';
+    dialogConfig.panelClass = 'dialog';
+    this.dialog.open(RegisterComponent, dialogConfig);
   }
 }
