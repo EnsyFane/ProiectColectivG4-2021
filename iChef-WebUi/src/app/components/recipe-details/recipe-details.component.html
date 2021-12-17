@@ -8,9 +8,10 @@
         </div>
         <div class="details">
             <div class="header">
-                <span class="difficulty">Difficulty: {{recipe?.difficulty}} / 5</span>
+                <span class="difficulty">{{difficultyTitle}} {{recipe?.difficulty}} / 5</span>
+                <span class="portions">{{portionsTitle}} {{recipe?.portions}}</span>
                 <span class="preparation-time">{{recipe?.preparationTime}} minutes<mat-icon>schedule</mat-icon></span>
-                <span class="rating">{{recipe?.rating}} <mat-icon>stars</mat-icon></span>
+                <span class="rating">{{recipe?.rating}} <mat-icon id="rating-icon">stars</mat-icon></span>
             </div>
             <br>
             <div class="header">
