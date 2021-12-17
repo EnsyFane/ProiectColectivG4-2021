@@ -1,31 +1,19 @@
 package com.kitchen.iChef.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kitchen.iChef.Controller.Model.Request.RecipeIngredientRequest;
-import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
-import com.kitchen.iChef.Controller.Model.Request.RecipeUtensilRequest;
-import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
+import com.kitchen.iChef.Controller.Model.Request.*;
 import com.kitchen.iChef.DTO.RecipeDTO;
 import com.kitchen.iChef.DTO.RecipeIngredientDTO;
 import com.kitchen.iChef.DTO.RecipeUtensilDTO;
-import com.kitchen.iChef.Domain.Ingredient;
-import com.kitchen.iChef.Domain.RecipeIngredient;
-import com.kitchen.iChef.Mapper.IngredientMapper;
-import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
-import com.kitchen.iChef.Mapper.RecipeMapper;
-import com.kitchen.iChef.Mapper.RecipeUtensilMapper;
+import com.kitchen.iChef.DTO.UpdateRecipeDTO;
+import com.kitchen.iChef.Mapper.*;
+import com.kitchen.iChef.Repository.RecipeFilterCriteria;
 import com.kitchen.iChef.Service.RecipeService;
-import io.swagger.models.auth.In;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,7 +22,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -42,20 +29,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-@RunWith(MockitoJUnitRunner.class)
 class RecipeControllerTest {
-    private String url = "/recipes";
+    private final String url = "/recipes";
 
     @Mock
     RecipeService recipeService;
 
-    @InjectMocks
     RecipeController recipeController;
+    RecipeMapper recipeMapper;
+    UpdateRecipeMapper updateRecipeMapper;
 
     MockMvc mockMvc;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
+        RecipeIngredientMapper recipeIngredientMapper = new RecipeIngredientMapper();
+        RecipeUtensilMapper recipeUtensilMapper = new RecipeUtensilMapper();
+        recipeMapper = new RecipeMapper(recipeIngredientMapper,recipeUtensilMapper);
+        updateRecipeMapper = new UpdateRecipeMapper(recipeIngredientMapper,recipeUtensilMapper);
+        recipeController = new RecipeController(recipeService);
         mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
     }
 
@@ -108,77 +100,245 @@ class RecipeControllerTest {
         return recipeRequest;
     }
 
-    @Test
-    void getAllRecipes() throws Exception {
+    private UpdateRecipeRequest createUpdateRecipeRequest(String title, String steps, Float difficulty,Integer preparationTime, Integer portions, String notes,
+                                                          String imagePath, List<RecipeIngredientRequest> recipeIngredientRequests,
+                                                          List<RecipeUtensilRequest> recipeUtensilRequests)
+    {
+        UpdateRecipeRequest updateRecipeRequest = new UpdateRecipeRequest();
+        updateRecipeRequest.setTitle(title);
+        updateRecipeRequest.setSteps(steps);
+        updateRecipeRequest.setDifficulty(difficulty);
+        updateRecipeRequest.setPreparationTime(preparationTime);
+        updateRecipeRequest.setPortions(portions);
+        updateRecipeRequest.setNotes(notes);
+        updateRecipeRequest.setImagePath(imagePath);
+        updateRecipeRequest.setRecipeIngredientList(recipeIngredientRequests);
+        updateRecipeRequest.setRecipeUtensilList(recipeUtensilRequests);
+        return updateRecipeRequest;
+    }
+
+    private List<RecipeDTO> createRecipeDtoList()
+    {
+
+        List<RecipeDTO> recipes = new ArrayList<>();
         List<RecipeIngredientDTO> list1 = new ArrayList<>();
         List<RecipeUtensilDTO> list2 = new ArrayList<>();
-        RecipeDTO recipeDTO1 = createRecipeDTO("1","Pizza","das",4.5f,
-                3.4f,30,4,"fsdfs",10,"fsdfsd",
+        RecipeDTO recipeDTO1 = createRecipeDTO("1","Pizza","steps",4.5f,
+                3.4f,30,4,"notes",10,"imagePath",
                 "1",list1,list2);
-        RecipeDTO recipeDTO2 = createRecipeDTO("2","Burger","das",4.5f,
-                3.4f,30,4,"fsdfs",10,"fsdfsd",
+        RecipeDTO recipeDTO2 = createRecipeDTO("2","Burger","steps",4.5f,
+                3.4f,30,4,"notes",10,"imagePath",
                 "1",list1,list2);
-        List<RecipeDTO> recipes = new ArrayList();
+        RecipeDTO recipeDTO3 = createRecipeDTO("1","Pasta","steps",4.5f,
+                3.4f,30,4,"notes",10,"imagePath",
+                "1",list1,list2);
         recipes.add(recipeDTO1);
         recipes.add(recipeDTO2);
+        recipes.add(recipeDTO3);
+        return recipes;
+    }
+
+    @Test
+    void getAllRecipes() throws Exception {
+        List<RecipeDTO> recipes = createRecipeDtoList();
         when(recipeService.getAllRecipes()).thenReturn(recipes);
         mockMvc.perform(get(url)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", Matchers.hasSize(2)));
+                .andExpect(jsonPath("$.*", Matchers.hasSize(3)));
     }
 
     @Test
     void addRecipe() throws Exception {
+
         List<RecipeIngredientRequest> list1 = new ArrayList<>();
-        RecipeIngredientRequest recipeIngredientRequest = new RecipeIngredientRequest();
-        recipeIngredientRequest.setAmount(3);
-        recipeIngredientRequest.setIngredientName("fdsf");
-        recipeIngredientRequest.setMeasurementUnit("fsdfsd");
-        list1.add(recipeIngredientRequest);
         List<RecipeUtensilRequest> list2 = new ArrayList<>();
+
+        RecipeIngredientRequest recipeIngredientRequest = new RecipeIngredientRequest();
+        recipeIngredientRequest.setAmount(10);
+        recipeIngredientRequest.setMeasurementUnit("spoon");
+        recipeIngredientRequest.setIngredientName("salt");
+
         RecipeUtensilRequest recipeUtensilRequest = new RecipeUtensilRequest();
-        recipeUtensilRequest.setUtensilName("sfsdf");
+        recipeUtensilRequest.setUtensilName("mixer");
+
+        list1.add(recipeIngredientRequest);
         list2.add(recipeUtensilRequest);
 
         List<RecipeIngredientDTO> list11 = new ArrayList<>();
         List<RecipeUtensilDTO> list12 = new ArrayList<>();
-        RecipeDTO recipeDTO1 = createRecipeDTO("1","Pizza","das",4.5f,
-                3.4f,30,4,"fsdfs",10,"fsdfsd",
-                "1",list11,list12);
 
-        RecipeRequest recipeRequest = createRecipeRequest("Pizza","adsad",4.5f,30,4,"daads","fsdafds","1",list1,list2);
+        RecipeIngredientDTO recipeIngredientDTO = new RecipeIngredientDTO();
+        recipeIngredientDTO.setAmount(10);
+        recipeIngredientDTO.setMeasurementUnit("spoon");
+        recipeIngredientDTO.setIngredientName("salt");
+        list11.add(recipeIngredientDTO);
 
-        lenient().when(recipeService.addRecipe(any(RecipeDTO.class))).thenReturn(any(RecipeDTO.class));
+        RecipeUtensilDTO recipeUtensilDTO = new RecipeUtensilDTO();
+        recipeUtensilDTO.setUtensilName("mixer");
+        list12.add(recipeUtensilDTO);
+
+        RecipeDTO recipeDTO1 = createRecipeDTO("1","Pizza","steps1",5.5f,
+                4.3f,20,2,"notes1",1000,"imagePath1", "1",list11,list12);
+
+        RecipeRequest recipeRequest = createRecipeRequest("Pizza","steps",4.5f,30,
+                4,"notes","imagePath","1",list1,list2);
+
+        when(recipeService.addRecipe(any(RecipeDTO.class))).thenReturn(recipeDTO1);
 
         mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(recipeRequest)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.*", Matchers.hasSize(1)));
+                .andExpect(jsonPath("$.title", Matchers.is("Pizza")));
     }
 
     @Test
     void getRecipeById() throws Exception {
         List<RecipeIngredientDTO> list1 = new ArrayList<>();
         List<RecipeUtensilDTO> list2 = new ArrayList<>();
-        RecipeDTO recipeDTO1 = createRecipeDTO("1","Pizza","das",4.5f,
-                3.4f,30,4,"fsdfs",10,"fsdfsd",
+        RecipeDTO recipeDTO1 = createRecipeDTO("1","Pizza","steps",4.5f,
+                3.4f,30,4,"notes",10,"imagePath",
                 "1",list1,list2);
 
         when(recipeService.getRecipe(anyString())).thenReturn(recipeDTO1);
 
-        mockMvc.perform(get("/recipes/1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(url + "/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title",Matchers.is("Pizza")));
     }
 
     @Test
     void deleteRecipe() throws Exception {
+
+        List<RecipeIngredientDTO> list1 = new ArrayList<>();
+        List<RecipeUtensilDTO> list2 = new ArrayList<>();
+        RecipeDTO recipeDTO = createRecipeDTO("1","Pizza","steps",4.5f,
+                3.4f,30,4,"notes",10,"imagePath",
+                "1",list1,list2);
+
+        when(recipeService.deleteRecipe(anyString())).thenReturn(recipeDTO);
         mockMvc.perform(delete("/recipes/1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title",Matchers.is("Pizza")));
 
-        verify(recipeService).deleteRecipe(anyString());
+        verify(recipeService,times(1)).deleteRecipe(anyString());
+    }
+
+    @Test
+    void sortRecipes() throws Exception {
+
+        List<RecipeDTO> recipes = createRecipeDtoList();
+
+        SortingRequest sortingRequest = new SortingRequest();
+        sortingRequest.setAscending(true);
+        sortingRequest.setField("rating");
+
+        when(recipeService.sortRecipes(anyString(),anyBoolean())).thenReturn(recipes);
+
+        mockMvc.perform(post(url + "/sort")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(sortingRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*",Matchers.hasSize(3)));
+    }
+
+    @Test
+    void updateRecipe() throws Exception {
+
+        UpdateRecipeMapper updateRecipeMapper = new UpdateRecipeMapper(new RecipeIngredientMapper(),new RecipeUtensilMapper());
+
+        List<RecipeIngredientRequest> list1 = new ArrayList<>();
+        List<RecipeUtensilRequest> list2 = new ArrayList<>();
+
+        RecipeIngredientRequest recipeIngredientRequest = new RecipeIngredientRequest();
+        recipeIngredientRequest.setAmount(10);
+        recipeIngredientRequest.setMeasurementUnit("spoon");
+        recipeIngredientRequest.setIngredientName("salt");
+
+        RecipeUtensilRequest recipeUtensilRequest = new RecipeUtensilRequest();
+        recipeUtensilRequest.setUtensilName("mixer");
+
+        list1.add(recipeIngredientRequest);
+        list2.add(recipeUtensilRequest);
+
+        UpdateRecipeRequest updateRecipeRequest = createUpdateRecipeRequest("Pizza","steps",4.5f,30,
+                4,"notes","imagePath",list1,list2);
+
+        UpdateRecipeDTO updateRecipeDTO = updateRecipeMapper.mapFromRequest(updateRecipeRequest);
+
+        when(recipeService.updateRecipe(any(UpdateRecipeDTO.class))).thenReturn(updateRecipeDTO);
+
+        mockMvc.perform(put(url + "/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updateRecipeRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", Matchers.is("Pizza")));
+    }
+
+    @Test
+    void getAllUserRecipes() throws Exception {
+
+        List<RecipeDTO> recipes = createRecipeDtoList();
+
+        when(recipeService.getAllUserRecipes(anyString())).thenReturn(recipes);
+        mockMvc.perform(get(url + "/userId/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*",Matchers.hasSize(3)));
+    }
+
+    @Test
+    void simpleFilterRecipes() throws Exception {
+
+        List<RecipeDTO> recipes = createRecipeDtoList();
+
+        when(recipeService.simpleRecipeFiltering(anyString())).thenReturn(recipes);
+
+        mockMvc.perform(get(url + "/filter/Pizza")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*",Matchers.hasSize(3)));
+    }
+
+    @Test
+    void complexFilterRecipes() throws Exception {
+
+        List<RecipeDTO> recipes = createRecipeDtoList();
+
+        List<FilterRequest> filterRequests = new ArrayList<>();
+        FilterRequest filterRequest = new FilterRequest();
+        filterRequest.setField("difficulty");
+        filterRequest.setOperation(OperationType.greaterThan);
+        filterRequest.setText("FastFood");
+        filterRequests.add(filterRequest);
+
+        RecipeFilterCriteria recipeFilterCriteria = new RecipeFilterCriteria();
+        recipeFilterCriteria.setFilters(filterRequests);
+
+        when(recipeService.complexRecipeFilter(any(RecipeFilterCriteria.class))).thenReturn(recipes);
+
+        mockMvc.perform(post(url + "/complex_filter")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(recipeFilterCriteria)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*",Matchers.hasSize(3)));
+    }
+
+    @Test
+    void updateNoViewsRecipe() throws Exception {
+        List<RecipeIngredientDTO> list1 = new ArrayList<>();
+        List<RecipeUtensilDTO> list2 = new ArrayList<>();
+        RecipeDTO recipeDTO = createRecipeDTO("1","Pizza","steps",4.5f,
+                3.4f,30,4,"notes",10,"imagePath",
+                "1",list1,list2);
+
+        when(recipeService.updateNoViews(anyString())).thenReturn(recipeDTO);
+
+        mockMvc.perform(put(url + "/viewed/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title",Matchers.is("Pizza")));
     }
 }
