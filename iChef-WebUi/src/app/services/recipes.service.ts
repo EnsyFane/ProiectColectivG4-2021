@@ -113,6 +113,7 @@ export class RecipesService {
                 })
             );
     }
+
     private handleHttpError(errorMessage: string): Observable<never> {
         this.snackbarService.displayErrorSnackbar(errorMessage);
         return EMPTY;

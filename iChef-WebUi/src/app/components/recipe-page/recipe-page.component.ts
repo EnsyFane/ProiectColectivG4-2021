@@ -8,6 +8,7 @@ import { Utensil } from 'src/app/data-types/utensil';
 import { RecipesService } from 'src/app/services/recipes.service';
 import {tap} from 'rxjs/operators';
 import {SharedService} from '../../services/shared.service';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 /**
  * @title Dynamic grid-list
@@ -46,6 +47,7 @@ export class RecipePageComponent implements OnInit {
 
     constructor(
         private renderer: Renderer2,
+        private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
         private router: Router
@@ -118,7 +120,7 @@ export class RecipePageComponent implements OnInit {
 
     addIngredient(): void {
         if (this.ingredientName.value === '' || this.amount.value === '') {
-            window.alert('Insert name and amount for ingredient!');
+            this.snackbarService.displayErrorSnackbar('Insert name and amount for ingredient!');
         } else {
             this.recipeIngredient = {amount: 0, ingredientName: ''};
             this.recipeIngredient.ingredientName = this.ingredientName.value;
@@ -140,7 +142,7 @@ export class RecipePageComponent implements OnInit {
 
     addUtensil(): void {
         if (this.utensilName.value === '') {
-            window.alert('Insert name for utensil!');
+            this.snackbarService.displayErrorSnackbar('Insert name for utensil!');
         } else {
             this.recipeUtensil = {};
             this.recipeUtensil.utensilName = this.utensilName.value;
@@ -158,7 +160,7 @@ export class RecipePageComponent implements OnInit {
 
     saveRecipe(): void {
         if (!this.title.value || !this.ingredientsList.length || !this.utensilsList.length || !this.time.value || !this.difficulty.value || !this.instructions.value || !this.notes.value || !this.portions.value) {
-            window.alert('Insert title, ingredients, utensils, time to prepare, difficulty, portions, instructions and extra notes for recipe!');
+            this.snackbarService.displayErrorSnackbar('Insert title, ingredients, utensils, time to prepare, difficulty, portions, instructions and extra notes for recipe!');
         } else {
             const ingredientObjects: RecipeIngredient[] = [];
             const utensilObjects: Utensil[] = [];

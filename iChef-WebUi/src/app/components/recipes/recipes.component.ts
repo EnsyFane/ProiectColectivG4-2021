@@ -5,51 +5,24 @@ import { tap } from 'rxjs/operators';
 import { Recipe } from 'src/app/data-types/recipe';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS, TITLES } from '../../constants/texts';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { RecipeIngredient } from 'src/app/data-types/ingredient';
 import { Utensil } from 'src/app/data-types/utensil';
 import { IngredientsService } from 'src/app/services/ingredients.service';
 import { UtensilsService } from 'src/app/services/utensils.service';
 import { Filter } from 'src/app/data-types/filter';
 import { FilterCriteria } from 'src/app/data-types/filter';
+import { animations } from 'src/app/constants/animations';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-recipes',
     templateUrl: './recipes.component.html',
     styleUrls: ['./recipes.component.scss'],
     animations: [
-        trigger('slideInOut', [
-          state('in', style({
-            transform: 'translate3d(0,0,0)'
-          })),
-          state('out', style({
-            transform: 'translate3d(-100%, 0, 0)'
-          })),
-          transition('in => out', animate('400ms ease-in-out')),
-          transition('out => in', animate('400ms ease-in-out'))
-        ]),
-        trigger('slideInOut2', [
-            state('in', style({
-              width: '80%',
-              margin: '0 0 0 20%'
-            })),
-            state('out', style({
-                width: '100%'
-            })),
-            transition('in => out', animate('400ms ease-in-out')),
-            transition('out => in', animate('400ms ease-in-out'))
-        ]),
-        trigger('slideInOut3', [
-            state('in', style({
-              width: '48%'
-            })),
-            state('out', style({
-                width: '31.3333%'
-            })),
-            transition('in => out', animate('400ms ease-in-out')),
-            transition('out => in', animate('400ms ease-in-out'))
-        ])
-      ]
+        animations.animeTrigger,
+        animations.animeTrigger2,
+        animations.animeTrigger3
+    ]
 })
 export class RecipesComponent implements OnInit {
 
@@ -75,6 +48,7 @@ export class RecipesComponent implements OnInit {
     checkBoxUtensils: boolean[] = [];
 
     constructor(
+        private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private ingredientsService: IngredientsService,
         private utensilsService: UtensilsService,
@@ -143,7 +117,7 @@ export class RecipesComponent implements OnInit {
 
     search(): void {
         if (this.searchText.value === '') {
-            alert('Insert a recipe title for search!');
+            this.snackbarService.displayErrorSnackbar('Insert a recipe title for search!');
         } else {
             this.recipeService.searchRecipes(this.searchText.value).pipe(
                 tap(recipes => {
@@ -179,7 +153,6 @@ export class RecipesComponent implements OnInit {
         for (let i = 0; i < this.utensils.length; i++) {
             this.checkBoxUtensils[i] = false;
         }
-
         this.checkedIngredients = [];
         this.checkedUtensils = [];
     }
@@ -239,11 +212,11 @@ export class RecipesComponent implements OnInit {
         }
 
         if (errors !== '') {
-            alert(errors);
+            this.snackbarService.displayErrorSnackbar(errors);
             this.clearFields();
         } else {
             if (this.filtersCriteria.filters.length === 0) {
-                alert('Insert a filter!');
+                this.snackbarService.displayErrorSnackbar('Insert a filter!');
                 this.clearFields();
             } else {
                 this.recipeService.filterRecipes(this.filtersCriteria).pipe(
