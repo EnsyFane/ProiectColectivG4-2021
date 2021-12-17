@@ -11,7 +11,7 @@ import { Utensil } from 'src/app/data-types/utensil';
 import { IngredientsService } from 'src/app/services/ingredients.service';
 import { UtensilsService } from 'src/app/services/utensils.service';
 import { Filter } from 'src/app/data-types/filter';
-import { FilterCriteria } from 'src/app/data-types/filter-criteria';
+import { FilterCriteria } from 'src/app/data-types/filter';
 
 @Component({
     selector: 'app-recipes',

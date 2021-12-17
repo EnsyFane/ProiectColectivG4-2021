@@ -3,3 +3,7 @@ export interface Filter {
     operation: string;
     text: string;
 }
+
+export interface FilterCriteria {
+    filters: Filter[];
+}

@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { Recipe } from '../data-types/recipe';
 import { catchError, map } from 'rxjs/operators';
-import { FilterCriteria } from '../data-types/filter-criteria';
+import { FilterCriteria } from '../data-types/filter';
 import { SnackbarService } from './snackbar/snackbar.service';
 
 @Injectable({
