@@ -6,7 +6,7 @@ import com.kitchen.iChef.Domain.Utensil;
 public class UtensilMapper {
     public UtensilResponse mapToResponse(Utensil utensil) {
         UtensilResponse utensilResponse = new UtensilResponse();
-        utensilResponse.setName(utensil.getName());
+        utensilResponse.setUtensilName(utensil.getName());
         return utensilResponse;
     }
 }

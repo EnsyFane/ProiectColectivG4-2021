@@ -5,6 +5,7 @@ import com.kitchen.iChef.Domain.Recipe;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -44,11 +45,19 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         return filteredRecipes;
     }
 
-
     @Override
     public List<Recipe> findAll() {
         List<Recipe> allRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = iRecipeRepository.findAll();
+        for (Recipe recipe : recipes) {
+            allRecipes.add(recipe);
+        }
+        return allRecipes;
+    }
+
+    public List<Recipe> findAll(Sort sort) {
+        List<Recipe> allRecipes = new ArrayList<>();
+        Iterable<Recipe> recipes = iRecipeRepository.findAll(sort);
         for (Recipe recipe : recipes) {
             allRecipes.add(recipe);
         }
@@ -67,21 +76,23 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
     private Predicate getPredicate(RecipeFilterCriteria recipeFilterCriteria, Root<Recipe> recipeRoot) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<Predicate> predicates = new ArrayList<>();
         for (FilterRequest filterRequest : recipeFilterCriteria.getFilters()) {
+
+            String fieldName = filterRequest.getField();
+
             if (filterRequest.getField().equals("title"))
                 predicates.add(criteriaBuilder.like(recipeRoot.get("title"), "%" + filterRequest.getText() + "%")
                 );
-            if (filterRequest.getField().equals("difficulty"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("difficulty"), filterRequest.getText())
+            else if (filterRequest.getOperation().toString().equals("equal")) {
+
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(recipeRoot.get(fieldName), filterRequest.getText()));
+
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(recipeRoot.get(fieldName), filterRequest.getText()));
+
+            } else
+                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get(fieldName), filterRequest.getText())
                 );
-            if (filterRequest.getField().equals("portions"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("portions"), filterRequest.getText())
-                );
-            if (filterRequest.getField().equals("preparationTime"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Object.class).invoke(criteriaBuilder, recipeRoot.get("preparationTime"), filterRequest.getText())
-                );
-            if (filterRequest.getField().equals("rating"))
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get("rating"), filterRequest.getText())
-                );
+
+
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
@@ -108,6 +119,13 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
         recipeInDb.setPortions(entity.getPortions());
         recipeInDb.setPreparationTime(entity.getPreparationTime());
         recipeInDb.setSteps(entity.getSteps());
+        iRecipeRepository.save(recipeInDb);
+        return recipeInDb;
+    }
+
+    public Recipe updateNoViews(String id) {
+        Recipe recipeInDb = findOne(id);
+        recipeInDb.setNumberOfViews(recipeInDb.getNumberOfViews() + 1);
         iRecipeRepository.save(recipeInDb);
         return recipeInDb;
     }
