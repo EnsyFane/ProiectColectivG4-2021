@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
 import { FakeHttpClient } from 'src/app/testing/fake-http-client';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { UsersService } from 'src/app/services/users.service';
 import { SharedService } from 'src/app/services/shared.service';
 
 describe('HeaderComponent', () => {
@@ -34,7 +33,7 @@ describe('HeaderComponent', () => {
             providers: [
                 { provide: 'BASE_API_URL', useValue: '' },
                 { provide: HttpClient, useValue: fakeHttpClient }
-            ],
+            ]
         }).compileComponents();
     });
 
