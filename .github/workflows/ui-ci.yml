@@ -26,12 +26,17 @@ jobs:
       - name: Run npm install
         run: |
           cd iChef-WebUi
-          npm install
-        
+          npm ci
+          
       - name: Lint
         run: |
           cd iChef-WebUi
           npm run lint
+          
+      - name: Generate secrets
+        run: |
+          cd iChef-WebUi
+          npm run config
 
       - name: Build
         run: |

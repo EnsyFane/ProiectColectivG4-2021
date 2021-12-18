@@ -25,6 +25,9 @@ import { UsersService } from './services/users.service';
 import { SnackbarModule } from './services/snackbar/snackbar.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegisterComponent } from './components/register/register.component';
+import { CommonModule } from '@angular/common';
+import { CloudinaryService } from './services/cloudinary.service';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
     declarations: [
@@ -52,12 +55,18 @@ import { RegisterComponent } from './components/register/register.component';
         ReactiveFormsModule,
         MatInputModule,
         SnackbarModule,
+        CommonModule,
         MatSnackBarModule
     ],
     providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        { provide: 'CLOUDINARY_CLOUD_NAME', useValue: environment.cloudinaryCloudName },
+        { provide: 'CLOUDINARY_API_KEY', useValue: environment.cloudinaryAPIKey },
+        { provide: 'CLOUDINARY_API_SECRET', useValue: environment.cloudinaryAPISecret },
         RecipesService,
-        UsersService
+        UsersService,
+        CloudinaryService,
+        SharedService
     ],
     bootstrap: [AppComponent]
 })

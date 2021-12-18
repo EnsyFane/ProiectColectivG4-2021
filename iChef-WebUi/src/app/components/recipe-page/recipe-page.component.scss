@@ -1,27 +1,28 @@
-@import '../../styles/mixins.scss';
-@import '../../styles/variables.scss';
+@import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
 
-*{
-  
-  font-size: 0.8vw;
+* {
+    font-size: 0.8vw;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     text-align: center;
     font-weight: bold;
 }
 
-h1{
+h1 {
     margin: 1% 0;
     font-size: 1.7vw;
 }
 
-h2{
+h2 {
     font-size: 1.2vw;
     margin-bottom: 5px;
 }
 
-h3{
+h3 {
     font-size: 1vw;
     margin-bottom: 2px;
 }
@@ -43,6 +44,16 @@ body {
     margin-top: 2%;
 }
 
+.uploaded-image {
+    max-height: 90%;
+}
+
+.image-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .left {
     @include split-horizontal();
     background-color: $search-bar-color;
@@ -59,15 +70,15 @@ body {
     box-sizing: border-box;
 }
 
-.save{
-  @include secondary-button();
-  @include thick();
-  @include font();
-  margin-top: 1%;
-  padding: 0.2% 4% !important;
-  margin-left: 45%;
-  line-height: 23px !important;
-  box-sizing: border-box;
+.save {
+    @include secondary-button();
+    @include thick();
+    @include font();
+    margin-top: 1%;
+    padding: 0.2% 4% !important;
+    margin-left: 45%;
+    line-height: 23px !important;
+    box-sizing: border-box;
 }
 
 mat-form-field {
@@ -76,19 +87,19 @@ mat-form-field {
     height: 20px;
 }
 
-.input{
+.input {
     margin-left: 5%;
-    background-color:  transparent;
+    background-color: transparent;
     border: none;
-    color:black;
+    color: black;
     font-size: 1.2vw;
 }
 
 .input-smaller {
     margin-left: 5%;
-    background-color:  transparent;
+    background-color: transparent;
     border: none;
-    color:black;
+    color: black;
     font-size: 1vw;
     width: 80%;
 }
@@ -101,7 +112,7 @@ input-smaller:focus {
     outline: none;
 }
 
-.form-field{
+.form-field {
     position: relative;
     background-color: $white-transparent;
     z-index: 1;
@@ -151,7 +162,7 @@ textarea {
     padding-top: 15px;
 }
 
-.field{
+.field {
     background-color: $white-transparent;
     z-index: 1;
     width: 90%;
@@ -159,28 +170,28 @@ textarea {
     margin: 0 auto 10px auto;
 }
 
-p{
+p {
     text-align: center;
     font-weight: bold;
 }
 
-table{
+table {
     margin: 10px auto 0 auto;
     border-spacing: 0 15px;
     width: 90%;
     table-layout: fixed;
 }
 
-#utensil-name{
+#utensil-name {
     margin-left: 2%;
-    background-color:  transparent;
+    background-color: transparent;
     border: none;
-    color:black;
+    color: black;
     font-size: 15px;
     width: 88%;
 }
 
-.add-button{
+.add-button {
     @include secondary-button();
     @include thick();
     padding: 0 !important;
@@ -190,7 +201,7 @@ table{
     line-height: 17px !important;
 }
 
-.add-button-utensil{
+.add-button-utensil {
     @include secondary-button();
     @include thick();
     padding: 0 !important;
@@ -200,7 +211,7 @@ table{
     line-height: 17px !important;
 }
 
-.ingredients{
+.ingredients {
     @include split-horizontal();
     background-color: $white-transparent;
     height: 82%;
@@ -211,7 +222,7 @@ table{
     overflow-y: auto;
 }
 
-.utensils{
+.utensils {
     @include split-horizontal();
     background-color: $white-transparent;
     height: 82%;
@@ -222,7 +233,7 @@ table{
     overflow-y: auto;
 }
 
-.ingredient-name{
+.ingredient-name {
     margin-left: 10%;
     float: left;
     font-weight: bold;
@@ -230,7 +241,7 @@ table{
     white-space: pre-wrap;
 }
 
-.delete-button{
+.delete-button {
     @include secondary-button();
     @include thick();
     float: right;
@@ -242,7 +253,7 @@ table{
     line-height: 17px !important;
 }
 
-.element{
+.element {
     display: inline-block;
     width: 100%;
     clear: left;

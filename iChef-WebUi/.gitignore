@@ -46,3 +46,6 @@ Thumbs.db
 
 # Test Files
 Tests*.xml
+
+# Secrets
+secrets.ts
