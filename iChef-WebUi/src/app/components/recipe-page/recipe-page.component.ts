@@ -11,6 +11,7 @@ import { SharedService } from '../../services/shared.service';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 /**
  * @title Dynamic grid-list
@@ -28,6 +29,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     readonly timeTitle = TITLES.TIME;
     readonly difficultyTitle = TITLES.DIFFICULTY;
     readonly instructionsTitle = TITLES.INSTRUCTIONS;
+    readonly portionsTitle = TITLES.PORTIONS;
     readonly notesTitle = TITLES.NOTES;
     readonly ingredientsUtensilsTitle = TITLES.INGREDIENTSUTENSILS;
     readonly ingredientsTitle = TITLES.INGREDIENTS;
@@ -49,6 +51,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
 
     constructor(
         private imgurService: CloudinaryService,
+        private renderer: Renderer2,
+        private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
         private router: Router
@@ -66,6 +70,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     ingredientName = new FormControl('');
     amount = new FormControl('');
     quantity = new FormControl('');
+
+    portions = new FormControl('');
 
     ingredientsList: RecipeIngredient[] = [];
     utensilsList: Utensil[] = [];
@@ -102,6 +108,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         this.difficulty.setValue(this.selectedRecipe?.difficulty);
         this.instructions.setValue(this.selectedRecipe?.steps);
         this.notes.setValue(this.selectedRecipe?.notes);
+        this.portions.setValue(this.selectedRecipe?.portions);
 
         if (this.selectedRecipe?.recipeIngredientList) {
             this.ingredientsList = this.selectedRecipe?.recipeIngredientList;
@@ -124,7 +131,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
 
     addIngredient(): void {
         if (this.ingredientName.value === '' || this.amount.value === '') {
-            window.alert('Insert name and amount for ingredient!');
+            this.snackbarService.displayErrorSnackbar('Insert name and amount for ingredient!');
         } else {
             this.recipeIngredient = { amount: 0, ingredientName: '' };
             this.recipeIngredient.ingredientName = this.ingredientName.value;
@@ -146,7 +153,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
 
     addUtensil(): void {
         if (this.utensilName.value === '') {
-            window.alert('Insert name for utensil!');
+            this.snackbarService.displayErrorSnackbar('Insert name for utensil!');
         } else {
             this.recipeUtensil = {};
             this.recipeUtensil.utensilName = this.utensilName.value;
@@ -180,12 +187,12 @@ export class RecipePageComponent implements OnInit, OnDestroy {
     }
 
     canSaveRecipe(): boolean {
-        return this.title.value && this.ingredientsList.length && this.utensilsList.length && this.time.value && this.difficulty.value && this.instructions.value && this.notes.value && this.imageUrl;
+        return this.title.value && this.ingredientsList.length && this.utensilsList.length && this.time.value && this.difficulty.value && this.instructions.value && this.notes.value && this.portions.value && this.imageUrl;
     }
 
     saveRecipe(): void {
         if (!this.canSaveRecipe()) {
-            window.alert('Insert title, ingredients, utensils, time to prepare, difficulty, instructions and extra notes for recipe!');
+            this.snackbarService.displayErrorSnackbar('Insert title, ingredients, utensils, time to prepare, difficulty, portions, instructions and extra notes for recipe!');
         } else {
             const ingredientObjects: RecipeIngredient[] = [];
             const utensilObjects: Utensil[] = [];
@@ -203,7 +210,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
                 // TODO: Remove hardcoding once image uploading is supported.
                 imagePath: this.imageUrl,
                 notes: this.notes.value,
-                portions: 1,
+                portions: this.portions.value,
                 preparationTime: this.time.value,
                 recipeIngredientList: ingredientObjects,
                 recipeUtensilList: utensilObjects,

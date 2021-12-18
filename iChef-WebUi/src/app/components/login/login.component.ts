@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { catchError } from 'rxjs/operators';
 import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS } from 'src/app/constants/texts';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -29,6 +30,7 @@ export class LoginComponent {
   hide = true;
 
   constructor(
+      private snackbarService: SnackbarService,
       private formBuilder: FormBuilder,
       private dialogRef: MatDialogRef<LoginComponent>,
       private userService: UsersService) {
@@ -40,7 +42,7 @@ export class LoginComponent {
         this.dialogRef.close();
       }),
       catchError(error => {
-        alert('Invalid credentials!');
+        this.snackbarService.displayErrorSnackbar('Invalid credentials!');
         this.form.reset();
         return of(0);
       })

@@ -16,7 +16,8 @@ export const BUTTON_STRINGS = {
     FILTER: 'Filters',
     REVIEW: 'Add Review',
     SAVE: 'Save',
-    CLOSE: 'Close'
+    CLOSE: 'Close',
+    APPLY: 'Apply'
 };
 
 export const TITLES = {
@@ -32,6 +33,7 @@ export const TITLES = {
     UTENSIL: 'Utensil:',
     TIME: 'Time to prepare:',
     DIFFICULTY: 'Difficulty:',
+    PORTIONS: 'Portions:',
     G: 'g',
     KG: 'kg',
     ML: 'ml',
@@ -47,5 +49,6 @@ export const PLACEHOLDERS_STRINGS = {
     EMAIL: 'Email',
     PASSWORD: 'Password',
     EMAIL_REQUIRED: 'Email is required',
-    PASSWORD_REQUIRED: 'Password is required'
+    PASSWORD_REQUIRED: 'Password is required',
+    NUMBER: 'Enter number'
 };
