@@ -51,7 +51,6 @@ export class RecipePageComponent implements OnInit, OnDestroy {
 
     constructor(
         private imgurService: CloudinaryService,
-        private renderer: Renderer2,
         private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
