@@ -3,36 +3,48 @@
 <form [formGroup]="form">
     <mat-dialog-content>
         <mat-form-field>
-            <input type="text" pattern="^[a-zA-Z]*$" class="field first name" matInput placeholder="{{firstname}}" formControlName="firstname" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input type="text" pattern="[a-zA-Z]*$" class="field last name" matInput placeholder="{{lastname}}" formControlName="lastname" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input type="text" pattern="[a-zA-Z]*$" class="field username" matInput placeholder="{{username}}" formControlName="username" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input type="email" pattern="^[a-zA-Z]+[a-zA-Z0-9.]*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" class="field email" matInput placeholder="{{email}}" formControlName="email" required>
-            <mat-error *ngIf="form.controls['email'].touched">{{emailRequired}}</mat-error>
+            <div class="field">
+                <input type="text" pattern="^[a-zA-Z]*$" class="firstname" matInput placeholder="{{firstname}}"
+                    formControlName="firstname" required>
+            </div>
         </mat-form-field>
 
         <mat-form-field>
             <div class="field">
-                <input matInput type="password" placeholder="{{password}}" formControlName="password" required [type]="hide ? 'password' : 'text'">
-                <button mat-button matSuffix mat-icon-button class="button-password">
-                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
+                <input type="text" pattern="[a-zA-Z]*$" class="lastname" matInput placeholder="{{lastname}}"
+                    formControlName="lastname" required>
             </div>
-            <mat-error *ngIf="form.controls['password'].touched">{{passwordRequired}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <div class="field">
+                <input type="text" pattern="[a-zA-Z0-9]*$" class="username" matInput placeholder="{{username}}"
+                    formControlName="username" required>
+            </div>
+        </mat-form-field>
+
+        <mat-form-field>
+            <div class="field">
+                <input type="email" pattern="^[a-zA-Z]+[a-zA-Z0-9.]*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" class="email"
+                    matInput placeholder="{{email}}" formControlName="email" required>
+            </div>
+        </mat-form-field>
+
+        <mat-form-field>
+            <div class="field">
+                <input matInput type="password" placeholder="{{password}}" formControlName="password" required
+                    [type]="hide ? 'password' : 'text'">
+                <button matSuffix mat-icon-button class="button-password">
+                    <mat-icon (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </div>
         </mat-form-field>
     </mat-dialog-content>
 
     <mat-dialog-actions>
         <button class="mat-raised-button secondary-button button" (click)="close()">{{closeBtn}}</button>
-        <button [disabled]="form.status !== 'VALID'" class="mat-raised-button primary-button button" type="submit" (click)="register()">{{registerBtn}}</button>
+        <button [disabled]="form.status !== 'VALID'" class="mat-raised-button primary-button button" type="submit"
+            (click)="register()">{{registerBtn}}</button>
     </mat-dialog-actions>
 </form>
 <br>

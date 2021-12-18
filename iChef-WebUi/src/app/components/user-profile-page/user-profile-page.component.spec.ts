@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserProfilePageComponent } from './user-profile-page.component';
-import { FakeHttpClient} from '../../testing/fake-http-client';
+import { FakeHttpClient } from '../../testing/fake-http-client';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { routes } from 'src/app/app-routing.module';
 
 describe('UserProfilePageComponent', () => {
     let component: UserProfilePageComponent;
@@ -15,8 +16,11 @@ describe('UserProfilePageComponent', () => {
     beforeEach(async () => {
         fakeHttpClient = new FakeHttpClient();
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, MatSnackBarModule],
-            declarations: [ UserProfilePageComponent ],
+            imports: [
+                RouterTestingModule.withRoutes(routes),
+                MatSnackBarModule
+            ],
+            declarations: [UserProfilePageComponent],
             providers: [
                 { provide: 'BASE_API_URL', useValue: '' },
                 { provide: HttpClient, useValue: fakeHttpClient }
@@ -25,13 +29,13 @@ describe('UserProfilePageComponent', () => {
         }).compileComponents();
     });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(UserProfilePageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(UserProfilePageComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

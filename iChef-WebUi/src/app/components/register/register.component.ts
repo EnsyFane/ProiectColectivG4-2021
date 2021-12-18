@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BUTTON_STRINGS, PLACEHOLDERS_STRINGS } from 'src/app/constants/texts';
+import { UserRegister } from 'src/app/data-types/user-register';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -36,6 +37,16 @@ export class RegisterComponent {
     hide = true;
 
     register(): void {
+        const user: UserRegister = {
+            email: this.form.get('email')?.value ?? '',
+            firstName: this.form.get('firstname')?.value ?? '',
+            lastName: this.form.get('lastname')?.value ?? '',
+            password: this.form.get('password')?.value ?? '',
+            username: this.form.get('username')?.value ?? ''
+        };
+        this.userService.register(user).subscribe(_ => {
+            this.close();
+        });
     }
 
     close(): void {
