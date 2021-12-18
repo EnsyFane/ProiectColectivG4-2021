@@ -26,6 +26,7 @@ import { SnackbarModule } from './services/snackbar/snackbar.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { CloudinaryService } from './services/cloudinary.service';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { CloudinaryService } from './services/cloudinary.service';
         { provide: 'CLOUDINARY_API_SECRET', useValue: environment.cloudinaryAPISecret },
         RecipesService,
         UsersService,
-        CloudinaryService
+        CloudinaryService,
+        SharedService
     ],
     bootstrap: [AppComponent]
 })

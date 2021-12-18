@@ -12,6 +12,7 @@ import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { UsersService } from 'src/app/services/users.service';
 
 /**
  * @title Dynamic grid-list
@@ -22,7 +23,6 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
     styleUrls: ['./recipe-page.component.scss']
 })
 export class RecipePageComponent implements OnInit, OnDestroy {
-
     readonly titlePlaceHolder = PLACEHOLDERS_STRINGS.TITLE;
     readonly ingredient = TITLES.INGREDIENT;
     readonly utensil = TITLES.UTENSIL;
@@ -54,7 +54,8 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
-        private router: Router
+        private router: Router,
+        private userService: UsersService
     ) { }
 
     ngOnDestroy(): void {
@@ -215,7 +216,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
                 recipeUtensilList: utensilObjects,
                 steps: this.instructions.value,
                 title: this.title.value,
-                userId: 'f975d0e4-c71d-4d0e-9f77-4309082cd53a'
+                userId: this.userService.user.userId ?? ''
             };
 
             if (this.editMode && this.selectedRecipe?.recipeId) {
