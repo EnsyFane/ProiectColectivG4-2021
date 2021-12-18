@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TITLES, PLACEHOLDERS_STRINGS, BUTTON_STRINGS } from 'src/app/constants/texts';
@@ -8,6 +8,9 @@ import { Utensil } from 'src/app/data-types/utensil';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { tap } from 'rxjs/operators';
 import { SharedService } from '../../services/shared.service';
+import { CloudinaryService } from 'src/app/services/cloudinary.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -18,9 +21,8 @@ import { UsersService } from 'src/app/services/users.service';
     selector: 'app-recipe-page',
     templateUrl: './recipe-page.component.html',
     styleUrls: ['./recipe-page.component.scss']
-
 })
-export class RecipePageComponent implements OnInit {
+export class RecipePageComponent implements OnInit, OnDestroy {
     readonly titlePlaceHolder = PLACEHOLDERS_STRINGS.TITLE;
     readonly ingredient = TITLES.INGREDIENT;
     readonly utensil = TITLES.UTENSIL;
@@ -45,13 +47,20 @@ export class RecipePageComponent implements OnInit {
     editMode!: boolean;
     selectedRecipe: Recipe | null = null;
 
+    private subscription: Subscription = new Subscription();
+
     constructor(
+        private imgurService: CloudinaryService,
         private snackbarService: SnackbarService,
         private recipeService: RecipesService,
         private sharedService: SharedService,
         private router: Router,
         private userService: UsersService
     ) { }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
 
     @ViewChild('ingredientsContainer') ingredientsContainer!: ElementRef;
     @ViewChild('utensilsContainer') utensilsContainer!: ElementRef;
@@ -75,6 +84,8 @@ export class RecipePageComponent implements OnInit {
     difficulty = new FormControl('');
     instructions = new FormControl('');
     notes = new FormControl('');
+    imageUrl = '';
+    imageIsUploading = false;
 
     ngOnInit(): void {
         this.editMode = this.sharedService.getRecipeEditMode();
@@ -158,8 +169,29 @@ export class RecipePageComponent implements OnInit {
         }
     }
 
+    onImageLoaded(image: File): void {
+        if (!image) {
+            return;
+        }
+        const subscription = this.imgurService.uploadImage(image).subscribe(event => {
+            if (event.type === HttpEventType.UploadProgress) {
+                this.imageIsUploading = true;
+            }
+            if (event instanceof HttpResponse) {
+                this.imageUrl = event.body.url;
+                this.imageIsUploading = false;
+            }
+        });
+
+        this.subscription.add(subscription);
+    }
+
+    canSaveRecipe(): boolean {
+        return this.title.value && this.ingredientsList.length && this.utensilsList.length && this.time.value && this.difficulty.value && this.instructions.value && this.notes.value && this.portions.value && this.imageUrl;
+    }
+
     saveRecipe(): void {
-        if (!this.title.value || !this.ingredientsList.length || !this.utensilsList.length || !this.time.value || !this.difficulty.value || !this.instructions.value || !this.notes.value || !this.portions.value) {
+        if (!this.canSaveRecipe()) {
             this.snackbarService.displayErrorSnackbar('Insert title, ingredients, utensils, time to prepare, difficulty, portions, instructions and extra notes for recipe!');
         } else {
             const ingredientObjects: RecipeIngredient[] = [];
@@ -176,7 +208,7 @@ export class RecipePageComponent implements OnInit {
             const recipe: Recipe = {
                 difficulty: this.difficulty.value,
                 // TODO: Remove hardcoding once image uploading is supported.
-                imagePath: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+                imagePath: this.imageUrl,
                 notes: this.notes.value,
                 portions: this.portions.value,
                 preparationTime: this.time.value,
@@ -198,5 +230,4 @@ export class RecipePageComponent implements OnInit {
             }
         }
     }
-
 }
