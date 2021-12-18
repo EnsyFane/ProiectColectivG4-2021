@@ -51,12 +51,7 @@ export class RecipePageComponent implements OnInit {
         private sharedService: SharedService,
         private router: Router,
         private userService: UsersService
-    ) {
-        if (!sharedService.isUserLogged) {
-            snackbarService.displayErrorSnackbar('Please login to be able to create recipes.');
-            router.navigate(['home']);
-        }
-    }
+    ) { }
 
     @ViewChild('ingredientsContainer') ingredientsContainer!: ElementRef;
     @ViewChild('utensilsContainer') utensilsContainer!: ElementRef;
