@@ -5,7 +5,8 @@
     <div class="header-area">
         <div class="search-input margin-lr-auto">
             <mat-icon class="search-icon" aria-hidden="false" aria-label="search icon">search</mat-icon>
-            <input [formControl]="searchText" class="search-bar-input" placeholder="{{searchPlaceHolder}}" autocomplete="off">
+            <input [formControl]="searchText" class="search-bar-input" placeholder="{{searchPlaceHolder}}"
+                autocomplete="off">
         </div>
         <button mat-raised-button class="font secondary-button margin-lr-auto" (click)="search()">
             {{searchBtn}}
@@ -34,7 +35,7 @@
             </div>
         </div>
     </div>
-    <button mat-raised-button class="font create-button margin-lr-auto">
+    <button mat-raised-button class="font create-button margin-lr-auto" (click)="createRecipe()">
         {{createBtn}}
     </button>
 </div>

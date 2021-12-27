@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FakeHttpClient } from 'src/app/testing/fake-http-client';
 
@@ -16,9 +17,16 @@ describe('RecipePageComponent', () => {
     beforeEach(async () => {
         fakeHttpClient = new FakeHttpClient();
         await TestBed.configureTestingModule({
-            imports: [RouterTestingModule, MatSnackBarModule],
+            imports: [
+                RouterTestingModule,
+                MatSnackBarModule,
+                NoopAnimationsModule
+            ],
             declarations: [RecipePageComponent],
             providers: [
+                { provide: 'CLOUDINARY_CLOUD_NAME', useValue: '' },
+                { provide: 'CLOUDINARY_API_KEY', useValue: '' },
+                { provide: 'CLOUDINARY_API_SECRET', useValue: '' },
                 { provide: 'BASE_API_URL', useValue: '' },
                 { provide: HttpClient, useValue: fakeHttpClient }
             ],
