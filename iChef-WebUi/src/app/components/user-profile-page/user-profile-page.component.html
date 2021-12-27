@@ -1,4 +1,4 @@
-<div class="flex-column-center page font">
+<div *ngIf="isUserLogged()" class="flex-column-center page font">
     <img class="profile-cover" src="{{landingPageImage}}" alt="Recipes Image">
     <div class="horizontal-separator">
         <div class="border">
@@ -11,25 +11,21 @@
     <div class="menu">
         <div class="options-menu">
             <div class="small-black-separator"></div>
-            <p class="option"
-               [ngClass]="{'active-option': this.accountLinks.get(overviewLink)}"
-               (click)="setActiveOption(overviewLink)">{{overviewLink}}</p>
+            <p class="option" [ngClass]="{'active-option': this.accountLinks.get(overviewLink)}"
+                (click)="setActiveOption(overviewLink)">{{overviewLink}}</p>
             <div class="small-black-separator"></div>
-            <p class="option"
-               [ngClass]="{'active-option': this.accountLinks.get(myRecipesLink)}"
-               (click)="setActiveOption(myRecipesLink)">{{myRecipesLink}}</p>
+            <p class="option" [ngClass]="{'active-option': this.accountLinks.get(myRecipesLink)}"
+                (click)="setActiveOption(myRecipesLink)">{{myRecipesLink}}</p>
             <div class="small-black-separator"></div>
-            <p class="option"
-               [ngClass]="{'active-option': this.accountLinks.get(settingsLink)}"
-               (click)="setActiveOption(settingsLink)">{{settingsLink}}</p>
+            <p class="option" [ngClass]="{'active-option': this.accountLinks.get(settingsLink)}"
+                (click)="setActiveOption(settingsLink)">{{settingsLink}}</p>
             <div class="small-black-separator"></div>
-            <p class="option"
-               [ngClass]="{'active-option': this.accountLinks.get(logoutLink)}"
-               (click)="setActiveOption(logoutLink)">{{logoutLink}}</p>
+            <p class="option" [ngClass]="{'active-option': this.accountLinks.get(logoutLink)}"
+                (click)="setActiveOption(logoutLink)">{{logoutLink}}</p>
             <div class="small-black-separator"></div>
         </div>
     </div>
     <div class="option-display">
-        <app-user-recipes *ngIf="this.accountLinks.get(myRecipesLink)"></app-user-recipes>
+        <app-user-recipes [userId]="user.userId" *ngIf="this.accountLinks.get(myRecipesLink)"></app-user-recipes>
     </div>
 </div>

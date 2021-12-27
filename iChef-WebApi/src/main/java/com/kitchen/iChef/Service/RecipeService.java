@@ -55,6 +55,7 @@ public class RecipeService {
             throw new ResourceNotFoundException("No user with this id");
         }
         recipe.setAppUser(user);
+        recipe.setNumberOfViews(0);
         try {
             recipeRepository.save(recipe);
         } catch (Exception ex) {
@@ -102,6 +103,7 @@ public class RecipeService {
             }
         }
         recipeDTO.setRecipeId(recipe.getRecipeId());
+        recipeDTO.setNumberOfViews(0);
         return recipeDTO;
     }
 
@@ -164,7 +166,7 @@ public class RecipeService {
             recipes = recipeRepository.findByIngredients(recipeFilterCriteria);
 
         } catch (Exception ex) {
-            throw new ValidationException("Invalid number!");
+            throw new ValidationException(ex.getMessage());
         }
         for (Recipe r : recipes) {
             RecipeDTO recipeDTO = recipeMapper.mapToDTO(r);
@@ -286,6 +288,21 @@ public class RecipeService {
         return recipeDTO;
     }
 
+    public RecipeDTO updateNoViews(String id) {
+
+        Recipe recipe = recipeRepository.updateNoViews(id);
+
+        RecipeDTO recipeDTO = recipeMapper.mapToDTO(recipe);
+
+        List<RecipeIngredientDTO> recipeIngredientDTOList = getRecipeIngredientsList(recipe);
+        recipeDTO.setRecipeIngredientDTOSList(recipeIngredientDTOList);
+
+        List<RecipeUtensilDTO> recipeUtensilDTOList = getRecipeUtensilsList(recipe);
+        recipeDTO.setRecipeUtensilDTOSList(recipeUtensilDTOList);
+
+        return recipeDTO;
+    }
+  
     public List<RecipeDTO> sortRecipes(String field, boolean ascending) {
         List<Recipe> sortedRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = recipeRepository.findAll(ascending ? Sort.by(field).ascending() : Sort.by(field).descending());

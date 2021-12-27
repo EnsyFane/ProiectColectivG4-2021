@@ -73,25 +73,34 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <label class="form-field-smaller">{{portionsTitle}}</label>
+                </td>
+                <td>
+                    <span class="form-field-smaller">
+                        <input [formControl]="portions" type="number" class="input-smaller">
+                    </span>
+                </td>
+            </tr>
         </table>
 
         <div class="field">
             <p>{{instructionsTitle}}</p>
-            <textarea [formControl]="instructions" rows="8" cols="85">
+            <textarea [formControl]="instructions" rows="7" cols="85">
           </textarea>
             <br>
         </div>
 
         <div class="field">
             <p>{{notesTitle}}</p>
-            <textarea [formControl]="notes" rows="6" cols="85">
+            <textarea [formControl]="notes" rows="4" cols="85">
           </textarea>
             <br>
         </div>
     </div>
 
     <div class="right">
-
         <div class="up">
             <h2>{{ingredientsUtensilsTitle}}</h2>
             <div id="#ingredientsContainer" class="ingredients">
@@ -111,10 +120,15 @@
                 </div>
             </div>
         </div>
-
+        <div class="down image-upload">
+            <app-upload-image-form *ngIf="!imageUrl && !imageIsUploading" (imageLoaded)="onImageLoaded($event)">
+            </app-upload-image-form>
+            <mat-spinner *ngIf="imageIsUploading"></mat-spinner>
+            <img class="uploaded-image" *ngIf="imageUrl" [src]="imageUrl" alt="image">
+        </div>
     </div>
 
-    <button (click)="saveRecipe();" mat-raised-button class="save">
+    <button (click)="saveRecipe();" mat-raised-button class="save" [disabled]="!canSaveRecipe()">
         {{saveBtn}}
     </button>
 </body>
