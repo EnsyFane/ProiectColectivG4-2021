@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @ToString
 public class FilterRequest {
     @NotBlank(message = "The field is invalid!")
-    @Pattern(regexp = "title|rating|difficulty|preparationTime|portions", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Pattern(regexp = "title|rating|difficulty|preparationTime|portions|ingredients|utensils", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String field;
     @NotBlank(message = "The operation is invalid!")
 
