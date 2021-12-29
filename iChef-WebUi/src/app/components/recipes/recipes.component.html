@@ -1,21 +1,88 @@
 <body>
-    <br>
-    <div class="search-input margin-lr-auto">
-        <mat-icon class="search-icon" aria-hidden="false" aria-label="search icon">search</mat-icon>
-        <input [formControl]="searchText" class="search-bar-input" placeholder="{{searchPlaceHolder}}" autocomplete="off">
+    <ul [@slideInOut]="menuState">
+        <li class="header">
+            <span>{{filterBtn}}</span>
+            <button class="font" (click)="closeMenu()">
+                <mat-icon>keyboard_backspace</mat-icon>
+            </button> 
+        </li>
+        <div class="long-black-separator margin-lr-auto"></div>
+        <div class="middle">
+            <div class="top">
+                <li>{{difficultyTitle}}</li>
+                    <li class="input"> 
+                        <select [formControl]="difficultyOperation">
+                            <option> = </option>
+                            <option> < </option>
+                            <option> <= </option>
+                            <option> > </option>
+                            <option> >= </option>
+                        </select> 
+                        <input type="number" placeholder="{{numberPlaceHolder}}" min="1" max="5" [formControl]="difficultyNumber">
+                    </li>
+                <li>{{timeTitle}}</li>
+                    <li class="input"> 
+                        <select [formControl]="timeOperation">
+                            <option> = </option>
+                            <option> < </option>
+                            <option> <= </option>
+                        </select> 
+                        <input type="number" placeholder="{{numberPlaceHolder}}" [formControl]="timeNumber">
+                    </li>
+                <li>{{portionsTitle}}</li>
+                    <li class="input"> 
+                        <select [formControl]="portionsOperation">
+                            <option> = </option>
+                            <option> > </option>
+                            <option> >= </option>
+                        </select> 
+                        <input type="number" placeholder="{{numberPlaceHolder}}" [formControl]="portionsNumber">
+                    </li>
+            </div>
+            
+            <div class="ingredients">
+                <li>{{ingredientsTitle}}:</li>
+                    <li class="element" *ngFor="let ingredient of ingredients; index as i">
+                        {{ingredient.ingredientName}}
+                        <input type="checkbox" value="{{ingredient}}" [checked]="checkBoxIngredients[i]" (change)="updateCheckedIngredient(ingredient, $event)">
+                    </li>
+            </div>
+            
+            <div class="utensils">
+                <li>{{utensilsTitle}}:</li>
+                    <li class="element" *ngFor="let utensil of utensils; index as i">
+                        {{utensil.utensilName}}
+                        <input type="checkbox" value="{{utensil}}" [checked]="checkBoxUtensils[i]" (change)="updateCheckedUtensil(utensil, $event)">
+                    </li>
+            </div>
+        </div>
+        <div class="bottom">
+            <button mat-raised-button class="font secondary-button" (click)="applyFilters()">
+                {{applyBtn}}
+            </button>
+        </div>
+    </ul>
+    <div [@slideInOut2]="menuState" class="page">
+        <br>
+        <div class="search-input margin-lr-auto">
+            <mat-icon class="search-icon" aria-hidden="false" aria-label="search icon">search</mat-icon>
+            <input [formControl]="searchText" class="search-bar-input" placeholder="{{searchPlaceHolder}}" autocomplete="off">
+        </div>
+        <button class="font filter-button" (click)="openMenu()">
+            {{filterBtn}}
+        </button> 
+        <button [routerLink]="['create']" mat-raised-button class="font create-button margin-lr-auto">
+            {{createBtn}}
+        </button>
+        <br>
+        <button mat-raised-button class="font secondary-button margin-lr-auto" (click)="search()">
+            {{searchBtn}}
+        </button>
+    
+        <div class="recipe-cards">
+            <app-recipe-card [@slideInOut3]="menuState" *ngFor="let recipe of recipes" [recipe]="recipe" [routerLink]="['details', recipe.recipeId]">
+            </app-recipe-card>
+        </div>
     </div>
-    <button class="font filter-button">
-        {{filterBtn}}
-    </button> 
-    <button [routerLink]="['create']" mat-raised-button class="font create-button margin-lr-auto">
-        {{createBtn}}
-    </button>
-    <br>
-    <button mat-raised-button class="font secondary-button margin-lr-auto" (click)="search()">
-        {{searchBtn}}
-    </button>
-    <div class="recipe-cards">
-        <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" [routerLink]="['details', recipe.recipeId]">
-        </app-recipe-card>
-    </div>
+    
 </body>
