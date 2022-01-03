@@ -7,6 +7,7 @@ import { User } from '../data-types/user';
 import { SnackbarService } from './snackbar/snackbar.service';
 import { LoggedUser } from '../data-types/logged-user';
 import { SharedService } from './shared.service';
+import { UserRegister } from '../data-types/user-register';
 
 @Injectable({
     providedIn: 'root'
@@ -41,6 +42,15 @@ export class UsersService {
             );
     }
 
+    register(userRegister: UserRegister): Observable<any> {
+        return this.http.post(this.baseUrl + '/users/sign-up', userRegister)
+            .pipe(
+                catchError((error: any) => {
+                    return this.handleHttpError(`The request to register failed with status ${error.status}.`);
+                })
+            );
+    }
+
     getUserById(userId: string): Observable<LoggedUser> | Observable<any> {
         return this.http.get(this.baseUrl + '/users/' + userId)
             .pipe(
@@ -55,12 +65,12 @@ export class UsersService {
         this.sharedService.setIsUserLogged(false);
     }
 
+    getLoggedUser(): LoggedUser {
+        return this.user;
+    }
+
     private handleHttpError(errorMessage: string): Observable<never> {
         this.snackbarService.displayErrorSnackbar(errorMessage);
         return EMPTY;
-    }
-
-    getLoggedUser(): LoggedUser {
-        return this.user;
     }
 }

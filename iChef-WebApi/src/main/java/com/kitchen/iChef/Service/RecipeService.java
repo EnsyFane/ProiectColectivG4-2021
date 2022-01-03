@@ -159,6 +159,7 @@ public class RecipeService {
 
     }
 
+
     public List<RecipeDTO> complexRecipeFilter(RecipeFilterCriteria recipeFilterCriteria) {
         List<RecipeDTO> recipeDTOS = new ArrayList<>();
         List<Recipe> recipes;
@@ -302,7 +303,7 @@ public class RecipeService {
 
         return recipeDTO;
     }
-  
+
     public List<RecipeDTO> sortRecipes(String field, boolean ascending) {
         List<Recipe> sortedRecipes = new ArrayList<>();
         Iterable<Recipe> recipes = recipeRepository.findAll(ascending ? Sort.by(field).ascending() : Sort.by(field).descending());

@@ -10,7 +10,7 @@
             routerLink="my-account">{{myAccountLink}}</a>
     </div>
     <div class="credential-buttons">
-        <button *ngIf="!isUserLogged()" mat-raised-button class="font primary-button">
+        <button *ngIf="!isUserLogged()" (click)="register()" mat-raised-button class="font primary-button">
             {{registerBtn}}
         </button>
         <button *ngIf="!isUserLogged()" (click)="login()" mat-raised-button class="font secondary-button">

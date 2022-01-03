@@ -1,7 +1,7 @@
 package com.kitchen.iChef.Repository;
 
 import com.kitchen.iChef.Controller.Model.Request.FilterRequest;
-import com.kitchen.iChef.Domain.Recipe;
+import com.kitchen.iChef.Domain.*;
 import com.kitchen.iChef.Repository.Interfaces.ICrudRepository;
 import com.kitchen.iChef.Repository.Interfaces.IRecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -65,37 +66,76 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
     }
 
     public List<Recipe> findByIngredients(RecipeFilterCriteria recipeFilterCriteria) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        CriteriaQuery<Recipe> criteriaQuery = criteriaBuilder.createQuery(Recipe.class);
-        Root<Recipe> recipeRoot = criteriaQuery.from(Recipe.class);
-        Predicate predicate = getPredicate(recipeFilterCriteria, recipeRoot);
-        criteriaQuery.where(predicate);
-        TypedQuery<Recipe> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        CriteriaQuery<Recipe> cq = criteriaBuilder.createQuery(Recipe.class);
+        Root<Recipe> fromRecipe = cq.from(Recipe.class);
+
+        Predicate predicate = getPredicate(recipeFilterCriteria, fromRecipe, cq);
+
+        TypedQuery<Recipe> typedQuery = entityManager.createQuery(cq
+
+                .select(fromRecipe)
+                .where(predicate)
+                .distinct(true)
+        );
+
         return typedQuery.getResultList();
     }
 
-    private Predicate getPredicate(RecipeFilterCriteria recipeFilterCriteria, Root<Recipe> recipeRoot) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Predicate getPredicate(RecipeFilterCriteria recipeFilterCriteria, Root<Recipe> fromRecipe, CriteriaQuery<Recipe> cq) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Root<RecipeIngredient> fromRecipeIngredient = cq.from(RecipeIngredient.class);
+        Root<Ingredient> fromIngredient = cq.from(Ingredient.class);
+        Root<RecipeUtensil> fromRecipeUtensil = cq.from(RecipeUtensil.class);
+        Root<Utensil> fromUtensil = cq.from(Utensil.class);
+
+        Join<RecipeIngredient, Recipe> recipeJoin = fromRecipeIngredient.join(RecipeIngredient_.recipe);
+        Join<RecipeIngredient, Ingredient> ingredientJoin = fromRecipeIngredient.join(RecipeIngredient_.ingredient);
+        Join<RecipeUtensil, Recipe> recipeJoinU = fromRecipeUtensil.join(RecipeUtensil_.recipe);
+        Join<RecipeUtensil, Utensil> utensilJoin = fromRecipeUtensil.join(RecipeUtensil_.utensil);
+
+
         List<Predicate> predicates = new ArrayList<>();
         for (FilterRequest filterRequest : recipeFilterCriteria.getFilters()) {
 
             String fieldName = filterRequest.getField();
 
-            if (filterRequest.getField().equals("title"))
-                predicates.add(criteriaBuilder.like(recipeRoot.get("title"), "%" + filterRequest.getText() + "%")
-                );
-            else if (filterRequest.getOperation().toString().equals("equal")) {
+            switch (fieldName) {
 
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(recipeRoot.get(fieldName), filterRequest.getText()));
+                case "title":
+                    predicates.add(criteriaBuilder.like(fromRecipe.get("title"), "%" + filterRequest.getText() + "%")
+                    );
+                    break;
 
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(recipeRoot.get(fieldName), filterRequest.getText()));
+                case "ingredients":
+                    List<String> ingredientList = Arrays.asList(filterRequest.getText().split(" ").clone());
+                    predicates.add(criteriaBuilder.equal(fromRecipe.get(Recipe_.RECIPE_ID), recipeJoin));
+                    predicates.add(criteriaBuilder.equal(fromIngredient.get(Ingredient_.INGREDIENT_ID), ingredientJoin));
+                    predicates.add(fromIngredient.get(Ingredient_.NAME).in(ingredientList));
+                    break;
 
-            } else
-                predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class).invoke(criteriaBuilder, recipeRoot.get(fieldName), filterRequest.getText())
-                );
+                case "utensils":
+                    List<String> utensilList = Arrays.asList(filterRequest.getText().split(" ").clone());
+                    predicates.add(criteriaBuilder.equal(fromRecipe.get(Recipe_.RECIPE_ID), recipeJoinU));
+                    predicates.add(criteriaBuilder.equal(fromUtensil.get(Utensil_.UTENSIL_ID), utensilJoin));
+                    predicates.add(fromUtensil.get(Utensil_.NAME).in(utensilList));
+                    break;
+
+                default:
+                    if (filterRequest.getOperation().toString().equals("equal")) {
+
+                        predicates.add(criteriaBuilder.greaterThanOrEqualTo(fromRecipe.get(fieldName), filterRequest.getText()));
+                        predicates.add(criteriaBuilder.lessThanOrEqualTo(fromRecipe.get(fieldName), filterRequest.getText()));
+                    } else
+                        predicates.add((Predicate) criteriaBuilder.getClass().getMethod(filterRequest.getOperation().toString(), Expression.class, Comparable.class)
+                                .invoke(criteriaBuilder, fromRecipe.get(fieldName), filterRequest.getText()));
+
+            }
 
 
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
+
 
     @Override
     public Recipe save(Recipe entity) {

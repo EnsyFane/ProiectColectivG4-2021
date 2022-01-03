@@ -1,8 +1,8 @@
 package com.kitchen.iChef.Controller;
 
 import com.kitchen.iChef.Controller.Model.Request.RecipeRequest;
-import com.kitchen.iChef.Controller.Model.Request.UpdateRecipeRequest;
 import com.kitchen.iChef.Controller.Model.Request.SortingRequest;
+import com.kitchen.iChef.Controller.Model.Request.UpdateRecipeRequest;
 import com.kitchen.iChef.Controller.Model.Response.RecipeResponse;
 import com.kitchen.iChef.DTO.UpdateRecipeDTO;
 import com.kitchen.iChef.Mapper.RecipeIngredientMapper;
