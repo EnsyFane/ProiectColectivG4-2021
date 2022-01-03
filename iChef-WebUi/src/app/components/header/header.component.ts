@@ -3,6 +3,7 @@ import { HEADER_LINKS } from 'src/app/constants/header';
 import { BUTTON_STRINGS, LANDING_PAGE_STRINGS } from 'src/app/constants/texts';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
+import { RegisterComponent } from '../register/register.component';
 import { UsersService } from '../../services/users.service';
 import { SharedService } from '../../services/shared.service';
 import { Router } from '@angular/router';
@@ -29,6 +30,13 @@ export class HeaderComponent {
         private userService: UsersService,
         private sharedService: SharedService) { }
 
+    register(): void {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '30%';
+        dialogConfig.panelClass = 'dialog';
+        this.dialog.open(RegisterComponent, dialogConfig);
+    }
     isUserLogged(): boolean {
         return this.sharedService.getIsUserLogged();
     }

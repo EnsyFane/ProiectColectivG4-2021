@@ -1,36 +1,36 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { UserProfilePageComponent } from './user-profile-page.component';
-import { FakeHttpClient } from '../../testing/fake-http-client';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { routes } from 'src/app/app-routing.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { FakeHttpClient } from '../../testing/fake-http-client';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RegisterComponent } from './register.component';
 
-describe('UserProfilePageComponent', () => {
-    let component: UserProfilePageComponent;
-    let fixture: ComponentFixture<UserProfilePageComponent>;
+describe('RegisterComponent', () => {
+    let component: RegisterComponent;
+    let fixture: ComponentFixture<RegisterComponent>;
     let fakeHttpClient: FakeHttpClient;
 
     beforeEach(async () => {
         fakeHttpClient = new FakeHttpClient();
         await TestBed.configureTestingModule({
             imports: [
-                RouterTestingModule.withRoutes(routes),
+                FormsModule,
+                ReactiveFormsModule,
+                MatDialogModule,
                 MatSnackBarModule
             ],
-            declarations: [UserProfilePageComponent],
+            declarations: [RegisterComponent],
             providers: [
                 { provide: 'BASE_API_URL', useValue: '' },
-                { provide: HttpClient, useValue: fakeHttpClient }
-            ],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+                { provide: HttpClient, useValue: fakeHttpClient },
+                { provide: MatDialogRef, useValue: {} }
+            ]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UserProfilePageComponent);
+        fixture = TestBed.createComponent(RegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -49,6 +49,9 @@ export const PLACEHOLDERS_STRINGS = {
     TITLE: 'Recipe Title',
     EMAIL: 'Email',
     PASSWORD: 'Password',
+    FIRSTNAME: 'First Name',
+    LASTNAME: 'Last Name',
+    USERNAME: 'Username',
     EMAIL_REQUIRED: 'Email is required',
     PASSWORD_REQUIRED: 'Password is required',
     NUMBER: 'Enter number'
