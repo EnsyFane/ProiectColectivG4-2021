@@ -45,9 +45,7 @@ public class TokenServiceTest {
         token.setValue("10");
         Mockito.doThrow(new RuntimeException("Testing Failure Case")).
                 when(tokenRepository).findByUserId(token.getUserId());
-        Assertions.assertThrows(Exception.class, () -> {
-            tokenService.findTokenByUserId(token.getUserId());
-        });
+        Assertions.assertThrows(Exception.class, () -> tokenService.findTokenByUserId(token.getUserId()));
     }
 
     @Test
@@ -77,9 +75,7 @@ public class TokenServiceTest {
         token.setExpirationDate(ZonedDateTime.now());
         token.setValue("10");
         Mockito.doThrow(new RuntimeException("Testing Failure Case")).when(tokenRepository).findByValue(token.getValue());
-        Assertions.assertThrows(Exception.class, () -> {
-            tokenService.findTokenByValue(token.getValue());
-        });
+        Assertions.assertThrows(Exception.class, () -> tokenService.findTokenByValue(token.getValue()));
     }
 
     @Test
@@ -91,7 +87,7 @@ public class TokenServiceTest {
         token.setUserId("2");
         token.setExpirationDate(ZonedDateTime.now());
         token.setValue("10");
-        Mockito.when(tokenRepository.deleteByUserId(token.getUserId())).thenReturn(Integer.valueOf(token.getUserId()));
+        Mockito.when(tokenRepository.deleteByUserId(token.getUserId())).thenReturn(Long.valueOf(token.getUserId()));
         tokenService.deleteTokenByUserId(token.getUserId());
         Mockito.verify(tokenRepository).deleteByUserId(token.getUserId());
     }
@@ -105,8 +101,6 @@ public class TokenServiceTest {
         token.setExpirationDate(ZonedDateTime.now());
         token.setValue("10");
         Mockito.doThrow(new RuntimeException("Testing Failure Case")).when(tokenRepository).deleteByUserId(token.getUserId());
-        Assertions.assertThrows(Exception.class, () -> {
-            tokenService.deleteTokenByUserId(token.getUserId());
-        });
+        Assertions.assertThrows(Exception.class, () -> tokenService.deleteTokenByUserId(token.getUserId()));
     }
 }
