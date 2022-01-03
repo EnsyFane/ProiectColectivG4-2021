@@ -109,6 +109,7 @@ export class RecipePageComponent implements OnInit, OnDestroy {
         this.instructions.setValue(this.selectedRecipe?.steps);
         this.notes.setValue(this.selectedRecipe?.notes);
         this.portions.setValue(this.selectedRecipe?.portions);
+        this.imageUrl = this.selectedRecipe?.imagePath ?? 'error';
 
         if (this.selectedRecipe?.recipeIngredientList) {
             this.ingredientsList = this.selectedRecipe?.recipeIngredientList;
