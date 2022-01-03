@@ -44,7 +44,7 @@
                 <li>{{ingredientsTitle}}:</li>
                     <li class="element" *ngFor="let ingredient of ingredients; index as i">
                         {{ingredient.ingredientName}}
-                        <input type="checkbox" value="{{ingredient}}" [checked]="checkBoxIngredients[i]" (change)="updateCheckedIngredient(ingredient, $event)">
+                        <input type="checkbox" value="{{ingredient}}" [(ngModel)]="checkBoxIngredients[i]" (change)="updateCheckedIngredient(ingredient, $event)">
                     </li>
             </div>
             
@@ -52,7 +52,7 @@
                 <li>{{utensilsTitle}}:</li>
                     <li class="element" *ngFor="let utensil of utensils; index as i">
                         {{utensil.utensilName}}
-                        <input type="checkbox" value="{{utensil}}" [checked]="checkBoxUtensils[i]" (change)="updateCheckedUtensil(utensil, $event)">
+                        <input type="checkbox" value="{{utensil}}" [(ngModel)]="checkBoxUtensils[i]" (change)="updateCheckedUtensil(utensil, $event)">
                     </li>
             </div>
         </div>
@@ -71,9 +71,6 @@
         <button class="font filter-button" (click)="openMenu()">
             {{filterBtn}}
         </button> 
-        <button [routerLink]="['create']" mat-raised-button class="font create-button margin-lr-auto">
-            {{createBtn}}
-        </button>
         <br>
         <button mat-raised-button class="font secondary-button margin-lr-auto" (click)="search()">
             {{searchBtn}}

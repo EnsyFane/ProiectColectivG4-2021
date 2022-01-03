@@ -194,7 +194,7 @@ export class RecipesComponent implements OnInit {
         }
 
         if (this.timeOperation.value !== '' && this.timeNumber.value !== '') {
-            const filter: Filter = {field: 'preparation_time', operation: this.getOperation(this.timeOperation.value), text: this.timeNumber.value.toString()};
+            const filter: Filter = {field: 'preparationTime', operation: this.getOperation(this.timeOperation.value), text: this.timeNumber.value.toString()};
             this.filtersCriteria.filters.push(filter);
         }
 
