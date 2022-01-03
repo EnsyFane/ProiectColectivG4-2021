@@ -211,6 +211,24 @@ export class RecipesComponent implements OnInit {
             errors += 'Insert operation and number for portions!\n';
         }
 
+        if (this.checkedIngredients.length !== 0) {
+            let filterIngredients = '';
+            for (let ingredient of this.checkedIngredients) {
+                filterIngredients += ingredient + ' ';
+            }
+            const filter: Filter = {field: 'ingredients', operation: 'like', text: filterIngredients};
+            this.filtersCriteria.filters.push(filter);
+        }
+
+        if (this.checkedUtensils.length !== 0) {
+            let filterUtensils = '';
+            for (let utensil of this.checkedUtensils) {
+                filterUtensils += utensil + ' ';
+            }
+            const filter: Filter = {field: 'utensils', operation: 'like', text: filterUtensils};
+            this.filtersCriteria.filters.push(filter);
+        }
+
         if (errors !== '') {
             this.snackbarService.displayErrorSnackbar(errors);
             this.clearFields();
@@ -231,22 +249,22 @@ export class RecipesComponent implements OnInit {
         }
     }
 
-    updateCheckedIngredient(ingredient: string, event: any): void {
+    updateCheckedIngredient(ingredient: RecipeIngredient, event: any): void {
         if (event.target.checked) {
-            this.checkedIngredients.push(ingredient);
+            this.checkedIngredients.push(ingredient.ingredientName);
         } else {
             this.checkedIngredients.forEach((value, index) => {
-                if (value === ingredient) this.checkedIngredients.splice(index, 1);
+                if (value === ingredient.ingredientName) this.checkedIngredients.splice(index, 1);
             });
         }
     }
 
-    updateCheckedUtensil(utensil: string, event: any): void {
+    updateCheckedUtensil(utensil: Utensil, event: any): void {
         if (event.target.checked) {
-            this.checkedUtensils.push(utensil);
+            this.checkedUtensils.push(utensil.utensilName!);
         } else {
             this.checkedUtensils.forEach((value, index) => {
-                if (value === utensil) this.checkedUtensils.splice(index, 1);
+                if (value === utensil.utensilName!) this.checkedUtensils.splice(index, 1);
             });
         }
     }
