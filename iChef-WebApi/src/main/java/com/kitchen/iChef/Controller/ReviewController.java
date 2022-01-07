@@ -48,14 +48,22 @@ public class ReviewController {
     }
 
     @PutMapping(value = "/{id}")
-    public ReviewDTO updateReview(@PathVariable String id,@Valid @RequestBody ReviewDTO ReviewRequest) {
+    public ReviewDTO updateReview(@PathVariable String id, @Valid @RequestBody ReviewDTO ReviewRequest) {
         Review Review = reviewMapper.mapFromRequest(ReviewRequest);
         Review.setReviewId(id);
         return reviewMapper.mapToResponse(reviewService.updateReview(Review));
     }
 
     @GetMapping(value = "/rating/{recipeId}")
-    public Double getRatingByRecipeId(@PathVariable String recipeId){
+    public Double getRatingByRecipeId(@PathVariable String recipeId) {
         return reviewService.getRatingForRecipe(recipeId);
+    }
+
+    @GetMapping(value = "/reviews/{recipeId}")
+    public List<ReviewDTO> getAllReviewsForRecipe(@PathVariable String recipeId) {
+        return reviewService.getReviewsForRecipe(recipeId)
+                .stream()
+                .map(reviewMapper::mapToResponse)
+                .collect(Collectors.toList());
     }
 }

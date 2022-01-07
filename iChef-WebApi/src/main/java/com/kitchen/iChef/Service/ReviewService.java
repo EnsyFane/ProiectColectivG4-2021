@@ -56,12 +56,16 @@ public class ReviewService {
         return updatedReview;
     }
 
-    public Double getRatingForRecipe(String recipeId){
+    public Double getRatingForRecipe(String recipeId) {
         OptionalDouble rating = reviewRepository.findByRecipeId(recipeId)
-                .stream().mapToDouble(Review::getRating).filter(t->t!=-1).average();
-        if(rating.isPresent()) {
+                .stream().mapToDouble(Review::getRating).filter(t -> t != -1).average();
+        if (rating.isPresent()) {
             return rating.getAsDouble();
         }
         return 0d;
+    }
+
+    public List<Review> getReviewsForRecipe(String recipeId) {
+        return reviewRepository.findByRecipeId(recipeId);
     }
 }
