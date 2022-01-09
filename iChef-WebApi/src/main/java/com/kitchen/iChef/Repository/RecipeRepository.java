@@ -107,14 +107,14 @@ public class RecipeRepository implements ICrudRepository<Recipe, String> {
                     break;
 
                 case "ingredients":
-                    List<String> ingredientList = Arrays.asList(filterRequest.getText().split(" ").clone());
+                    List<String> ingredientList = Arrays.asList(filterRequest.getText().split(";").clone());
                     predicates.add(criteriaBuilder.equal(fromRecipe.get(Recipe_.RECIPE_ID), recipeJoin));
                     predicates.add(criteriaBuilder.equal(fromIngredient.get(Ingredient_.INGREDIENT_ID), ingredientJoin));
                     predicates.add(fromIngredient.get(Ingredient_.NAME).in(ingredientList));
                     break;
 
                 case "utensils":
-                    List<String> utensilList = Arrays.asList(filterRequest.getText().split(" ").clone());
+                    List<String> utensilList = Arrays.asList(filterRequest.getText().split(";").clone());
                     predicates.add(criteriaBuilder.equal(fromRecipe.get(Recipe_.RECIPE_ID), recipeJoinU));
                     predicates.add(criteriaBuilder.equal(fromUtensil.get(Utensil_.UTENSIL_ID), utensilJoin));
                     predicates.add(fromUtensil.get(Utensil_.NAME).in(utensilList));
