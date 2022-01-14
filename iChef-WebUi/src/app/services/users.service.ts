@@ -32,6 +32,7 @@ export class UsersService {
                 switchMap((response: any) => {
                     this.sharedService.setIsUserLogged(true);
                     const getUserRequest = this.getUserById(response.userId);
+                    sessionStorage.setItem('loggedUserToken', JSON.stringify(response));
                     return forkJoin([of(response.userId), getUserRequest]);
                 }),
                 switchMap(([userId, requestedUser]) => {
@@ -66,6 +67,7 @@ export class UsersService {
     }
 
     getLoggedUser(): LoggedUser {
+        sessionStorage.removeItem('loggedUserToken');
         return this.user;
     }
 
