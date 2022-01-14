@@ -194,7 +194,7 @@ export class RecipesComponent implements OnInit {
         }
 
         if (this.timeOperation.value !== '' && this.timeNumber.value !== '') {
-            const filter: Filter = {field: 'preparation_time', operation: this.getOperation(this.timeOperation.value), text: this.timeNumber.value.toString()};
+            const filter: Filter = {field: 'preparationTime', operation: this.getOperation(this.timeOperation.value), text: this.timeNumber.value.toString()};
             this.filtersCriteria.filters.push(filter);
         }
 
@@ -209,6 +209,24 @@ export class RecipesComponent implements OnInit {
 
         if (this.portionsOperation.value === '' && this.portionsNumber.value !== '' || this.portionsOperation.value !== '' && this.portionsNumber.value === '') {
             errors += 'Insert operation and number for portions!\n';
+        }
+
+        if (this.checkedIngredients.length !== 0) {
+            let filterIngredients = '';
+            for (const ingredient of this.checkedIngredients) {
+                filterIngredients += ingredient + ';';
+            }
+            const filter: Filter = {field: 'ingredients', operation: 'like', text: filterIngredients};
+            this.filtersCriteria.filters.push(filter);
+        }
+
+        if (this.checkedUtensils.length !== 0) {
+            let filterUtensils = '';
+            for (const utensil of this.checkedUtensils) {
+                filterUtensils += utensil + ';';
+            }
+            const filter: Filter = {field: 'utensils', operation: 'like', text: filterUtensils};
+            this.filtersCriteria.filters.push(filter);
         }
 
         if (errors !== '') {
@@ -231,22 +249,22 @@ export class RecipesComponent implements OnInit {
         }
     }
 
-    updateCheckedIngredient(ingredient: string, event: any): void {
+    updateCheckedIngredient(ingredient: RecipeIngredient, event: any): void {
         if (event.target.checked) {
-            this.checkedIngredients.push(ingredient);
+            this.checkedIngredients.push(ingredient.ingredientName);
         } else {
             this.checkedIngredients.forEach((value, index) => {
-                if (value === ingredient) this.checkedIngredients.splice(index, 1);
+                if (value === ingredient.ingredientName) this.checkedIngredients.splice(index, 1);
             });
         }
     }
 
-    updateCheckedUtensil(utensil: string, event: any): void {
+    updateCheckedUtensil(utensil: Utensil, event: any): void {
         if (event.target.checked) {
-            this.checkedUtensils.push(utensil);
+            this.checkedUtensils.push(utensil.utensilName!);
         } else {
             this.checkedUtensils.forEach((value, index) => {
-                if (value === utensil) this.checkedUtensils.splice(index, 1);
+                if (value === utensil.utensilName!) this.checkedUtensils.splice(index, 1);
             });
         }
     }

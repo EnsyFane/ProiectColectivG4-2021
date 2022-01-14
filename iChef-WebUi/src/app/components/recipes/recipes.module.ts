@@ -16,6 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
     {
@@ -43,7 +44,8 @@ const routes: Routes = [
         MatInputModule,
         MatFormFieldModule,
         MatSortModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule
     ],
     exports: [
         RecipesComponent,
