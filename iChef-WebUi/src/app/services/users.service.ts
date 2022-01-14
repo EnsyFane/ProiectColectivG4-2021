@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { EMPTY, forkJoin, of } from 'rxjs';
+import { EMPTY, forkJoin, of, Subject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, switchMap } from 'rxjs/operators';
 import { User } from '../data-types/user';
@@ -14,13 +14,30 @@ import { UserRegister } from '../data-types/user-register';
 })
 export class UsersService {
     user!: LoggedUser;
+    userSubject = new Subject<LoggedUser>();
 
     constructor(
         private http: HttpClient,
         private snackbarService: SnackbarService,
         private sharedService: SharedService,
         @Inject('BASE_API_URL') private baseUrl: string
-    ) { }
+    ) {
+        const rawJson = localStorage.getItem('loggedUserToken') ?? '';
+        if (rawJson) {
+            const item = JSON.parse(rawJson);
+            if (item) {
+                this.sharedService.setIsUserLogged(true);
+                const getUserRequest = this.getUserById(item.userId);
+                forkJoin([of(item.userId), getUserRequest]).subscribe(([userId, requestedUser]) => {
+                    this.user = requestedUser;
+                    this.user.userId = userId;
+                    this.userSubject.next(this.user);
+                });
+            }
+        }
+
+        this.userSubject.subscribe(user => this.user = user);
+    }
 
     login(email: string, password: string): Observable<LoggedUser> {
         const user: User = { 'email': email, 'password': password };
@@ -32,7 +49,7 @@ export class UsersService {
                 switchMap((response: any) => {
                     this.sharedService.setIsUserLogged(true);
                     const getUserRequest = this.getUserById(response.userId);
-                    sessionStorage.setItem('loggedUserToken', JSON.stringify(response));
+                    localStorage.setItem('loggedUserToken', JSON.stringify(response));
                     return forkJoin([of(response.userId), getUserRequest]);
                 }),
                 switchMap(([userId, requestedUser]) => {
@@ -63,11 +80,11 @@ export class UsersService {
     }
 
     logout(): void {
+        localStorage.removeItem('loggedUserToken');
         this.sharedService.setIsUserLogged(false);
     }
 
     getLoggedUser(): LoggedUser {
-        sessionStorage.removeItem('loggedUserToken');
         return this.user;
     }
 

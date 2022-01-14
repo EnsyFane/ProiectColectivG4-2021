@@ -1,7 +1,7 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
-.left{
+.left {
     @include split-horizontal();
     margin-top: 20px;
     margin-left: 4.5%;
@@ -9,7 +9,7 @@
     vertical-align: top;
 }
 
-.right{
+.right {
     @include split-horizontal();
     margin-top: 20px;
     margin-left: 0.5%;
@@ -18,47 +18,49 @@
     overflow-y: scroll;
 }
 
-.up{
+.up {
     @include split-vertical();
     margin-bottom: 2%;
 }
 
-.down{
+.down {
     @include split-vertical();
     margin-top: 2%;
     background-color: $search-bar-color;
     overflow: auto;
 }
 
-img{
+img {
     width: 100%;
     height: 100%;
     border-radius: 25px;
 }
 
-.title{
+.title {
     @include background();
     text-align: center;
     padding: 5px 0;
+    padding-bottom: 3px;
     font-size: 2vw;
     font-weight: bold;
+    height: 2vw;
 }
 
-.subtitle{
+.subtitle {
     margin-top: 10px;
     text-align: center;
     font-size: 1.5vw;
     font-weight: bold;
 }
 
-.details{
+.details {
     @include background();
     top: 50px;
-    height: 80%;
+    height: 75%;
     overflow-y: auto;
 }
 
-.container{
+.container {
     min-height: 49%;
     width: 90%;
     margin: 0 auto;
@@ -67,56 +69,59 @@ img{
     margin-top: 10px;
 }
 
-.difficulty, .preparation-time, .portions{
+.difficulty,
+.preparation-time,
+.portions {
     width: 28%;
 }
 
-.preparation-time, .portions{
+.preparation-time,
+.portions {
     text-align: center;
 }
 
-.rating{
+.rating {
     text-align: right;
     width: 15%;
 }
 
-.ingredients{
+.ingredients {
     width: 60%;
     margin-right: 3%;
     background-color: $white-transparent;
     border-radius: 25px;
 }
 
-.utensils{
+.utensils {
     width: 37%;
     background-color: $white-transparent;
     border-radius: 25px;
 }
 
-.instructions{
+.instructions {
     @include background();
     min-height: 22%;
     padding: 0 25px;
     box-sizing: border-box;
 }
 
-.inside{
+.inside {
     margin-bottom: 20px;
-    white-space:pre-line;
+    white-space: pre-line;
 }
 
-.notes{
+.notes {
     @include background();
     min-height: 22%;
     padding: 0 25px;
     box-sizing: border-box;
 }
 
-p{
+p {
     margin-left: 30px;
 }
 
-.header{
+.header {
     font-weight: bold;
     padding: 0 40px;
     margin-top: 15px;
@@ -126,18 +131,18 @@ p{
     justify-content: space-between;
 }
 
-mat-icon{
+mat-icon {
     vertical-align: middle;
     width: 20% !important;
     height: 100% !important;
     font-size: 1.6vw !important;
 }
 
-#rating-icon{
+#rating-icon {
     width: 40% !important;
 }
 
-button{
+button {
     @include secondary-button();
     line-height: 20px;
 }
@@ -159,19 +164,19 @@ button{
 ::-webkit-scrollbar {
     width: 10px;
 }
-   
+
 ::-webkit-scrollbar-thumb {
-    background: $primary-color-transparent; 
+    background: $primary-color-transparent;
     border-radius: 10px;
 }
-  
+
 ::-webkit-scrollbar-thumb:hover {
-    background: $primary-color; 
+    background: $primary-color;
 }
 
 ::-webkit-scrollbar-track-piece:end {
     background: transparent;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 ::-webkit-scrollbar-track-piece:start {
