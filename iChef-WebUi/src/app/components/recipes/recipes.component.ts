@@ -214,7 +214,7 @@ export class RecipesComponent implements OnInit {
         if (this.checkedIngredients.length !== 0) {
             let filterIngredients = '';
             for (const ingredient of this.checkedIngredients) {
-                filterIngredients += ingredient + ' ';
+                filterIngredients += ingredient + ';';
             }
             const filter: Filter = {field: 'ingredients', operation: 'like', text: filterIngredients};
             this.filtersCriteria.filters.push(filter);
@@ -223,7 +223,7 @@ export class RecipesComponent implements OnInit {
         if (this.checkedUtensils.length !== 0) {
             let filterUtensils = '';
             for (const utensil of this.checkedUtensils) {
-                filterUtensils += utensil + ' ';
+                filterUtensils += utensil + ';';
             }
             const filter: Filter = {field: 'utensils', operation: 'like', text: filterUtensils};
             this.filtersCriteria.filters.push(filter);
