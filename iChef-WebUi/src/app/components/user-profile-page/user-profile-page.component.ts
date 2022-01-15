@@ -41,8 +41,10 @@ export class UserProfilePageComponent implements OnInit {
             this.router.navigate(['home']);
             return;
         }
-        this.user = this.usersService.getLoggedUser();
-        this.profileName = this.user.firstName + ' ' + this.user.lastName;
+        this.usersService.userSubject.subscribe(user => {
+            this.user = user;
+            this.profileName = this.user.firstName + ' ' + this.user.lastName;
+        });
     }
 
     isUserLogged(): boolean {
